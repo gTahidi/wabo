@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 	"strings"
 
 	"github.com/gTahidi/wapi.go/internal"
@@ -384,9 +385,10 @@ type TemplateMigrationResponse struct {
 
 // MigrateFromOtherBusinessAccount migrates templates from another business account.
 func (manager *TemplateManager) MigrateFromOtherBusinessAccount(sourcePageNumber int, sourceWabaId int) (*TemplateMigrationResponse, error) {
-	apiRequest := manager.requester.NewApiRequest(strings.Join([]string{manager.businessAccountId, "migrate_message_templates"}, "/"), http.MethodGet)
-	apiRequest.AddQueryParam("page_number", string(sourcePageNumber))
-	apiRequest.AddQueryParam("source_waba_id", string(sourceWabaId))
+	// POST /{destination-waba-id}/migrate_message_templates?source_waba_id=&page_number=
+	apiRequest := manager.requester.NewApiRequest(strings.Join([]string{manager.businessAccountId, "migrate_message_templates"}, "/"), http.MethodPost)
+	apiRequest.AddQueryParam("page_number", strconv.Itoa(sourcePageNumber))
+	apiRequest.AddQueryParam("source_waba_id", strconv.Itoa(sourceWabaId))
 	response, err := apiRequest.Execute()
 	if err != nil {
 		return nil, err

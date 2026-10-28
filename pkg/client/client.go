@@ -1,6 +1,8 @@
 package wapi
 
 import (
+	"net/http"
+
 	"github.com/gTahidi/wapi.go/internal/request_client"
 	"github.com/gTahidi/wapi.go/manager"
 	"github.com/gTahidi/wapi.go/pkg/business"
@@ -17,6 +19,14 @@ type ClientConfig struct {
 	// these two are not required, because may be user want to use their own server
 	WebhookPath       string
 	WebhookServerPort int
+
+	// AppSecret, when set, makes the webhook POST handler reject payloads
+	// whose X-Hub-Signature-256 does not match (HMAC-SHA256 of the raw body).
+	AppSecret string
+
+	// HTTPClient is used for Graph API calls; nil uses a shared client with
+	// a 30 second timeout. Per-call deadlines come from the *Context methods.
+	HTTPClient *http.Client
 }
 
 type Client struct {
@@ -31,19 +41,19 @@ type Client struct {
 }
 
 func New(config *ClientConfig) *Client {
-	eventManager := *manager.NewEventManager()
-	requester := *request_client.NewRequestClient(config.ApiAccessToken)
+	eventManager := manager.NewEventManager()
+	requester := *request_client.NewRequestClientWithHTTPClient(config.ApiAccessToken, config.HTTPClient)
 	return &Client{
 		businessAccountId: config.BusinessAccountId,
-		apiAccessToken:    config.BusinessAccountId,
+		apiAccessToken:    config.ApiAccessToken,
 		Messaging:         []messaging.MessagingClient{},
-		eventManager:      &eventManager,
+		eventManager:      eventManager,
 		Business: *business.NewBusinessClient(&business.BusinessClientConfig{
 			BusinessAccountId: config.BusinessAccountId,
 			AccessToken:       config.ApiAccessToken,
 			Requester:         &requester,
 		}),
-		webhook:   manager.NewWebhook(&manager.WebhookManagerConfig{Path: config.WebhookPath, Secret: config.WebhookSecret, Port: config.WebhookServerPort, EventManager: eventManager, Requester: requester}),
+		webhook:   manager.NewWebhook(&manager.WebhookManagerConfig{Path: config.WebhookPath, Secret: config.WebhookSecret, AppSecret: config.AppSecret, Port: config.WebhookServerPort, EventManager: eventManager, Requester: requester}),
 		requester: &requester,
 	}
 }

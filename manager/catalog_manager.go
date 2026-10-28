@@ -294,7 +294,6 @@ func (cm *CatalogManager) GetAllCatalogs() (*CatalogFetchResponseEdge, error) {
 	response, err := apiRequest.Execute()
 
 	if err != nil {
-		fmt.Println("GetAllCatalogs error", err)
 		return nil, err
 	}
 	var result CatalogFetchResponseEdge
@@ -399,7 +398,7 @@ func (cm *CatalogManager) GetCatalogProducts(catalogId string) ([]ProductItem, e
 }
 
 type CreateProductCatalogOptions struct {
-    Success string `json:"success,omitempty"`
+	Success string `json:"success,omitempty"`
 }
 
 // Deprecated: CreateNewProductCatalog misused the Graph API by calling
@@ -411,9 +410,9 @@ type CreateProductCatalogOptions struct {
 // (POST /{business_account_id}/owned_product_catalogs) and
 // AssociateCatalog to link an existing catalog to this business account.
 func (cm *CatalogManager) CreateNewProductCatalog() (CreateProductCatalogOptions, error) {
-    return CreateProductCatalogOptions{}, fmt.Errorf(
-        "CreateNewProductCatalog is deprecated: use CreateCatalog to create or AssociateCatalog to link an existing catalog",
-    )
+	return CreateProductCatalogOptions{}, fmt.Errorf(
+		"CreateNewProductCatalog is deprecated: use CreateCatalog to create or AssociateCatalog to link an existing catalog",
+	)
 }
 
 // AssociateCatalog associates an existing product catalog to this business account (WABA).
@@ -421,36 +420,36 @@ func (cm *CatalogManager) CreateNewProductCatalog() (CreateProductCatalogOptions
 // Body: { "catalog_id": "<catalog_id>" }
 // Returns true on success.
 func (cm *CatalogManager) AssociateCatalog(catalogId string) (bool, error) {
-    if strings.TrimSpace(catalogId) == "" {
-        return false, fmt.Errorf("catalogId is required to associate a catalog")
-    }
+	if strings.TrimSpace(catalogId) == "" {
+		return false, fmt.Errorf("catalogId is required to associate a catalog")
+	}
 
-    apiPath := strings.Join([]string{cm.businessAccountId, "product_catalogs"}, "/")
-    apiRequest := cm.requester.NewApiRequest(apiPath, http.MethodPost)
+	apiPath := strings.Join([]string{cm.businessAccountId, "product_catalogs"}, "/")
+	apiRequest := cm.requester.NewApiRequest(apiPath, http.MethodPost)
 
-    body := map[string]string{
-        "catalog_id": catalogId,
-    }
-    payload, err := json.Marshal(body)
-    if err != nil {
-        return false, fmt.Errorf("failed to marshal association body: %w", err)
-    }
-    apiRequest.SetBody(string(payload))
+	body := map[string]string{
+		"catalog_id": catalogId,
+	}
+	payload, err := json.Marshal(body)
+	if err != nil {
+		return false, fmt.Errorf("failed to marshal association body: %w", err)
+	}
+	apiRequest.SetBody(string(payload))
 
-    response, err := apiRequest.Execute()
-    if err != nil {
-        return false, err
-    }
-    var res struct {
-        Success bool `json:"success"`
-    }
-    if err := json.Unmarshal([]byte(response), &res); err != nil {
-        return false, fmt.Errorf("failed to parse association response: %w", err)
-    }
-    if !res.Success {
-        return false, fmt.Errorf("catalog association failed")
-    }
-    return true, nil
+	response, err := apiRequest.Execute()
+	if err != nil {
+		return false, err
+	}
+	var res struct {
+		Success bool `json:"success"`
+	}
+	if err := json.Unmarshal([]byte(response), &res); err != nil {
+		return false, fmt.Errorf("failed to parse association response: %w", err)
+	}
+	if !res.Success {
+		return false, fmt.Errorf("catalog association failed")
+	}
+	return true, nil
 }
 
 // ListProductFeeds lists product feeds for a given catalog.
@@ -676,44 +675,43 @@ func (cm *CatalogManager) CreateScheduledProductFeed(
 // CreateProductFeed creates a product feed without a schedule (for immediate CSV uploads).
 // Use UploadFeedCSV or UploadFeedCSVFromURL afterwards to ingest data.
 func (cm *CatalogManager) CreateProductFeed(catalogId string, name string) (*ProductFeed, error) {
-    apiPath := strings.Join([]string{catalogId, "product_feeds"}, "/")
-    apiRequest := cm.requester.NewApiRequest(apiPath, http.MethodPost)
-    body := map[string]interface{}{
-        "name": name,
-    }
-    payload, err := json.Marshal(body)
-    if err != nil {
-        return nil, fmt.Errorf("failed to marshal feed body: %w", err)
-    }
-    apiRequest.SetBody(string(payload))
-    response, err := apiRequest.Execute()
-    if err != nil {
-        return nil, err
-    }
+	apiPath := strings.Join([]string{catalogId, "product_feeds"}, "/")
+	apiRequest := cm.requester.NewApiRequest(apiPath, http.MethodPost)
+	body := map[string]interface{}{
+		"name": name,
+	}
+	payload, err := json.Marshal(body)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal feed body: %w", err)
+	}
+	apiRequest.SetBody(string(payload))
+	response, err := apiRequest.Execute()
+	if err != nil {
+		return nil, err
+	}
 
-    // Debug: Log the raw response from Meta's API
-    fmt.Printf("[DEBUG] CreateProductFeed - Raw Meta API response: %s\n", response)
+	// Debug: Log the raw response from Meta's API
 
-    // Meta's API returns a minimal response: {"id": "feed_id"}
-    // Parse this simple format first
-    var apiResp struct {
-        ID string `json:"id"`
-    }
-    if err := json.Unmarshal([]byte(response), &apiResp); err != nil {
-        return nil, fmt.Errorf("failed to parse feed creation response (raw: %s): %w", response, err)
-    }
+	// Meta's API returns a minimal response: {"id": "feed_id"}
+	// Parse this simple format first
+	var apiResp struct {
+		ID string `json:"id"`
+	}
+	if err := json.Unmarshal([]byte(response), &apiResp); err != nil {
+		return nil, fmt.Errorf("failed to parse feed creation response (raw: %s): %w", response, err)
+	}
 
-    // Validate we got an ID
-    if apiResp.ID == "" {
-        return nil, fmt.Errorf("feed created but no ID returned from Meta API (raw response: %s)", response)
-    }
+	// Validate we got an ID
+	if apiResp.ID == "" {
+		return nil, fmt.Errorf("feed created but no ID returned from Meta API (raw response: %s)", response)
+	}
 
-    // Return a ProductFeed with the ID from Meta and the name we sent
-    return &ProductFeed{
-        Id:   apiResp.ID,
-        Name: name,
-        // FileName is not returned on creation, only when listing feeds
-    }, nil
+	// Return a ProductFeed with the ID from Meta and the name we sent
+	return &ProductFeed{
+		Id:   apiResp.ID,
+		Name: name,
+		// FileName is not returned on creation, only when listing feeds
+	}, nil
 }
 
 // UpsertProductItem updates or creates a product item using Meta's format.
@@ -775,29 +773,28 @@ func (cm *CatalogManager) CreateCatalog(name string, vertical string) (*Catalog,
 	if vertical == "" {
 		vertical = "commerce"
 	}
-	
+
 	apiPath := fmt.Sprintf("%s/owned_product_catalogs", cm.businessAccountId)
 	apiRequest := cm.requester.NewApiRequest(apiPath, http.MethodPost)
-	
+
 	body := map[string]interface{}{
 		"name":     name,
 		"vertical": vertical,
 	}
-	
+
 	payload, err := json.Marshal(body)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal catalog body: %w", err)
 	}
-	
+
 	apiRequest.SetBody(string(payload))
 	response, err := apiRequest.Execute()
 	if err != nil {
 		return nil, err
 	}
-	
+
 	// Debug: Log the raw response from Meta's API
-	fmt.Printf("[DEBUG] CreateCatalog - Raw Meta API response: %s\n", response)
-	
+
 	// Meta returns {"id": "catalog_id"}
 	var apiResp struct {
 		ID string `json:"id"`
@@ -805,11 +802,11 @@ func (cm *CatalogManager) CreateCatalog(name string, vertical string) (*Catalog,
 	if err := json.Unmarshal([]byte(response), &apiResp); err != nil {
 		return nil, fmt.Errorf("failed to parse catalog creation response (raw: %s): %w", response, err)
 	}
-	
+
 	if apiResp.ID == "" {
 		return nil, fmt.Errorf("catalog created but no ID returned from Meta API (raw response: %s)", response)
 	}
-	
+
 	// Return catalog with ID and name
 	return &Catalog{
 		Id:       apiResp.ID,
@@ -825,18 +822,18 @@ func (cm *CatalogManager) GetCatalog(catalogId string, fields string) (*Catalog,
 	if fields != "" {
 		apiPath = fmt.Sprintf("%s?fields=%s", catalogId, fields)
 	}
-	
+
 	apiRequest := cm.requester.NewApiRequest(apiPath, http.MethodGet)
 	response, err := apiRequest.Execute()
 	if err != nil {
 		return nil, err
 	}
-	
+
 	var catalog Catalog
 	if err := json.Unmarshal([]byte(response), &catalog); err != nil {
 		return nil, fmt.Errorf("failed to parse catalog response: %w", err)
 	}
-	
+
 	return &catalog, nil
 }
 
@@ -845,19 +842,19 @@ func (cm *CatalogManager) GetCatalog(catalogId string, fields string) (*Catalog,
 func (cm *CatalogManager) ListOwnedCatalogs() ([]Catalog, error) {
 	apiPath := fmt.Sprintf("%s/owned_product_catalogs?fields=id,name,product_count,vertical", cm.businessAccountId)
 	apiRequest := cm.requester.NewApiRequest(apiPath, http.MethodGet)
-	
+
 	response, err := apiRequest.Execute()
 	if err != nil {
 		return nil, err
 	}
-	
+
 	var result struct {
 		Data []Catalog `json:"data"`
 	}
 	if err := json.Unmarshal([]byte(response), &result); err != nil {
 		return nil, fmt.Errorf("failed to parse catalogs response: %w", err)
 	}
-	
+
 	return result.Data, nil
 }
 
@@ -865,22 +862,22 @@ func (cm *CatalogManager) ListOwnedCatalogs() ([]Catalog, error) {
 func (cm *CatalogManager) UpdateCatalog(catalogId string, name string) (*Catalog, error) {
 	apiPath := catalogId
 	apiRequest := cm.requester.NewApiRequest(apiPath, http.MethodPost)
-	
+
 	body := map[string]interface{}{
 		"name": name,
 	}
-	
+
 	payload, err := json.Marshal(body)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal catalog update body: %w", err)
 	}
-	
+
 	apiRequest.SetBody(string(payload))
 	response, err := apiRequest.Execute()
 	if err != nil {
 		return nil, err
 	}
-	
+
 	// Meta returns {"success": true}
 	var apiResp struct {
 		Success bool `json:"success"`
@@ -888,11 +885,11 @@ func (cm *CatalogManager) UpdateCatalog(catalogId string, name string) (*Catalog
 	if err := json.Unmarshal([]byte(response), &apiResp); err != nil {
 		return nil, fmt.Errorf("failed to parse catalog update response: %w", err)
 	}
-	
+
 	if !apiResp.Success {
 		return nil, fmt.Errorf("catalog update failed")
 	}
-	
+
 	// Return updated catalog
 	return cm.GetCatalog(catalogId, "id,name,product_count,vertical")
 }
@@ -901,22 +898,22 @@ func (cm *CatalogManager) UpdateCatalog(catalogId string, name string) (*Catalog
 func (cm *CatalogManager) DeleteCatalog(catalogId string) error {
 	apiPath := catalogId
 	apiRequest := cm.requester.NewApiRequest(apiPath, http.MethodDelete)
-	
+
 	response, err := apiRequest.Execute()
 	if err != nil {
 		return err
 	}
-	
+
 	var apiResp struct {
 		Success bool `json:"success"`
 	}
 	if err := json.Unmarshal([]byte(response), &apiResp); err != nil {
 		return fmt.Errorf("failed to parse catalog deletion response: %w", err)
 	}
-	
+
 	if !apiResp.Success {
 		return fmt.Errorf("catalog deletion failed")
 	}
-	
+
 	return nil
 }

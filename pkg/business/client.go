@@ -92,7 +92,6 @@ func (client *BusinessClient) Fetch() (*FetchBusinessAccountResponse, error) {
 	apiRequest := client.requester.NewApiRequest(client.BusinessAccountId, http.MethodGet)
 	response, err := apiRequest.Execute()
 	if err != nil {
-		fmt.Println("Error while fetching business account", err)
 		return nil, err
 	}
 	var responseToReturn FetchBusinessAccountResponse
@@ -177,7 +176,6 @@ func (client *BusinessClient) FetchAnalytics(options AccountAnalyticsOptions) (W
 	response, err := apiRequest.Execute()
 	if err != nil {
 		// return wapi.go custom error here
-		fmt.Println("Error while fetching business account", err)
 		return WhatsappBusinessAccountAnalyticsResponse{}, err
 	}
 	var responseWrapper struct {
@@ -369,7 +367,6 @@ func (client *BusinessClient) ConversationAnalytics(options ConversationAnalytic
 	response, err := apiRequest.Execute()
 	if err != nil {
 		// return wapi.go custom error here
-		fmt.Println("Error while fetching conversation analytics", err)
 		return nil, err
 	}
 
@@ -497,7 +494,6 @@ func (client *BusinessClient) TemplateAnalytics(options TemplateAnalyticsOptions
 
 	response, err := apiRequest.Execute()
 	if err != nil {
-		fmt.Println("Error while fetching template analytics", err)
 		return nil, err
 	}
 

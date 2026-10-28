@@ -1,6 +1,7 @@
 package manager
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -8,6 +9,7 @@ import (
 
 	"github.com/gTahidi/wapi.go/internal/request_client"
 	"github.com/gTahidi/wapi.go/pkg/components"
+	"github.com/gTahidi/wapi.go/pkg/graph"
 )
 
 // MessageManager is responsible for managing messages.
@@ -50,6 +52,20 @@ type MessageSendError struct {
 	FbtraceID    string `json:"fbtrace_id"`
 }
 
+func (e *MessageSendError) graphError(status int) *graph.Error {
+	ge := &graph.Error{
+		HTTPStatus:   status,
+		Message:      e.Message,
+		Type:         e.Type,
+		Code:         e.Code,
+		ErrorSubcode: e.ErrorSubcode,
+		FbtraceID:    e.FbtraceID,
+	}
+	ge.ErrorData.MessagingProduct = e.ErrorData.MessagingProduct
+	ge.ErrorData.Details = e.ErrorData.Details
+	return ge
+}
+
 // StatusResponse represents the API response for status updates (read receipts).
 type StatusResponse struct {
 	Success bool              `json:"success"`
@@ -59,75 +75,69 @@ type StatusResponse struct {
 // Reply sends a reply message using the provided BaseMessage and returns a structured response.
 // If the API response contains an error, it returns that error.
 func (mm *MessageManager) Reply(message components.BaseMessage, phoneNumber string, replyTo string) (*MessageSendResponse, error) {
-	body, err := message.ToJson(components.ApiCompatibleJsonConverterConfigs{
+	return mm.ReplyContext(context.Background(), message, phoneNumber, replyTo)
+}
+
+// ReplyContext is Reply bounded by ctx.
+func (mm *MessageManager) ReplyContext(ctx context.Context, message components.BaseMessage, phoneNumber string, replyTo string) (*MessageSendResponse, error) {
+	return mm.send(ctx, message, components.ApiCompatibleJsonConverterConfigs{
 		SendToPhoneNumber: phoneNumber,
 		ReplyToMessageId:  replyTo,
 	})
-	if err != nil {
-		return nil, fmt.Errorf("error converting message to json: %v", err)
-	}
-
-	// Build the API request.
-	apiRequest := mm.requester.NewApiRequest(strings.Join([]string{mm.PhoneNumberId, "messages"}, "/"), http.MethodPost)
-	apiRequest.SetBody(string(body))
-	responseStr, err := apiRequest.Execute()
-	if err != nil {
-		return nil, err
-	}
-
-	// Unmarshal the API response.
-	var sendResponse MessageSendResponse
-	err = json.Unmarshal([]byte(responseStr), &sendResponse)
-	if err != nil {
-		return nil, fmt.Errorf("error unmarshalling response: %v", err)
-	}
-
-	// If an error object is present in the response, return it.
-	if sendResponse.Error != nil {
-		return &sendResponse, fmt.Errorf("error sending message: %s", sendResponse.Error.Message)
-	}
-
-	return &sendResponse, nil
 }
 
 // Send sends a message using the provided BaseMessage and returns a structured response.
 // If the API response contains an error, it returns that error.
 func (mm *MessageManager) Send(message components.BaseMessage, phoneNumber string) (*MessageSendResponse, error) {
-	// Convert the message to JSON.
-	body, err := message.ToJson(components.ApiCompatibleJsonConverterConfigs{
+	return mm.SendContext(context.Background(), message, phoneNumber)
+}
+
+// SendContext sends a message, bounded by ctx, and returns Meta's response.
+// A Graph API error is returned as a *graph.Error.
+func (mm *MessageManager) SendContext(ctx context.Context, message components.BaseMessage, phoneNumber string) (*MessageSendResponse, error) {
+	return mm.send(ctx, message, components.ApiCompatibleJsonConverterConfigs{
 		SendToPhoneNumber: phoneNumber,
 	})
+}
+
+func (mm *MessageManager) send(ctx context.Context, message components.BaseMessage, configs components.ApiCompatibleJsonConverterConfigs) (*MessageSendResponse, error) {
+	body, err := message.ToJson(configs)
 	if err != nil {
-		return nil, fmt.Errorf("error converting message to json: %v", err)
+		return nil, fmt.Errorf("error converting message to json: %w", err)
 	}
 
-	// Build the API request.
 	apiRequest := mm.requester.NewApiRequest(strings.Join([]string{mm.PhoneNumberId, "messages"}, "/"), http.MethodPost)
 	apiRequest.SetBody(string(body))
-	responseStr, err := apiRequest.Execute()
+	responseStr, err := apiRequest.ExecuteContext(ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	// Unmarshal the API response.
 	var sendResponse MessageSendResponse
-	err = json.Unmarshal([]byte(responseStr), &sendResponse)
-	if err != nil {
-		return nil, fmt.Errorf("error unmarshalling response: %v", err)
+	if err := json.Unmarshal([]byte(responseStr), &sendResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling response: %w", err)
 	}
 
-	// If an error object is present in the response, return it.
+	// Graph errors normally arrive with a non-2xx status; this covers one in a 2xx body.
 	if sendResponse.Error != nil {
-		return &sendResponse, fmt.Errorf("error sending message: %s", sendResponse.Error.Message)
+		return &sendResponse, sendResponse.Error.graphError(http.StatusOK)
 	}
 
 	return &sendResponse, nil
 }
 
+// MessageID returns the id of the first sent message, or "".
+func (r *MessageSendResponse) MessageID() string {
+	if r == nil || len(r.Messages) == 0 {
+		return ""
+	}
+	return r.Messages[0].ID
+}
+
 // ReadMessage marks a message as read.
 // messageId: The ID of the message to mark as read
 // showTyping: Whether to show typing indicator (will auto-dismiss after 25 seconds or when you respond)
-func (mm *MessageManager) readMessage(messageId string, showTyping bool) error {
+func (mm *MessageManager) readMessage(ctx context.Context, messageId string, showTyping bool) error {
 	// Create the request body for marking message as read
 	requestBody := map[string]interface{}{
 		"messaging_product": "whatsapp",
@@ -150,9 +160,9 @@ func (mm *MessageManager) readMessage(messageId string, showTyping bool) error {
 	// Build the API request
 	apiRequest := mm.requester.NewApiRequest(strings.Join([]string{mm.PhoneNumberId, "messages"}, "/"), http.MethodPost)
 	apiRequest.SetBody(string(body))
-	responseStr, err := apiRequest.Execute()
+	responseStr, err := apiRequest.ExecuteContext(ctx)
 	if err != nil {
-		return fmt.Errorf("error executing read message request: %v", err)
+		return fmt.Errorf("error executing read message request: %w", err)
 	}
 
 	// Parse the response to check for errors
@@ -163,7 +173,7 @@ func (mm *MessageManager) readMessage(messageId string, showTyping bool) error {
 	}
 
 	if statusResponse.Error != nil {
-		return fmt.Errorf("error marking message as read: %s", statusResponse.Error.Message)
+		return fmt.Errorf("error marking message as read: %w", statusResponse.Error.graphError(http.StatusOK))
 	}
 
 	return nil
@@ -172,11 +182,21 @@ func (mm *MessageManager) readMessage(messageId string, showTyping bool) error {
 // ReadMessageWithTyping marks a message as read and shows typing indicator.
 // This is a convenience method for ReadMessage(messageId, true).
 func (mm *MessageManager) ReadMessageWithTyping(messageId string) error {
-	return mm.readMessage(messageId, true)
+	return mm.readMessage(context.Background(), messageId, true)
+}
+
+// ReadMessageWithTypingContext is ReadMessageWithTyping bounded by ctx.
+func (mm *MessageManager) ReadMessageWithTypingContext(ctx context.Context, messageId string) error {
+	return mm.readMessage(ctx, messageId, true)
 }
 
 // ReadMessageOnly marks a message as read without showing typing indicator.
 // This is a convenience method for ReadMessage(messageId, false).
 func (mm *MessageManager) ReadMessageOnly(messageId string) error {
-	return mm.readMessage(messageId, false)
+	return mm.readMessage(context.Background(), messageId, false)
+}
+
+// ReadMessageOnlyContext is ReadMessageOnly bounded by ctx.
+func (mm *MessageManager) ReadMessageOnlyContext(ctx context.Context, messageId string) error {
+	return mm.readMessage(ctx, messageId, false)
 }
