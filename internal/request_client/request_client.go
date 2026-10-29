@@ -1,16 +1,28 @@
 package request_client
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"strings"
+	"time"
+
+	"github.com/gTahidi/wapi.go/pkg/graph"
 )
 
 const (
 	API_VERSION      = "v24.0"
 	BASE_URL         = "graph.facebook.com"
 	REQUEST_PROTOCOL = "https"
+
+	// DefaultTimeout bounds a Graph API call when the caller's context has no
+	// earlier deadline.
+	DefaultTimeout = 30 * time.Second
+
+	// maxResponseBytes caps how much of a response body is read.
+	maxResponseBytes = 16 << 20
 )
 
 type WhatsappApiType string
@@ -25,6 +37,7 @@ type RequestClient struct {
 	apiVersion     string
 	baseUrl        string
 	apiAccessToken string
+	httpClient     *http.Client
 }
 
 func (client *RequestClient) BaseUrl() string {
@@ -39,12 +52,29 @@ func (client *RequestClient) ApiAccessToken() string {
 	return client.apiAccessToken
 }
 
+// HTTPClient returns the client used for Graph API calls.
+func (client *RequestClient) HTTPClient() *http.Client {
+	if client.httpClient == nil {
+		return defaultHTTPClient
+	}
+	return client.httpClient
+}
+
+var defaultHTTPClient = &http.Client{Timeout: DefaultTimeout}
+
 // NewRequestClient creates a new instance of RequestClient.
 func NewRequestClient(apiAccessToken string) *RequestClient {
+	return NewRequestClientWithHTTPClient(apiAccessToken, nil)
+}
+
+// NewRequestClientWithHTTPClient creates a RequestClient that sends through
+// httpClient (nil uses a shared client with DefaultTimeout).
+func NewRequestClientWithHTTPClient(apiAccessToken string, httpClient *http.Client) *RequestClient {
 	return &RequestClient{
 		apiVersion:     API_VERSION,
 		baseUrl:        BASE_URL,
 		apiAccessToken: apiAccessToken,
+		httpClient:     httpClient,
 	}
 }
 
@@ -56,49 +86,56 @@ type RequestCloudApiParams struct {
 	QueryParam map[string]string
 }
 
-func (requestClientInstance *RequestClient) request(params RequestCloudApiParams) (string, error) {
-	queryParamString := ""
-	if len(params.QueryParam) > 0 {
-		queryParamString = "?"
-		for key, value := range params.QueryParam {
-			// if first query param, don't add "&"
-			if queryParamString != "?" {
-				queryParamString += "&"
-				queryParamString += strings.Join([]string{queryParamString, key, "=", value}, "")
-			} else {
-				queryParamString += strings.Join([]string{key, "=", value}, "")
-			}
-		}
-	}
-
+func (requestClientInstance *RequestClient) url(path string, query map[string]string) string {
 	requestPath := strings.Join(
-		[]string{REQUEST_PROTOCOL, "://", requestClientInstance.baseUrl, "/", requestClientInstance.apiVersion, "/", params.Path, queryParamString}, "")
-
-	httpRequest, err := http.NewRequest(params.Method,
-		requestPath,
-		strings.NewReader(params.Body))
-	if err != nil {
-		return "", err
+		[]string{REQUEST_PROTOCOL, "://", requestClientInstance.baseUrl, "/", requestClientInstance.apiVersion, "/", path}, "")
+	if len(query) > 0 {
+		values := url.Values{}
+		for key, value := range query {
+			values.Set(key, value)
+		}
+		requestPath += "?" + values.Encode()
 	}
-	httpRequest.Header.Set("Content-Type", "application/json")
-	httpRequest.Header.Set("Authorization", fmt.Sprintf("Bearer %s", requestClientInstance.apiAccessToken))
-	httpClient := &http.Client{}
-	response, err := httpClient.Do(httpRequest)
+	return requestPath
+}
+
+func (requestClientInstance *RequestClient) request(ctx context.Context, params RequestCloudApiParams) (string, error) {
+	var body io.Reader
+	if params.Body != "" {
+		body = strings.NewReader(params.Body)
+	}
+	return requestClientInstance.do(ctx, params.Method, requestClientInstance.url(params.Path, params.QueryParam), body, "application/json")
+}
+
+// do sends one request and returns the response body. A non-2xx response
+// returns a *graph.Error.
+func (requestClientInstance *RequestClient) do(ctx context.Context, method, requestURL string, body io.Reader, contentType string) (string, error) {
+	if ctx == nil {
+		ctx = context.Background()
+	}
+	httpRequest, err := http.NewRequestWithContext(ctx, method, requestURL, body)
 	if err != nil {
-		fmt.Println("Error while requesting cloud api", err)
-		return "", err
+		return "", fmt.Errorf("error creating request: %w", err)
+	}
+	if contentType != "" {
+		httpRequest.Header.Set("Content-Type", contentType)
+	}
+	httpRequest.Header.Set("Authorization", fmt.Sprintf("Bearer %s", requestClientInstance.apiAccessToken))
+	response, err := requestClientInstance.HTTPClient().Do(httpRequest)
+	if err != nil {
+		return "", fmt.Errorf("graph api request failed: %w", err)
 	}
 	defer response.Body.Close()
-	body, err := io.ReadAll(response.Body)
+	respBody, err := io.ReadAll(io.LimitReader(response.Body, maxResponseBytes))
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("failed to read response body: %w", err)
 	}
 
 	if response.StatusCode < 200 || response.StatusCode >= 300 {
-		return "", fmt.Errorf("API request failed with status %d: %s", response.StatusCode, string(body))
+		return "", graph.Parse(response.StatusCode, respBody)
 	}
 
-	return string(body), nil
+	return string(respBody), nil
 }
 
 func (client *RequestClient) NewApiRequest(path, method string) *ApiRequest {
@@ -158,6 +195,12 @@ func (request *ApiRequest) SetBody(body string) {
 
 // Execute executes the request and returns the response.
 func (request *ApiRequest) Execute() (string, error) {
+	return request.ExecuteContext(context.Background())
+}
+
+// ExecuteContext executes the request, bounded by ctx, and returns the
+// response body. A non-2xx response returns a *graph.Error.
+func (request *ApiRequest) ExecuteContext(ctx context.Context) (string, error) {
 	// check if there are any fields in the request
 	var queryParam = map[string]string{}
 	if len(request.Fields) > 0 {
@@ -184,19 +227,12 @@ func (request *ApiRequest) Execute() (string, error) {
 		}
 	}
 
-	response, err := request.Requester.request(RequestCloudApiParams{
+	return request.Requester.request(ctx, RequestCloudApiParams{
 		Path:       request.Path,
 		Body:       request.Body,
 		Method:     request.Method,
 		QueryParam: queryParam,
 	})
-
-	if err != nil {
-		fmt.Println("Error while executing business api request", err)
-		return "", err
-	}
-
-	return response, err
 }
 
 // RequestMultipart allows sending an arbitrary body with a custom Content-Type.
@@ -207,39 +243,16 @@ func (rc *RequestClient) RequestMultipart(
 	body io.Reader,
 	contentType string,
 ) (string, error) {
-	// 1. Build the final URL
-	requestPath := strings.Join([]string{
-		REQUEST_PROTOCOL, "://",
-		rc.baseUrl, "/",
-		rc.apiVersion, "/",
-		path,
-	}, "")
+	return rc.RequestMultipartContext(context.Background(), method, path, body, contentType)
+}
 
-	// 2. Create the HTTP request with the custom body & Content-Type
-	httpRequest, err := http.NewRequest(method, requestPath, body)
-	if err != nil {
-		return "", fmt.Errorf("error creating request: %w", err)
-	}
-	httpRequest.Header.Set("Authorization", fmt.Sprintf("Bearer %s", rc.apiAccessToken))
-	httpRequest.Header.Set("Content-Type", contentType)
-
-	// 3. Send the request using a standard HTTP client
-	httpClient := &http.Client{}
-	response, err := httpClient.Do(httpRequest)
-	if err != nil {
-		return "", fmt.Errorf("failed to execute request: %w", err)
-	}
-	defer response.Body.Close()
-
-	respBody, err := io.ReadAll(response.Body)
-	if err != nil {
-		return "", fmt.Errorf("failed to read response body: %w", err)
-	}
-
-	// Check for non-2xx status codes
-	if response.StatusCode < 200 || response.StatusCode >= 300 {
-		return "", fmt.Errorf("API request failed with status %d: %s", response.StatusCode, string(respBody))
-	}
-
-	return string(respBody), nil
+// RequestMultipartContext is RequestMultipart bounded by ctx.
+func (rc *RequestClient) RequestMultipartContext(
+	ctx context.Context,
+	method string,
+	path string,
+	body io.Reader,
+	contentType string,
+) (string, error) {
+	return rc.do(ctx, method, rc.url(path, nil), body, contentType)
 }

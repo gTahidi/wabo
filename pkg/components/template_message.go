@@ -327,8 +327,56 @@ func (m *TemplateMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]b
 		return nil, fmt.Errorf("error marshalling json: %v", err)
 	}
 
-	// Debug logging: print the actual JSON being sent
-	fmt.Printf("[DEBUG] Template Message JSON: %s\n", string(jsonToReturn))
-
 	return jsonToReturn, nil
+}
+
+// AddBodyText sets (or overrides) the body component to positional text
+// parameters, filling {{1}}, {{2}}, ... in order.
+func (tm *TemplateMessage) AddBodyText(params ...string) {
+	parameters := make([]TemplateMessageParameter, 0, len(params))
+	for _, p := range params {
+		text := p
+		parameters = append(parameters, TemplateMessageBodyAndHeaderParameter{
+			Type: TemplateMessageParameterTypeText,
+			Text: &text,
+		})
+	}
+	tm.AddBody(TemplateMessageComponentBodyType{
+		Type:       TemplateMessageComponentTypeBody,
+		Parameters: parameters,
+	})
+}
+
+// NewAuthenticationTemplateMessage builds a message for an approved
+// authentication template with a copy-code or one-tap button. Meta requires
+// the one-time password twice: as the body parameter and as the parameter of
+// the button, which is sent with sub_type "url" at index 0. See
+// https://developers.facebook.com/docs/whatsapp/business-management-api/authentication-templates/copy-code-button-authentication-templates
+func NewAuthenticationTemplateMessage(name, language, code string) (*TemplateMessage, error) {
+	if name == "" || language == "" {
+		return nil, fmt.Errorf("authentication template name and language are required")
+	}
+	if code == "" {
+		return nil, fmt.Errorf("authentication template code is required")
+	}
+	if len(code) > 15 {
+		return nil, fmt.Errorf("authentication template code must be at most 15 characters")
+	}
+	tm, err := NewTemplateMessage(&TemplateMessageConfigs{Name: name, Language: language})
+	if err != nil {
+		return nil, err
+	}
+	tm.AddBodyText(code)
+	buttonCode := code
+	if err := tm.AddButton(TemplateMessageComponentButtonType{
+		Type:    TemplateMessageComponentTypeButton,
+		SubType: TemplateMessageButtonComponentTypeUrl,
+		Index:   0,
+		Parameters: &[]TemplateMessageParameter{
+			TemplateMessageButtonParameter{Type: TemplateMessageButtonParameterTypeText, Text: &buttonCode},
+		},
+	}); err != nil {
+		return nil, err
+	}
+	return tm, nil
 }

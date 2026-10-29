@@ -1,5 +1,7 @@
 package manager
 
+import "encoding/json"
+
 type NotificationReasonEnum string
 
 const (
@@ -234,9 +236,13 @@ type WhatsappApiNotificationPayloadSchemaType struct {
 type Entry struct {
 	Id      string   `json:"id"`
 	Changes []Change `json:"changes"`
-	Time    *string  `json:"time"`
+	// Time is the unix time of the change. Meta sends a number; a numeric
+	// string is also accepted.
+	Time *json.Number `json:"time"`
 }
 
+// WebhookFieldEnum is a changes[].field value, as listed in Meta's webhook
+// field reference.
 type WebhookFieldEnum string
 
 const (
@@ -244,13 +250,13 @@ const (
 	WebhookFieldEnumMessages               WebhookFieldEnum = "messages"
 	WebhookFieldEnumSecurity               WebhookFieldEnum = "security"
 	WebhookFieldEnumAccountUpdate          WebhookFieldEnum = "account_update"
-	WebhookFieldEnumAccountReview          WebhookFieldEnum = "account_review"
-	WebhookFieldEnumBusinessCapability     WebhookFieldEnum = "business_capability"
-	WebhookFieldEnumMessageTemplateQuality WebhookFieldEnum = "message_template_quality"
-	WebhookFieldEnumMessageTemplateStatus  WebhookFieldEnum = "message_template_status"
-	WebhookFieldEnumPhoneNumberName        WebhookFieldEnum = "phone_number_name"
-	WebhookFieldEnumPhoneNumberQuality     WebhookFieldEnum = "phone_number_quality"
-	WebhookFieldEnumTemplateCategoryUpdate WebhookFieldEnum = "template_category"
+	WebhookFieldEnumAccountReview          WebhookFieldEnum = "account_review_update"
+	WebhookFieldEnumBusinessCapability     WebhookFieldEnum = "business_capability_update"
+	WebhookFieldEnumMessageTemplateQuality WebhookFieldEnum = "message_template_quality_update"
+	WebhookFieldEnumMessageTemplateStatus  WebhookFieldEnum = "message_template_status_update"
+	WebhookFieldEnumPhoneNumberName        WebhookFieldEnum = "phone_number_name_update"
+	WebhookFieldEnumPhoneNumberQuality     WebhookFieldEnum = "phone_number_quality_update"
+	WebhookFieldEnumTemplateCategoryUpdate WebhookFieldEnum = "template_category_update"
 )
 
 type TemplateMessageStatusUpdateEventEnum string

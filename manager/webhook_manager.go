@@ -2,6 +2,10 @@ package manager
 
 import (
 	"context"
+	"crypto/hmac"
+	"crypto/sha256"
+	"crypto/subtle"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -9,6 +13,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"strings"
 	"time"
 
 	"github.com/gTahidi/wapi.go/internal"
@@ -21,16 +26,20 @@ import (
 // WebhookManager represents a manager for handling webhooks.
 type WebhookManager struct {
 	secret       string
+	appSecret    string
 	path         string
 	port         int
-	EventManager EventManager
+	EventManager *EventManager
 	Requester    request_client.RequestClient
 }
 
 // WebhookManagerConfig represents the configuration options for creating a new WebhookManager.
 type WebhookManagerConfig struct {
-	Secret       string                       `validate:"required"`
-	EventManager EventManager                 `validate:"required"`
+	Secret string `validate:"required"`
+	// AppSecret, when set, makes PostRequestHandler reject payloads whose
+	// X-Hub-Signature-256 header does not match.
+	AppSecret    string
+	EventManager *EventManager                `validate:"required"`
 	Requester    request_client.RequestClient `validate:"required"`
 	Path         string
 	Port         int
@@ -43,6 +52,7 @@ func NewWebhook(options *WebhookManagerConfig) *WebhookManager {
 	}
 	return &WebhookManager{
 		secret:       options.Secret,
+		appSecret:    options.AppSecret,
 		path:         options.Path,
 		port:         options.Port,
 		EventManager: options.EventManager,
@@ -57,35 +67,57 @@ func (wh *WebhookManager) createEchoHttpServer() *echo.Echo {
 	return e
 }
 
-// GetRequestHandler handles GET requests to the webhook endpoint.
+// GetRequestHandler handles GET requests to the webhook endpoint: Meta's
+// verification request, answered with hub.challenge when hub.verify_token
+// matches the configured secret.
 func (wh *WebhookManager) GetRequestHandler(c echo.Context) error {
 	hubVerificationToken := c.QueryParam("hub.verify_token")
 	hubChallenge := c.QueryParam("hub.challenge")
 	hubMode := c.QueryParam("hub.mode")
-	if hubMode == "subscribe" && hubVerificationToken == wh.secret {
-		return c.String(200, hubChallenge)
-	} else {
-		return c.String(400, "invalid token")
+	if hubMode == "subscribe" && wh.secret != "" &&
+		subtle.ConstantTimeCompare([]byte(hubVerificationToken), []byte(wh.secret)) == 1 {
+		return c.String(http.StatusOK, hubChallenge)
 	}
+	return c.String(http.StatusBadRequest, "invalid token")
 }
 
-// PostRequestHandler handles POST requests to the webhook endpoint.
+// VerifyWebhookSignature reports whether signatureHeader (the
+// X-Hub-Signature-256 header, "sha256=<hex>") is the HMAC-SHA256 of rawBody
+// keyed with the Meta app secret. The comparison is constant-time.
+func VerifyWebhookSignature(rawBody []byte, signatureHeader, appSecret string) bool {
+	const prefix = "sha256="
+	if appSecret == "" || !strings.HasPrefix(signatureHeader, prefix) {
+		return false
+	}
+	expected, err := hex.DecodeString(strings.TrimPrefix(signatureHeader, prefix))
+	if err != nil {
+		return false
+	}
+	mac := hmac.New(sha256.New, []byte(appSecret))
+	mac.Write(rawBody)
+	return hmac.Equal(mac.Sum(nil), expected)
+}
+
+// PostRequestHandler handles POST requests to the webhook endpoint. When an
+// app secret is configured, payloads with a missing or invalid
+// X-Hub-Signature-256 are rejected with 401.
 func (wh *WebhookManager) PostRequestHandler(c echo.Context) error {
 	body, err := io.ReadAll(c.Request().Body)
 	if err != nil {
-		fmt.Println("Error reading request body:", err)
-		c.String(400, "error reading request body")
+		return c.String(http.StatusBadRequest, "error reading request body")
+	}
+
+	if wh.appSecret != "" && !VerifyWebhookSignature(body, c.Request().Header.Get("X-Hub-Signature-256"), wh.appSecret) {
+		return c.String(http.StatusUnauthorized, "invalid signature")
 	}
 
 	var payload WhatsappApiNotificationPayloadSchemaType
 	if err := json.Unmarshal(body, &payload); err != nil {
-		fmt.Println("Error unmarshaling JSON:", err)
-		c.String(400, "Invalid JSON data")
+		return c.String(http.StatusBadRequest, "Invalid JSON data")
 	}
 
 	if err := internal.GetValidator().Struct(payload); err != nil {
-		fmt.Println("Error validating JSON:", err)
-		c.String(400, "Invalid JSON data")
+		return c.String(http.StatusBadRequest, "Invalid JSON data")
 	}
 
 	for _, entry := range payload.Entry {
@@ -119,8 +151,7 @@ func (wh *WebhookManager) PostRequestHandler(c echo.Context) error {
 				})
 
 				if err != nil {
-					fmt.Println("Error handling messages subscription events:", err)
-					c.String(500, "Internal server error")
+					c.String(http.StatusInternalServerError, "Internal server error")
 					return err
 				}
 			case WebhookFieldEnumAccountReview:
@@ -134,11 +165,10 @@ func (wh *WebhookManager) PostRequestHandler(c echo.Context) error {
 				}
 				err = wh.handleAccountReviewSubscriptionEvents(events.BaseBusinessAccountEvent{
 					BusinessAccountId: entry.Id,
-					Timestamp:         *entry.Time,
+					Timestamp:         entryTime(entry.Time),
 				}, accountReviewValue)
 				if err != nil {
-					fmt.Println("Error handling messages subscription events:", err)
-					c.String(500, "Internal server error")
+					c.String(http.StatusInternalServerError, "Internal server error")
 					return err
 				}
 			case WebhookFieldEnumAccountAlerts:
@@ -152,11 +182,10 @@ func (wh *WebhookManager) PostRequestHandler(c echo.Context) error {
 				}
 				err = wh.handleAccountAlertsSubscriptionEvents(events.BaseBusinessAccountEvent{
 					BusinessAccountId: entry.Id,
-					Timestamp:         *entry.Time,
+					Timestamp:         entryTime(entry.Time),
 				}, accountAlertValue)
 				if err != nil {
-					fmt.Println("Error handling messages subscription events:", err)
-					c.String(500, "Internal server error")
+					c.String(http.StatusInternalServerError, "Internal server error")
 					return err
 				}
 			case WebhookFieldEnumAccountUpdate:
@@ -170,11 +199,10 @@ func (wh *WebhookManager) PostRequestHandler(c echo.Context) error {
 				}
 				wh.handleAccountUpdateSubscriptionEvents(events.BaseBusinessAccountEvent{
 					BusinessAccountId: entry.Id,
-					Timestamp:         *entry.Time,
+					Timestamp:         entryTime(entry.Time),
 				}, accountUpdate)
 				if err != nil {
-					fmt.Println("Error handling messages subscription events:", err)
-					c.String(500, "Internal server error")
+					c.String(http.StatusInternalServerError, "Internal server error")
 					return err
 				}
 			case WebhookFieldEnumTemplateCategoryUpdate:
@@ -188,11 +216,10 @@ func (wh *WebhookManager) PostRequestHandler(c echo.Context) error {
 				}
 				wh.handleTemplateCategoryUpdateSubscriptionEvents(events.BaseBusinessAccountEvent{
 					BusinessAccountId: entry.Id,
-					Timestamp:         *entry.Time,
+					Timestamp:         entryTime(entry.Time),
 				}, templateCategoryUpdate)
 				if err != nil {
-					fmt.Println("Error handling messages subscription events:", err)
-					c.String(500, "Internal server error")
+					c.String(http.StatusInternalServerError, "Internal server error")
 					return err
 				}
 			case WebhookFieldEnumMessageTemplateQuality:
@@ -206,11 +233,10 @@ func (wh *WebhookManager) PostRequestHandler(c echo.Context) error {
 				}
 				wh.handleMessageTemplateQualitySubscriptionEvents(events.BaseBusinessAccountEvent{
 					BusinessAccountId: entry.Id,
-					Timestamp:         *entry.Time,
+					Timestamp:         entryTime(entry.Time),
 				}, qualityUpdate)
 				if err != nil {
-					fmt.Println("Error handling messages subscription events:", err)
-					c.String(500, "Internal server error")
+					c.String(http.StatusInternalServerError, "Internal server error")
 					return err
 				}
 			case WebhookFieldEnumMessageTemplateStatus:
@@ -224,11 +250,10 @@ func (wh *WebhookManager) PostRequestHandler(c echo.Context) error {
 				}
 				wh.handleMessageTemplateStatusSubscriptionEvents(events.BaseBusinessAccountEvent{
 					BusinessAccountId: entry.Id,
-					Timestamp:         *entry.Time,
+					Timestamp:         entryTime(entry.Time),
 				}, statusUpdate)
 				if err != nil {
-					fmt.Println("Error handling messages subscription events:", err)
-					c.String(500, "Internal server error")
+					c.String(http.StatusInternalServerError, "Internal server error")
 					return err
 				}
 			case WebhookFieldEnumPhoneNumberName:
@@ -242,11 +267,10 @@ func (wh *WebhookManager) PostRequestHandler(c echo.Context) error {
 				}
 				wh.handlePhoneNumberNameSubscriptionEvents(events.BaseBusinessAccountEvent{
 					BusinessAccountId: entry.Id,
-					Timestamp:         *entry.Time,
+					Timestamp:         entryTime(entry.Time),
 				}, nameUpdate)
 				if err != nil {
-					fmt.Println("Error handling messages subscription events:", err)
-					c.String(500, "Internal server error")
+					c.String(http.StatusInternalServerError, "Internal server error")
 					return err
 				}
 			case WebhookFieldEnumPhoneNumberQuality:
@@ -260,11 +284,10 @@ func (wh *WebhookManager) PostRequestHandler(c echo.Context) error {
 				}
 				wh.handlePhoneNumberQualitySubscriptionEvents(events.BaseBusinessAccountEvent{
 					BusinessAccountId: entry.Id,
-					Timestamp:         *entry.Time,
+					Timestamp:         entryTime(entry.Time),
 				}, qualityUpdate)
 				if err != nil {
-					fmt.Println("Error handling messages subscription events:", err)
-					c.String(500, "Internal server error")
+					c.String(http.StatusInternalServerError, "Internal server error")
 					return err
 				}
 			case WebhookFieldEnumBusinessCapability:
@@ -278,11 +301,10 @@ func (wh *WebhookManager) PostRequestHandler(c echo.Context) error {
 				}
 				wh.handleBusinessCapabilitySubscriptionEvents(events.BaseBusinessAccountEvent{
 					BusinessAccountId: entry.Id,
-					Timestamp:         *entry.Time,
+					Timestamp:         entryTime(entry.Time),
 				}, capabilityUpdate)
 				if err != nil {
-					fmt.Println("Error handling messages subscription events:", err)
-					c.String(500, "Internal server error")
+					c.String(http.StatusInternalServerError, "Internal server error")
 					return err
 				}
 			case WebhookFieldEnumSecurity:
@@ -296,8 +318,7 @@ func (wh *WebhookManager) PostRequestHandler(c echo.Context) error {
 				}
 				wh.handleSecuritySubscriptionEvents(securityChange)
 				if err != nil {
-					fmt.Println("Error handling messages subscription events:", err)
-					c.String(500, "Internal server error")
+					c.String(http.StatusInternalServerError, "Internal server error")
 					return err
 				}
 			}
@@ -306,6 +327,14 @@ func (wh *WebhookManager) PostRequestHandler(c echo.Context) error {
 
 	c.String(200, "Message received")
 	return nil
+}
+
+// entryTime returns the entry's unix time as a string, or "" when Meta omitted it.
+func entryTime(t *json.Number) string {
+	if t == nil {
+		return ""
+	}
+	return t.String()
 }
 
 // ListenToEvents starts listening to events and handles incoming requests.
@@ -447,7 +476,6 @@ func (wh *WebhookManager) handleMessagesSubscriptionEvents(payload HandleMessage
 
 				if err != nil {
 					// ! TODO: emit error event here
-					fmt.Println("Error creating image message:", err)
 					return err
 				}
 
@@ -466,7 +494,6 @@ func (wh *WebhookManager) handleMessagesSubscriptionEvents(payload HandleMessage
 
 				if err != nil {
 					// ! TODO: emit error event here
-					fmt.Println("Error creating audio message:", err)
 					return err
 				}
 
@@ -487,7 +514,6 @@ func (wh *WebhookManager) handleMessagesSubscriptionEvents(payload HandleMessage
 
 				if err != nil {
 					// ! TODO: emit error event here
-					fmt.Println("Error creating Video message:", err)
 					return err
 				}
 
@@ -507,7 +533,6 @@ func (wh *WebhookManager) handleMessagesSubscriptionEvents(payload HandleMessage
 
 				if err != nil {
 					// ! TODO: emit error event here
-					fmt.Println("Error creating document message:", err)
 					return err
 				}
 
@@ -523,7 +548,6 @@ func (wh *WebhookManager) handleMessagesSubscriptionEvents(payload HandleMessage
 
 				if err != nil {
 					// ! TODO: emit error event here
-					fmt.Println("Error creating location message:", err)
 					return err
 				}
 
@@ -550,7 +574,6 @@ func (wh *WebhookManager) handleMessagesSubscriptionEvents(payload HandleMessage
 
 				if err != nil {
 					// ! TODO: emit error event here
-					fmt.Println("Error creating Sticker message:", err)
 					return err
 				}
 
@@ -596,7 +619,6 @@ func (wh *WebhookManager) handleMessagesSubscriptionEvents(payload HandleMessage
 
 				if err != nil {
 					// ! TODO: emit error event here
-					fmt.Println("Error creating location message:", err)
 					return err
 				}
 
@@ -694,13 +716,13 @@ func (wh *WebhookManager) handleAccountAlertsSubscriptionEvents(baseEvent events
 }
 
 func (wh *WebhookManager) handleSecuritySubscriptionEvents(value SecurityValue) {
-	wh.EventManager.Publish(events.AccountAlertsEventType, events.SecurityEvent{})
+	wh.EventManager.Publish(events.SecurityEventType, events.SecurityEvent{})
 
 }
 
 func (wh *WebhookManager) handleAccountUpdateSubscriptionEvents(baseEvent events.BaseBusinessAccountEvent, value AccountUpdateValue) {
 
-	wh.EventManager.Publish(events.AccountAlertsEventType, events.NewAccountUpdateEvent(
+	wh.EventManager.Publish(events.AccountUpdateEventType, events.NewAccountUpdateEvent(
 		&baseEvent,
 		events.AccountUpdateEventEnum(value.Event),
 		value.PhoneNumber,
@@ -709,7 +731,7 @@ func (wh *WebhookManager) handleAccountUpdateSubscriptionEvents(baseEvent events
 }
 
 func (wh *WebhookManager) handleAccountReviewSubscriptionEvents(baseEvent events.BaseBusinessAccountEvent, value AccountReviewUpdateValue) error {
-	wh.EventManager.Publish(events.AccountAlertsEventType, events.NewAccountReviewUpdateEvent(
+	wh.EventManager.Publish(events.AccountReviewUpdateEventType, events.NewAccountReviewUpdateEvent(
 		&baseEvent,
 		events.AccountReviewUpdateEventEnum(value.Decision),
 	))
@@ -718,7 +740,7 @@ func (wh *WebhookManager) handleAccountReviewSubscriptionEvents(baseEvent events
 }
 
 func (wh *WebhookManager) handleBusinessCapabilitySubscriptionEvents(baseEvent events.BaseBusinessAccountEvent, value BusinessCapabilityUpdateValue) error {
-	wh.EventManager.Publish(events.AccountAlertsEventType, events.NewBusinessCapabilityUpdateEvent(
+	wh.EventManager.Publish(events.BusinessCapabilityUpdateEventType, events.NewBusinessCapabilityUpdateEvent(
 		&baseEvent,
 		int64(value.MaxDailyConversationPerPhone),
 		int64(value.MaxPhoneNumbersPerBusiness),
@@ -728,7 +750,7 @@ func (wh *WebhookManager) handleBusinessCapabilitySubscriptionEvents(baseEvent e
 }
 
 func (wh *WebhookManager) handleMessageTemplateQualitySubscriptionEvents(baseEvent events.BaseBusinessAccountEvent, value TemplateQualityUpdateValue) error {
-	wh.EventManager.Publish(events.AccountAlertsEventType, events.NewMessageTemplateQualityUpdateEvent(
+	wh.EventManager.Publish(events.MessageTemplateQualityUpdateEventType, events.NewMessageTemplateQualityUpdateEvent(
 		&baseEvent,
 		events.MessageTemplateQualityUpdateQualityScoreEnum(value.PreviousQualityScore),
 		events.MessageTemplateQualityUpdateQualityScoreEnum(value.NewQualityScore),
@@ -742,7 +764,7 @@ func (wh *WebhookManager) handleMessageTemplateQualitySubscriptionEvents(baseEve
 }
 
 func (wh *WebhookManager) handleMessageTemplateStatusSubscriptionEvents(baseEvent events.BaseBusinessAccountEvent, value TemplateStatusUpdateValue) error {
-	wh.EventManager.Publish(events.AccountAlertsEventType, events.NewMessageTemplateStatusUpdateEvent(
+	wh.EventManager.Publish(events.MessageTemplateStatusUpdateEventType, events.NewMessageTemplateStatusUpdateEvent(
 		&baseEvent,
 		events.MessageTemplateStatusUpdateEventEnum(value.Event),
 		value.MessageTemplateId,
@@ -755,7 +777,7 @@ func (wh *WebhookManager) handleMessageTemplateStatusSubscriptionEvents(baseEven
 }
 
 func (wh *WebhookManager) handlePhoneNumberNameSubscriptionEvents(baseEvent events.BaseBusinessAccountEvent, value PhoneNumberNameUpdateValue) error {
-	wh.EventManager.Publish(events.AccountAlertsEventType, events.NewPhoneNumberNameUpdateEvent(
+	wh.EventManager.Publish(events.PhoneNumberNameUpdateEventType, events.NewPhoneNumberNameUpdateEvent(
 		&baseEvent,
 		value.DisplayPhoneNumber,
 		value.RequestedVerifiedName,
@@ -766,7 +788,7 @@ func (wh *WebhookManager) handlePhoneNumberNameSubscriptionEvents(baseEvent even
 }
 
 func (wh *WebhookManager) handlePhoneNumberQualitySubscriptionEvents(baseEvent events.BaseBusinessAccountEvent, value PhoneNumberQualityUpdateValue) error {
-	wh.EventManager.Publish(events.AccountAlertsEventType, events.NewPhoneNumberQualityUpdateEvent(
+	wh.EventManager.Publish(events.PhoneNumberQualityUpdateEventType, events.NewPhoneNumberQualityUpdateEvent(
 		&baseEvent,
 		value.DisplayPhoneNumber,
 		events.PhoneNumberUpdateEventEnum(value.Event),
@@ -776,7 +798,7 @@ func (wh *WebhookManager) handlePhoneNumberQualitySubscriptionEvents(baseEvent e
 }
 
 func (wh *WebhookManager) handleTemplateCategoryUpdateSubscriptionEvents(baseEvent events.BaseBusinessAccountEvent, value TemplateCategoryUpdateValue) error {
-	wh.EventManager.Publish(events.AccountAlertsEventType, events.NewMessageTemplateCategoryUpdateEvent(
+	wh.EventManager.Publish(events.TemplateCategoryUpdateEventType, events.NewMessageTemplateCategoryUpdateEvent(
 		&baseEvent,
 		value.MessageTemplateId,
 		value.MessageTemplateName,

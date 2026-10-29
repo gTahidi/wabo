@@ -13,6 +13,7 @@ import (
 	"strings"
 
 	"github.com/gTahidi/wapi.go/internal/request_client"
+	"github.com/gTahidi/wapi.go/pkg/graph"
 )
 
 // MediaManager is responsible for managing media related operations.
@@ -205,8 +206,7 @@ func (mm *MediaManager) UploadResumableMedia(sessionID string, fileData []byte, 
 	httpRequest.Header.Set("Authorization", fmt.Sprintf("OAuth %s", mm.requester.ApiAccessToken()))
 	httpRequest.Header.Set("file_offset", strconv.FormatInt(fileOffset, 10))
 
-	httpClient := &http.Client{}
-	response, err := httpClient.Do(httpRequest)
+	response, err := mm.requester.HTTPClient().Do(httpRequest)
 	if err != nil {
 		return "", fmt.Errorf("failed to execute upload request: %w", err)
 	}
@@ -218,7 +218,7 @@ func (mm *MediaManager) UploadResumableMedia(sessionID string, fileData []byte, 
 	}
 
 	if response.StatusCode < 200 || response.StatusCode >= 300 {
-		return "", fmt.Errorf("upload failed with status %d: %s", response.StatusCode, string(respBody))
+		return "", graph.Parse(response.StatusCode, respBody)
 	}
 
 	var result ResumableUploadResult

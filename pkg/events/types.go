@@ -40,4 +40,5 @@ const (
 	AccountAlertsEventType                EventType = "account_alerts"
 	BusinessCapabilityUpdateEventType     EventType = "business_capability_update"
 	MarketingMessagesLinkClickEventType   EventType = "marketing_messages_link_click"
+	TemplateCategoryUpdateEventType       EventType = "template_category_update"
 )
