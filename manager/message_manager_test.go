@@ -93,3 +93,65 @@ func TestMigrateFromOtherBusinessAccountUsesPOSTAndDigits(t *testing.T) {
 		t.Fatalf("unexpected request %s %s", last.Method, last.URL)
 	}
 }
+
+func TestReadMessageWithTypingContextPayload(t *testing.T) {
+	tr := &testutil.Transport{Body: `{"success":true}`}
+	mm := NewMessageManager(*request_client.NewRequestClientWithHTTPClient("tok", tr.Client()), "594266267109340")
+	if err := mm.ReadMessageWithTypingContext(context.Background(), "wamid.IN"); err != nil {
+		t.Fatal(err)
+	}
+	last := tr.Last()
+	if last.Method != http.MethodPost || !strings.HasSuffix(last.URL, "/594266267109340/messages") {
+		t.Fatalf("unexpected request %s %s", last.Method, last.URL)
+	}
+	var payload struct {
+		MessagingProduct string `json:"messaging_product"`
+		Status           string `json:"status"`
+		MessageID        string `json:"message_id"`
+		TypingIndicator  *struct {
+			Type string `json:"type"`
+		} `json:"typing_indicator"`
+	}
+	if err := json.Unmarshal([]byte(last.Body), &payload); err != nil {
+		t.Fatal(err)
+	}
+	if payload.MessagingProduct != "whatsapp" || payload.Status != "read" || payload.MessageID != "wamid.IN" ||
+		payload.TypingIndicator == nil || payload.TypingIndicator.Type != "text" {
+		t.Fatalf("unexpected payload %s", last.Body)
+	}
+}
+
+func TestReadMessageOnlyOmitsTypingIndicator(t *testing.T) {
+	tr := &testutil.Transport{Body: `{"success":true}`}
+	mm := NewMessageManager(*request_client.NewRequestClientWithHTTPClient("tok", tr.Client()), "1")
+	if err := mm.ReadMessageOnly("wamid.IN"); err != nil {
+		t.Fatal(err)
+	}
+	if strings.Contains(tr.Last().Body, "typing_indicator") {
+		t.Fatalf("unexpected typing indicator in %s", tr.Last().Body)
+	}
+}
+
+func TestReadMessageErrors(t *testing.T) {
+	tr := &testutil.Transport{Status: 400, Body: `{"error":{"message":"bad","code":100,"fbtrace_id":"A1"}}`}
+	mm := NewMessageManager(*request_client.NewRequestClientWithHTTPClient("tok", tr.Client()), "1")
+	if err := mm.ReadMessageOnlyContext(context.Background(), "wamid.IN"); !graph.HasCode(err, graph.CodeInvalidParameter) {
+		t.Fatalf("want typed 100, got %v", err)
+	}
+
+	tr = &testutil.Transport{Body: `{"error":{"message":"bad","code":131047}}`}
+	mm = NewMessageManager(*request_client.NewRequestClientWithHTTPClient("tok", tr.Client()), "1")
+	if err := mm.ReadMessageOnly("wamid.IN"); !graph.HasCode(err, graph.CodeReEngagementRequired) {
+		t.Fatalf("want typed 131047 from 2xx body, got %v", err)
+	}
+
+	tr = &testutil.Transport{Body: `{"success":false}`}
+	mm = NewMessageManager(*request_client.NewRequestClientWithHTTPClient("tok", tr.Client()), "1")
+	if err := mm.ReadMessageOnly("wamid.IN"); err == nil {
+		t.Fatal("want error for success=false")
+	}
+
+	if err := mm.ReadMessageOnly(""); err == nil || len(tr.Requests) != 1 {
+		t.Fatalf("want local error without a request, got %v after %d requests", err, len(tr.Requests))
+	}
+}

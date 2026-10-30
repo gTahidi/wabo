@@ -134,10 +134,14 @@ func (r *MessageSendResponse) MessageID() string {
 	return r.Messages[0].ID
 }
 
-// ReadMessage marks a message as read.
-// messageId: The ID of the message to mark as read
-// showTyping: Whether to show typing indicator (will auto-dismiss after 25 seconds or when you respond)
+// readMessage sends a read receipt for messageId. When showTyping is set, a
+// typing indicator is also shown; it is dismissed when you respond or after
+// 25 seconds. A Graph API error is returned as a *graph.Error.
 func (mm *MessageManager) readMessage(ctx context.Context, messageId string, showTyping bool) error {
+	if messageId == "" {
+		return fmt.Errorf("error marking message as read: message id is required")
+	}
+
 	// Create the request body for marking message as read
 	requestBody := map[string]interface{}{
 		"messaging_product": "whatsapp",
@@ -154,7 +158,7 @@ func (mm *MessageManager) readMessage(ctx context.Context, messageId string, sho
 
 	body, err := json.Marshal(requestBody)
 	if err != nil {
-		return fmt.Errorf("error marshalling read request body: %v", err)
+		return fmt.Errorf("error marshalling read request body: %w", err)
 	}
 
 	// Build the API request
@@ -169,18 +173,21 @@ func (mm *MessageManager) readMessage(ctx context.Context, messageId string, sho
 	var statusResponse StatusResponse
 	err = json.Unmarshal([]byte(responseStr), &statusResponse)
 	if err != nil {
-		return fmt.Errorf("error unmarshalling read response: %v", err)
+		return fmt.Errorf("error unmarshalling read response: %w", err)
 	}
 
+	// Graph errors normally arrive with a non-2xx status; this covers one in a 2xx body.
 	if statusResponse.Error != nil {
 		return fmt.Errorf("error marking message as read: %w", statusResponse.Error.graphError(http.StatusOK))
+	}
+	if !statusResponse.Success {
+		return fmt.Errorf("error marking message as read: graph api returned success=false")
 	}
 
 	return nil
 }
 
 // ReadMessageWithTyping marks a message as read and shows typing indicator.
-// This is a convenience method for ReadMessage(messageId, true).
 func (mm *MessageManager) ReadMessageWithTyping(messageId string) error {
 	return mm.readMessage(context.Background(), messageId, true)
 }
@@ -191,7 +198,6 @@ func (mm *MessageManager) ReadMessageWithTypingContext(ctx context.Context, mess
 }
 
 // ReadMessageOnly marks a message as read without showing typing indicator.
-// This is a convenience method for ReadMessage(messageId, false).
 func (mm *MessageManager) ReadMessageOnly(messageId string) error {
 	return mm.readMessage(context.Background(), messageId, false)
 }

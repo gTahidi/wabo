@@ -1,7 +1,9 @@
 package business
 
 import (
+	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"strings"
@@ -10,6 +12,7 @@ import (
 
 	"github.com/gTahidi/wabo/internal/request_client"
 	"github.com/gTahidi/wabo/manager"
+	"github.com/gTahidi/wabo/pkg/graph"
 )
 
 // BusinessClient is responsible for managing business account related operations.
@@ -99,6 +102,82 @@ func (client *BusinessClient) Fetch() (*FetchBusinessAccountResponse, error) {
 		return nil, fmt.Errorf("decode business account: %w", err)
 	}
 	return &responseToReturn, nil
+}
+
+// FetchContext fetches the business account, bounded by ctx. fields lists the
+// fields to request; none returns Graph's default fields.
+// A Graph API error is returned as a *graph.Error.
+func (client *BusinessClient) FetchContext(ctx context.Context, fields ...string) (*FetchBusinessAccountResponse, error) {
+	var responseToReturn FetchBusinessAccountResponse
+	if err := client.fetchNode(ctx, client.BusinessAccountId, fields, &responseToReturn); err != nil {
+		return nil, fmt.Errorf("fetch business account: %w", err)
+	}
+	return &responseToReturn, nil
+}
+
+// BusinessPortfolio is a Meta business portfolio (the Business that owns WABAs).
+type BusinessPortfolio struct {
+	Id   string `json:"id"`
+	Name string `json:"name"`
+}
+
+// FetchBusinessPortfolioContext fetches the id and name of a business
+// portfolio, bounded by ctx. A Graph API error is returned as a *graph.Error.
+func (client *BusinessClient) FetchBusinessPortfolioContext(ctx context.Context, businessId string) (*BusinessPortfolio, error) {
+	if businessId == "" {
+		return nil, errors.New("business portfolio id is required")
+	}
+	var portfolio BusinessPortfolio
+	if err := client.fetchNode(ctx, businessId, []string{"id", "name"}, &portfolio); err != nil {
+		return nil, fmt.Errorf("fetch business portfolio: %w", err)
+	}
+	return &portfolio, nil
+}
+
+func (client *BusinessClient) fetchNode(ctx context.Context, id string, fields []string, out any) error {
+	apiRequest := client.requester.NewApiRequest(id, http.MethodGet)
+	if len(fields) > 0 {
+		apiRequest.AddQueryParam("fields", strings.Join(fields, ","))
+	}
+	response, err := apiRequest.ExecuteContext(ctx)
+	if err != nil {
+		return err
+	}
+	return json.Unmarshal([]byte(response), out)
+}
+
+// SubscribeApp subscribes the calling app to the business account's webhooks.
+func (client *BusinessClient) SubscribeApp() error {
+	return client.SubscribeAppContext(context.Background())
+}
+
+// SubscribeAppContext is SubscribeApp bounded by ctx. A Graph API error is
+// returned as a *graph.Error.
+func (client *BusinessClient) SubscribeAppContext(ctx context.Context) error {
+	if client.BusinessAccountId == "" {
+		return errors.New("subscribe app: business account id is required")
+	}
+	apiRequest := client.requester.NewApiRequest(strings.Join([]string{client.BusinessAccountId, "subscribed_apps"}, "/"), http.MethodPost)
+	response, err := apiRequest.ExecuteContext(ctx)
+	if err != nil {
+		return err
+	}
+	var result struct {
+		Success bool         `json:"success"`
+		Error   *graph.Error `json:"error,omitempty"`
+	}
+	if err := json.Unmarshal([]byte(response), &result); err != nil {
+		return fmt.Errorf("subscribe app: decode response: %w", err)
+	}
+	// Graph errors normally arrive with a non-2xx status; this covers one in a 2xx body.
+	if result.Error != nil {
+		result.Error.HTTPStatus = http.StatusOK
+		return result.Error
+	}
+	if !result.Success {
+		return errors.New("subscribe app: graph api returned success=false")
+	}
+	return nil
 }
 
 type AnalyticsRequestGranularityType string

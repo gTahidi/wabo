@@ -129,7 +129,10 @@ func (requestClientInstance *RequestClient) do(ctx context.Context, method, requ
 	if contentType != "" {
 		httpRequest.Header.Set("Content-Type", contentType)
 	}
-	httpRequest.Header.Set("Authorization", fmt.Sprintf("Bearer %s", requestClientInstance.apiAccessToken))
+	// Unauthenticated calls, such as the OAuth code exchange, send no bearer token.
+	if requestClientInstance.apiAccessToken != "" {
+		httpRequest.Header.Set("Authorization", fmt.Sprintf("Bearer %s", requestClientInstance.apiAccessToken))
+	}
 	response, err := requestClientInstance.HTTPClient().Do(httpRequest)
 	if err != nil {
 		return "", fmt.Errorf("graph api request failed: %w", err)

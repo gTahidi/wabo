@@ -4,6 +4,14 @@ import "github.com/gTahidi/wabo/manager"
 
 
 
+## Constants
+
+<a name="DefaultPhoneNumberFields"></a>DefaultPhoneNumberFields are requested when no fields are given.
+
+```go
+const DefaultPhoneNumberFields = "id,account_mode,certificate,code_verification_status,conversational_automation,display_phone_number,health_status,eligibility_for_api_business_global_search,is_official_business_account,is_on_biz_app,is_pin_enabled,is_preverified_number,last_onboarded_time,messaging_limit_tier,name_status,new_certificate,new_display_name,new_name_status,official_business_account,platform_type,quality_score,search_visibility,status,throughput,verified_name"
+```
+
 <a name="VerifyWebhookSignature"></a>
 ## func [VerifyWebhookSignature](<https://github.com/gTahidi/wabo/blob/master/manager/webhook_manager.go#L87>)
 
@@ -21,6 +29,15 @@ func entryTime(t *json.Number) string
 ```
 
 entryTime returns the entry's unix time as a string, or "" when Meta omitted it.
+
+<a name="phoneNumberFields"></a>
+## func [phoneNumberFields](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L185>)
+
+```go
+func phoneNumberFields(fields []string) string
+```
+
+
 
 <a name="validateCatalogAndMPMButtons"></a>
 ## func [validateCatalogAndMPMButtons](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L252>)
@@ -588,7 +605,7 @@ type CreateFlowResponse struct {
 ```
 
 <a name="CreatePhoneNumberResponse"></a>
-## type [CreatePhoneNumberResponse](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L194-L196>)
+## type [CreatePhoneNumberResponse](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L243-L245>)
 
 
 
@@ -610,7 +627,7 @@ type CreateProductCatalogOptions struct {
 ```
 
 <a name="DeleteQrCodeResponse"></a>
-## type [DeleteQrCodeResponse](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L305-L307>)
+## type [DeleteQrCodeResponse](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L354-L356>)
 
 DeleteQrCodeResponse represents the response of deleting a QR code.
 
@@ -812,6 +829,20 @@ type FeedUploadSession struct {
     Id        string `json:"id"`
     StartTime string `json:"start_time,omitempty"`
     EndTime   string `json:"end_time,omitempty"`
+}
+```
+
+<a name="FetchPhoneNumbersOptions"></a>
+## type [FetchPhoneNumbersOptions](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L178-L183>)
+
+FetchPhoneNumbersOptions configures FetchAllContext.
+
+```go
+type FetchPhoneNumbersOptions struct {
+    // IncludeSandbox also returns sandbox numbers; otherwise only LIVE numbers are returned.
+    IncludeSandbox bool
+    // Fields lists the phone number fields to request; empty uses DefaultPhoneNumberFields.
+    Fields []string
 }
 ```
 
@@ -1065,7 +1096,7 @@ type FlowsListResponse struct {
 ```
 
 <a name="GenerateQrCodeResponse"></a>
-## type [GenerateQrCodeResponse](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L247-L252>)
+## type [GenerateQrCodeResponse](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L296-L301>)
 
 GenerateQrCodeResponse represents the response of generating a QR code.
 
@@ -1079,7 +1110,7 @@ type GenerateQrCodeResponse struct {
 ```
 
 <a name="GetAllQrCodesResponse"></a>
-## type [GetAllQrCodesResponse](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L275-L277>)
+## type [GetAllQrCodesResponse](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L324-L326>)
 
 GetAllQrCodesResponse represents the response of getting all QR codes for a phone number.
 
@@ -1313,16 +1344,16 @@ func NewMessageManager(requester request_client.RequestClient, phoneNumberId str
 NewMessageManager creates a new instance of MessageManager.
 
 <a name="MessageManager.ReadMessageOnly"></a>
-### func \(\*MessageManager\) [ReadMessageOnly](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L195>)
+### func \(\*MessageManager\) [ReadMessageOnly](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L201>)
 
 ```go
 func (mm *MessageManager) ReadMessageOnly(messageId string) error
 ```
 
-ReadMessageOnly marks a message as read without showing typing indicator. This is a convenience method for ReadMessage\(messageId, false\).
+ReadMessageOnly marks a message as read without showing typing indicator.
 
 <a name="MessageManager.ReadMessageOnlyContext"></a>
-### func \(\*MessageManager\) [ReadMessageOnlyContext](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L200>)
+### func \(\*MessageManager\) [ReadMessageOnlyContext](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L206>)
 
 ```go
 func (mm *MessageManager) ReadMessageOnlyContext(ctx context.Context, messageId string) error
@@ -1331,16 +1362,16 @@ func (mm *MessageManager) ReadMessageOnlyContext(ctx context.Context, messageId 
 ReadMessageOnlyContext is ReadMessageOnly bounded by ctx.
 
 <a name="MessageManager.ReadMessageWithTyping"></a>
-### func \(\*MessageManager\) [ReadMessageWithTyping](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L184>)
+### func \(\*MessageManager\) [ReadMessageWithTyping](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L191>)
 
 ```go
 func (mm *MessageManager) ReadMessageWithTyping(messageId string) error
 ```
 
-ReadMessageWithTyping marks a message as read and shows typing indicator. This is a convenience method for ReadMessage\(messageId, true\).
+ReadMessageWithTyping marks a message as read and shows typing indicator.
 
 <a name="MessageManager.ReadMessageWithTypingContext"></a>
-### func \(\*MessageManager\) [ReadMessageWithTypingContext](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L189>)
+### func \(\*MessageManager\) [ReadMessageWithTypingContext](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L196>)
 
 ```go
 func (mm *MessageManager) ReadMessageWithTypingContext(ctx context.Context, messageId string) error
@@ -1391,7 +1422,7 @@ SendContext sends a message, bounded by ctx, and returns Meta's response. A Grap
 func (mm *MessageManager) readMessage(ctx context.Context, messageId string, showTyping bool) error
 ```
 
-ReadMessage marks a message as read. messageId: The ID of the message to mark as read showTyping: Whether to show typing indicator \(will auto\-dismiss after 25 seconds or when you respond\)
+readMessage sends a read receipt for messageId. When showTyping is set, a typing indicator is also shown; it is dismissed when you respond or after 25 seconds. A Graph API error is returned as a \*graph.Error.
 
 <a name="MessageManager.send"></a>
 ### func \(\*MessageManager\) [send](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L103>)
@@ -1976,7 +2007,7 @@ type Origin struct {
 ```
 
 <a name="PhoneNumberManager"></a>
-## type [PhoneNumberManager](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L13-L17>)
+## type [PhoneNumberManager](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L15-L19>)
 
 PhoneNumberManager is responsible for managing phone numbers for WhatsApp Business API and phone number specific operations.
 
@@ -1989,7 +2020,7 @@ type PhoneNumberManager struct {
 ```
 
 <a name="NewPhoneNumberManager"></a>
-### func [NewPhoneNumberManager](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L27>)
+### func [NewPhoneNumberManager](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L29>)
 
 ```go
 func NewPhoneNumberManager(config *PhoneNumberManagerConfig) *PhoneNumberManager
@@ -1998,7 +2029,7 @@ func NewPhoneNumberManager(config *PhoneNumberManagerConfig) *PhoneNumberManager
 NewPhoneNumberManager creates a new instance of PhoneNumberManager.
 
 <a name="PhoneNumberManager.Create"></a>
-### func \(\*PhoneNumberManager\) [Create](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L198>)
+### func \(\*PhoneNumberManager\) [Create](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L247>)
 
 ```go
 func (manager *PhoneNumberManager) Create(phoneNumber, verifiedName, countryCode string) (CreatePhoneNumberResponse, error)
@@ -2007,7 +2038,7 @@ func (manager *PhoneNumberManager) Create(phoneNumber, verifiedName, countryCode
 
 
 <a name="PhoneNumberManager.DeleteQrCode"></a>
-### func \(\*PhoneNumberManager\) [DeleteQrCode](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L310>)
+### func \(\*PhoneNumberManager\) [DeleteQrCode](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L359>)
 
 ```go
 func (manager *PhoneNumberManager) DeleteQrCode(phoneNumber, id string) (*DeleteQrCodeResponse, error)
@@ -2016,7 +2047,7 @@ func (manager *PhoneNumberManager) DeleteQrCode(phoneNumber, id string) (*Delete
 DeleteQrCode deletes a QR code by its ID for the specified phone number.
 
 <a name="PhoneNumberManager.Fetch"></a>
-### func \(\*PhoneNumberManager\) [Fetch](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L176>)
+### func \(\*PhoneNumberManager\) [Fetch](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L220>)
 
 ```go
 func (manager *PhoneNumberManager) Fetch(phoneNumberId string) (*WhatsappBusinessAccountPhoneNumber, error)
@@ -2025,16 +2056,34 @@ func (manager *PhoneNumberManager) Fetch(phoneNumberId string) (*WhatsappBusines
 Fetch fetches a phone number by its ID.
 
 <a name="PhoneNumberManager.FetchAll"></a>
-### func \(\*PhoneNumberManager\) [FetchAll](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L155>)
+### func \(\*PhoneNumberManager\) [FetchAll](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L194>)
 
 ```go
 func (manager *PhoneNumberManager) FetchAll(getSandBoxNumbers bool) (*WhatsappBusinessAccountPhoneNumberEdge, error)
 ```
 
-FetchAll fetches all phone numbers based on the provided filters.
+FetchAll fetches the account's phone numbers. Sandbox numbers are included when getSandBoxNumbers is set.
+
+<a name="PhoneNumberManager.FetchAllContext"></a>
+### func \(\*PhoneNumberManager\) [FetchAllContext](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L200>)
+
+```go
+func (manager *PhoneNumberManager) FetchAllContext(ctx context.Context, options FetchPhoneNumbersOptions) (*WhatsappBusinessAccountPhoneNumberEdge, error)
+```
+
+FetchAllContext fetches the account's phone numbers, bounded by ctx. A Graph API error is returned as a \*graph.Error.
+
+<a name="PhoneNumberManager.FetchContext"></a>
+### func \(\*PhoneNumberManager\) [FetchContext](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L227>)
+
+```go
+func (manager *PhoneNumberManager) FetchContext(ctx context.Context, phoneNumberId string, fields ...string) (*WhatsappBusinessAccountPhoneNumber, error)
+```
+
+FetchContext fetches a phone number by its ID, bounded by ctx. fields lists the fields to request; none uses DefaultPhoneNumberFields. A Graph API error is returned as a \*graph.Error.
 
 <a name="PhoneNumberManager.GenerateQrCode"></a>
-### func \(\*PhoneNumberManager\) [GenerateQrCode](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L255>)
+### func \(\*PhoneNumberManager\) [GenerateQrCode](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L304>)
 
 ```go
 func (manager *PhoneNumberManager) GenerateQrCode(phoneNumber string, prefilledMessage string) (*GenerateQrCodeResponse, error)
@@ -2043,7 +2092,7 @@ func (manager *PhoneNumberManager) GenerateQrCode(phoneNumber string, prefilledM
 GenerateQrCode generates a QR code for the specified phone number with the given prefilled message.
 
 <a name="PhoneNumberManager.GetAllQrCodes"></a>
-### func \(\*PhoneNumberManager\) [GetAllQrCodes](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L280>)
+### func \(\*PhoneNumberManager\) [GetAllQrCodes](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L329>)
 
 ```go
 func (manager *PhoneNumberManager) GetAllQrCodes(phoneNumber string) (*GetAllQrCodesResponse, error)
@@ -2052,7 +2101,7 @@ func (manager *PhoneNumberManager) GetAllQrCodes(phoneNumber string) (*GetAllQrC
 GetAllQrCodes gets all QR codes for the specified phone number.
 
 <a name="PhoneNumberManager.GetQrCodeById"></a>
-### func \(\*PhoneNumberManager\) [GetQrCodeById](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L293>)
+### func \(\*PhoneNumberManager\) [GetQrCodeById](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L342>)
 
 ```go
 func (manager *PhoneNumberManager) GetQrCodeById(phoneNumber, id string) (*GetAllQrCodesResponse, error)
@@ -2061,7 +2110,7 @@ func (manager *PhoneNumberManager) GetQrCodeById(phoneNumber, id string) (*GetAl
 GetQrCodeById gets a QR code by its ID for the specified phone number.
 
 <a name="PhoneNumberManager.RequestVerificationCode"></a>
-### func \(\*PhoneNumberManager\) [RequestVerificationCode](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L223>)
+### func \(\*PhoneNumberManager\) [RequestVerificationCode](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L272>)
 
 ```go
 func (manager *PhoneNumberManager) RequestVerificationCode(phoneNumberId string, codeMethod VerifyCodeMethod, languageCode string) (RequestVerificationCodeResponse, error)
@@ -2070,7 +2119,7 @@ func (manager *PhoneNumberManager) RequestVerificationCode(phoneNumberId string,
 
 
 <a name="PhoneNumberManager.UpdateQrCode"></a>
-### func \(\*PhoneNumberManager\) [UpdateQrCode](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L323>)
+### func \(\*PhoneNumberManager\) [UpdateQrCode](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L372>)
 
 ```go
 func (manager *PhoneNumberManager) UpdateQrCode(phoneNumber, id, prefilledMessage string) (*GenerateQrCodeResponse, error)
@@ -2079,7 +2128,7 @@ func (manager *PhoneNumberManager) UpdateQrCode(phoneNumber, id, prefilledMessag
 UpdateQrCode updates a QR code by its ID for the specified phone number with the given prefilled message.
 
 <a name="PhoneNumberManager.VerifyCode"></a>
-### func \(\*PhoneNumberManager\) [VerifyCode](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L237>)
+### func \(\*PhoneNumberManager\) [VerifyCode](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L286>)
 
 ```go
 func (manager *PhoneNumberManager) VerifyCode(phoneNumberId, verificationCode string) (VerifyCodeResponse, error)
@@ -2088,7 +2137,7 @@ func (manager *PhoneNumberManager) VerifyCode(phoneNumberId, verificationCode st
 
 
 <a name="PhoneNumberManagerConfig"></a>
-## type [PhoneNumberManagerConfig](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L20-L24>)
+## type [PhoneNumberManagerConfig](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L22-L26>)
 
 PhoneNumberManagerConfig holds the configuration for PhoneNumberManager.
 
@@ -2343,7 +2392,7 @@ type Profile struct {
 ```
 
 <a name="RequestVerificationCodeResponse"></a>
-## type [RequestVerificationCodeResponse](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L219-L221>)
+## type [RequestVerificationCodeResponse](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L268-L270>)
 
 
 
@@ -2822,7 +2871,7 @@ const (
 ```
 
 <a name="VerifyCodeMethod"></a>
-## type [VerifyCodeMethod](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L212>)
+## type [VerifyCodeMethod](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L261>)
 
 
 
@@ -2840,7 +2889,7 @@ const (
 ```
 
 <a name="VerifyCodeResponse"></a>
-## type [VerifyCodeResponse](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L233-L235>)
+## type [VerifyCodeResponse](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L282-L284>)
 
 
 
@@ -2851,7 +2900,7 @@ type VerifyCodeResponse struct {
 ```
 
 <a name="WabaHealthStatus"></a>
-## type [WabaHealthStatus](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L90-L103>)
+## type [WabaHealthStatus](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L110-L123>)
 
 
 
@@ -2873,7 +2922,7 @@ type WabaHealthStatus struct {
 ```
 
 <a name="WabaOfficialBusinessAccount"></a>
-## type [WabaOfficialBusinessAccount](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L113-L115>)
+## type [WabaOfficialBusinessAccount](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L133-L135>)
 
 
 
@@ -2884,7 +2933,7 @@ type WabaOfficialBusinessAccount struct {
 ```
 
 <a name="WabaQualityScore"></a>
-## type [WabaQualityScore](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L105-L107>)
+## type [WabaQualityScore](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L125-L127>)
 
 
 
@@ -2895,7 +2944,7 @@ type WabaQualityScore struct {
 ```
 
 <a name="WabaThroughput"></a>
-## type [WabaThroughput](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L109-L111>)
+## type [WabaThroughput](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L129-L131>)
 
 
 
@@ -3226,7 +3275,7 @@ type WhatsappApiNotificationPayloadSchemaType struct {
 ```
 
 <a name="WhatsappBusinessAccountPhoneNumber"></a>
-## type [WhatsappBusinessAccountPhoneNumber](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L118-L145>)
+## type [WhatsappBusinessAccountPhoneNumber](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L138-L165>)
 
 WhatsappBusinessAccountPhoneNumber represents a WhatsApp Business Account phone number.
 
@@ -3262,7 +3311,7 @@ type WhatsappBusinessAccountPhoneNumber struct {
 ```
 
 <a name="WhatsappBusinessAccountPhoneNumberCodeVerificationStatus"></a>
-## type [WhatsappBusinessAccountPhoneNumberCodeVerificationStatus](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L35>)
+## type [WhatsappBusinessAccountPhoneNumberCodeVerificationStatus](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L37>)
 
 
 
@@ -3280,8 +3329,17 @@ const (
 )
 ```
 
+<a name="WhatsappBusinessAccountPhoneNumberCodeVerificationStatus.UnmarshalJSON"></a>
+### func \(\*WhatsappBusinessAccountPhoneNumberCodeVerificationStatus\) [UnmarshalJSON](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L47>)
+
+```go
+func (s *WhatsappBusinessAccountPhoneNumberCodeVerificationStatus) UnmarshalJSON(data []byte) error
+```
+
+UnmarshalJSON accepts the status as a string or as an object with a "status" field.
+
 <a name="WhatsappBusinessAccountPhoneNumberEdge"></a>
-## type [WhatsappBusinessAccountPhoneNumberEdge](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L148-L152>)
+## type [WhatsappBusinessAccountPhoneNumberEdge](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L168-L172>)
 
 WhatsappBusinessAccountPhoneNumberEdge represents a list of WhatsApp Business Account phone numbers.
 
@@ -3294,7 +3352,7 @@ type WhatsappBusinessAccountPhoneNumberEdge struct {
 ```
 
 <a name="WhatsappBusinessAccountPhoneNumberMessagingLimitTier"></a>
-## type [WhatsappBusinessAccountPhoneNumberMessagingLimitTier](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L43>)
+## type [WhatsappBusinessAccountPhoneNumberMessagingLimitTier](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L63>)
 
 
 
@@ -3316,7 +3374,7 @@ const (
 ```
 
 <a name="WhatsappBusinessAccountPhoneNumberNameStatus"></a>
-## type [WhatsappBusinessAccountPhoneNumberNameStatus](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L54>)
+## type [WhatsappBusinessAccountPhoneNumberNameStatus](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L74>)
 
 
 
@@ -3339,7 +3397,7 @@ const (
 ```
 
 <a name="WhatsappBusinessAccountPhoneNumberPlatformType"></a>
-## type [WhatsappBusinessAccountPhoneNumberPlatformType](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L66>)
+## type [WhatsappBusinessAccountPhoneNumberPlatformType](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L86>)
 
 
 
@@ -3358,7 +3416,7 @@ const (
 ```
 
 <a name="WhatsappBusinessAccountPhoneNumberStatus"></a>
-## type [WhatsappBusinessAccountPhoneNumberStatus](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L74>)
+## type [WhatsappBusinessAccountPhoneNumberStatus](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L94>)
 
 
 

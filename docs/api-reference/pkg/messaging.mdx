@@ -5,7 +5,7 @@ import "github.com/gTahidi/wabo/pkg/messaging"
 
 
 <a name="MessagingClient"></a>
-## type [MessagingClient](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L13-L20>)
+## type [MessagingClient](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L17-L24>)
 
 MessagingClient represents a WhatsApp client.
 
@@ -21,16 +21,25 @@ type MessagingClient struct {
 ```
 
 <a name="MessagingClient.Deregister"></a>
-### func \(\*MessagingClient\) [Deregister](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L62>)
+### func \(\*MessagingClient\) [Deregister](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L74>)
 
 ```go
 func (client *MessagingClient) Deregister() (RegisterResponse, error)
 ```
 
+Deregister removes the phone number from the Cloud API.
 
+<a name="MessagingClient.DeregisterContext"></a>
+### func \(\*MessagingClient\) [DeregisterContext](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L80>)
+
+```go
+func (client *MessagingClient) DeregisterContext(ctx context.Context) (RegisterResponse, error)
+```
+
+DeregisterContext is Deregister bounded by ctx. A Graph API error is returned as a \*graph.Error.
 
 <a name="MessagingClient.GetApiAccessToken"></a>
-### func \(\*MessagingClient\) [GetApiAccessToken](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L32>)
+### func \(\*MessagingClient\) [GetApiAccessToken](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L36>)
 
 ```go
 func (client *MessagingClient) GetApiAccessToken() string
@@ -39,7 +48,7 @@ func (client *MessagingClient) GetApiAccessToken() string
 
 
 <a name="MessagingClient.GetBusinessAccountId"></a>
-### func \(\*MessagingClient\) [GetBusinessAccountId](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L40>)
+### func \(\*MessagingClient\) [GetBusinessAccountId](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L44>)
 
 ```go
 func (client *MessagingClient) GetBusinessAccountId() string
@@ -48,7 +57,7 @@ func (client *MessagingClient) GetBusinessAccountId() string
 
 
 <a name="MessagingClient.GetPhoneNumberId"></a>
-### func \(\*MessagingClient\) [GetPhoneNumberId](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L23>)
+### func \(\*MessagingClient\) [GetPhoneNumberId](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L27>)
 
 ```go
 func (client *MessagingClient) GetPhoneNumberId() string
@@ -57,16 +66,34 @@ func (client *MessagingClient) GetPhoneNumberId() string
 GetPhoneNumberId returns the phone number ID associated with the client.
 
 <a name="MessagingClient.Register"></a>
-### func \(\*MessagingClient\) [Register](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L49>)
+### func \(\*MessagingClient\) [Register](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L55>)
 
 ```go
 func (client *MessagingClient) Register(pin string) (RegisterResponse, error)
 ```
 
-this register function is for one time registration of the phone number to enable the usage with WhatsApp Cloud API
+Register registers the phone number for use with the Cloud API. pin is the number's six\-digit two\-step verification PIN; an empty pin is omitted and Meta decides whether the request is valid.
+
+<a name="MessagingClient.RegisterContext"></a>
+### func \(\*MessagingClient\) [RegisterContext](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L61>)
+
+```go
+func (client *MessagingClient) RegisterContext(ctx context.Context, pin string) (RegisterResponse, error)
+```
+
+RegisterContext is Register bounded by ctx. A Graph API error is returned as a \*graph.Error.
+
+<a name="MessagingClient.RequestSMBAppDataSyncContext"></a>
+### func \(\*MessagingClient\) [RequestSMBAppDataSyncContext](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L141>)
+
+```go
+func (client *MessagingClient) RequestSMBAppDataSyncContext(ctx context.Context, syncType SMBSyncType) (SMBAppDataSyncResponse, error)
+```
+
+RequestSMBAppDataSyncContext asks Meta to sync WhatsApp Business app data for a coexistence number, bounded by ctx. Synced data arrives by webhook. A Graph API error is returned as a \*graph.Error.
 
 <a name="MessagingClient.SetApiAccessToken"></a>
-### func \(\*MessagingClient\) [SetApiAccessToken](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L36>)
+### func \(\*MessagingClient\) [SetApiAccessToken](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L40>)
 
 ```go
 func (client *MessagingClient) SetApiAccessToken(apiAccessToken string)
@@ -75,7 +102,7 @@ func (client *MessagingClient) SetApiAccessToken(apiAccessToken string)
 
 
 <a name="MessagingClient.SetPhoneNumberId"></a>
-### func \(\*MessagingClient\) [SetPhoneNumberId](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L28>)
+### func \(\*MessagingClient\) [SetPhoneNumberId](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L32>)
 
 ```go
 func (client *MessagingClient) SetPhoneNumberId(phoneNumberId string)
@@ -83,8 +110,17 @@ func (client *MessagingClient) SetPhoneNumberId(phoneNumberId string)
 
 SetPhoneNumberId sets the phone number ID for the client.
 
+<a name="MessagingClient.postPhoneNumberAction"></a>
+### func \(\*MessagingClient\) [postPhoneNumberAction](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L86>)
+
+```go
+func (client *MessagingClient) postPhoneNumberAction(ctx context.Context, action, body string) (RegisterResponse, error)
+```
+
+postPhoneNumberAction POSTs to /\{phone\_number\_id\}/\{action\} and decodes Meta's \{"success": bool\} response.
+
 <a name="RegisterResponse"></a>
-## type [RegisterResponse](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L44-L46>)
+## type [RegisterResponse](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L48-L50>)
 
 
 
@@ -92,5 +128,37 @@ SetPhoneNumberId sets the phone number ID for the client.
 type RegisterResponse struct {
     Success bool `json:"success"`
 }
+```
+
+<a name="SMBAppDataSyncResponse"></a>
+## type [SMBAppDataSyncResponse](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L133-L136>)
+
+SMBAppDataSyncResponse is Meta's response to a sync request.
+
+```go
+type SMBAppDataSyncResponse struct {
+    MessagingProduct string `json:"messaging_product"`
+    RequestId        string `json:"request_id"`
+}
+```
+
+<a name="SMBSyncType"></a>
+## type [SMBSyncType](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L123>)
+
+SMBSyncType selects the WhatsApp Business app data to sync for a coexistence number.
+
+```go
+type SMBSyncType string
+```
+
+<a name="SMBSyncTypeAppState"></a>
+
+```go
+const (
+    // SMBSyncTypeAppState syncs contacts from the WhatsApp Business app.
+    SMBSyncTypeAppState SMBSyncType = "SMB_APP_STATE_SYNC"
+    // SMBSyncTypeHistory syncs message history from the WhatsApp Business app.
+    SMBSyncTypeHistory SMBSyncType = "HISTORY"
+)
 ```
 

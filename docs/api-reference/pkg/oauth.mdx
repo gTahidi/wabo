@@ -1,0 +1,72 @@
+```go
+import "github.com/gTahidi/wabo/pkg/oauth"
+```
+
+Package oauth exchanges a Meta login authorization code, such as the one returned by Embedded Signup, for a business access token.
+
+
+
+## Constants
+
+<a name="SubcodeCodeExpired"></a>Meta error subcodes returned by the code exchange.
+
+```go
+const (
+    SubcodeCodeExpired         = 36007
+    SubcodeRedirectURIMismatch = 36008
+    SubcodeCodeAlreadyUsed     = 36009
+)
+```
+
+<a name="ExchangeCodeParams"></a>
+## type [ExchangeCodeParams](<https://github.com/gTahidi/wabo/blob/master/pkg/oauth/oauth.go#L26-L38>)
+
+ExchangeCodeParams holds the app credentials and the code to exchange.
+
+```go
+type ExchangeCodeParams struct {
+    AppID     string
+    AppSecret string
+    Code      string
+    // RedirectURI must match the one used to obtain Code; empty omits it.
+    RedirectURI string
+
+    // HTTPClient is used for the request; nil uses a shared client with a
+    // 30 second timeout.
+    HTTPClient *http.Client
+    // APIVersion selects the Graph API version; empty uses the SDK default.
+    APIVersion string
+}
+```
+
+<a name="Token"></a>
+## type [Token](<https://github.com/gTahidi/wabo/blob/master/pkg/oauth/oauth.go#L41-L45>)
+
+Token is an access token returned by the exchange.
+
+```go
+type Token struct {
+    AccessToken string `json:"access_token"`
+    TokenType   string `json:"token_type"`
+    ExpiresIn   int64  `json:"expires_in"`
+}
+```
+
+<a name="ExchangeCode"></a>
+### func [ExchangeCode](<https://github.com/gTahidi/wabo/blob/master/pkg/oauth/oauth.go#L59>)
+
+```go
+func ExchangeCode(ctx context.Context, params ExchangeCodeParams) (*Token, error)
+```
+
+ExchangeCode exchanges an authorization code for an access token, bounded by ctx. A Graph API error is returned as a \*graph.Error; branch on its ErrorSubcode using the Subcode constants.
+
+<a name="Token.ExpiresAt"></a>
+### func \(\*Token\) [ExpiresAt](<https://github.com/gTahidi/wabo/blob/master/pkg/oauth/oauth.go#L49>)
+
+```go
+func (t *Token) ExpiresAt(now time.Time) time.Time
+```
+
+ExpiresAt returns the expiry relative to now, or the zero time when Meta returned no expiry.
+

@@ -1,7 +1,9 @@
 package manager
 
 import (
+	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strings"
 
@@ -39,6 +41,24 @@ const (
 	WhatsappBusinessAccountPhoneNumberCodeVerificationStatusNotVerified WhatsappBusinessAccountPhoneNumberCodeVerificationStatus = "NOT_VERIFIED"
 	WhatsappBusinessAccountPhoneNumberCodeVerificationStatusExpired     WhatsappBusinessAccountPhoneNumberCodeVerificationStatus = "EXPIRED"
 )
+
+// UnmarshalJSON accepts the status as a string or as an object with a
+// "status" field.
+func (s *WhatsappBusinessAccountPhoneNumberCodeVerificationStatus) UnmarshalJSON(data []byte) error {
+	var str string
+	if err := json.Unmarshal(data, &str); err == nil {
+		*s = WhatsappBusinessAccountPhoneNumberCodeVerificationStatus(str)
+		return nil
+	}
+	var wrapped struct {
+		Status string `json:"status"`
+	}
+	if err := json.Unmarshal(data, &wrapped); err != nil {
+		return fmt.Errorf("decode code_verification_status: %w", err)
+	}
+	*s = WhatsappBusinessAccountPhoneNumberCodeVerificationStatus(wrapped.Status)
+	return nil
+}
 
 type WhatsappBusinessAccountPhoneNumberMessagingLimitTier string
 
@@ -151,22 +171,46 @@ type WhatsappBusinessAccountPhoneNumberEdge struct {
 	Summary string                                     `json:"summary,omitempty"`
 }
 
-// FetchAll fetches all phone numbers based on the provided filters.
+// DefaultPhoneNumberFields are requested when no fields are given.
+const DefaultPhoneNumberFields = "id,account_mode,certificate,code_verification_status,conversational_automation,display_phone_number,health_status,eligibility_for_api_business_global_search,is_official_business_account,is_on_biz_app,is_pin_enabled,is_preverified_number,last_onboarded_time,messaging_limit_tier,name_status,new_certificate,new_display_name,new_name_status,official_business_account,platform_type,quality_score,search_visibility,status,throughput,verified_name"
+
+// FetchPhoneNumbersOptions configures FetchAllContext.
+type FetchPhoneNumbersOptions struct {
+	// IncludeSandbox also returns sandbox numbers; otherwise only LIVE numbers are returned.
+	IncludeSandbox bool
+	// Fields lists the phone number fields to request; empty uses DefaultPhoneNumberFields.
+	Fields []string
+}
+
+func phoneNumberFields(fields []string) string {
+	if len(fields) == 0 {
+		return DefaultPhoneNumberFields
+	}
+	return strings.Join(fields, ",")
+}
+
+// FetchAll fetches the account's phone numbers. Sandbox numbers are included
+// when getSandBoxNumbers is set.
 func (manager *PhoneNumberManager) FetchAll(getSandBoxNumbers bool) (*WhatsappBusinessAccountPhoneNumberEdge, error) {
-	apiRequest := manager.requester.NewApiRequest(strings.Join([]string{manager.businessAccountId, "/", "phone_numbers"}, ""), http.MethodGet)
+	return manager.FetchAllContext(context.Background(), FetchPhoneNumbersOptions{IncludeSandbox: getSandBoxNumbers})
+}
 
-	apiRequest.AddQueryParam("fields", "id,account_mode,certificate,code_verification_status,conversational_automation,display_phone_number,health_status,eligibility_for_api_business_global_search,is_official_business_account,is_on_biz_app,is_pin_enabled,is_preverified_number,last_onboarded_time,messaging_limit_tier,name_status,new_certificate,new_display_name,new_name_status,official_business_account,platform_type,quality_score,search_visibility,status,throughput,verified_name")
-	apiRequest.AddQueryParam("filtering", `[{"field":"account_mode","operator":"EQUAL","value":"LIVE"}]`)
-	response, err := apiRequest.Execute()
-
+// FetchAllContext fetches the account's phone numbers, bounded by ctx.
+// A Graph API error is returned as a *graph.Error.
+func (manager *PhoneNumberManager) FetchAllContext(ctx context.Context, options FetchPhoneNumbersOptions) (*WhatsappBusinessAccountPhoneNumberEdge, error) {
+	apiRequest := manager.requester.NewApiRequest(strings.Join([]string{manager.businessAccountId, "phone_numbers"}, "/"), http.MethodGet)
+	apiRequest.AddQueryParam("fields", phoneNumberFields(options.Fields))
+	if !options.IncludeSandbox {
+		apiRequest.AddQueryParam("filtering", `[{"field":"account_mode","operator":"EQUAL","value":"LIVE"}]`)
+	}
+	response, err := apiRequest.ExecuteContext(ctx)
 	if err != nil {
 		return nil, err
 	}
 
 	var responseToReturn WhatsappBusinessAccountPhoneNumberEdge
-	err = json.Unmarshal([]byte(response), &responseToReturn)
-	if err != nil {
-		return nil, err
+	if err := json.Unmarshal([]byte(response), &responseToReturn); err != nil {
+		return nil, fmt.Errorf("decode phone numbers: %w", err)
 	}
 
 	return &responseToReturn, nil
@@ -174,18 +218,23 @@ func (manager *PhoneNumberManager) FetchAll(getSandBoxNumbers bool) (*WhatsappBu
 
 // Fetch fetches a phone number by its ID.
 func (manager *PhoneNumberManager) Fetch(phoneNumberId string) (*WhatsappBusinessAccountPhoneNumber, error) {
-	apiRequest := manager.requester.NewApiRequest(phoneNumberId, http.MethodGet)
-	apiRequest.AddQueryParam("fields", "id,account_mode,certificate,code_verification_status,conversational_automation,display_phone_number,health_status,eligibility_for_api_business_global_search,is_official_business_account,is_on_biz_app,is_pin_enabled,is_preverified_number,last_onboarded_time,messaging_limit_tier,name_status,new_certificate,new_display_name,new_name_status,official_business_account,platform_type,quality_score,search_visibility,status,throughput,verified_name")
-	response, err := apiRequest.Execute()
+	return manager.FetchContext(context.Background(), phoneNumberId)
+}
 
+// FetchContext fetches a phone number by its ID, bounded by ctx. fields
+// lists the fields to request; none uses DefaultPhoneNumberFields.
+// A Graph API error is returned as a *graph.Error.
+func (manager *PhoneNumberManager) FetchContext(ctx context.Context, phoneNumberId string, fields ...string) (*WhatsappBusinessAccountPhoneNumber, error) {
+	apiRequest := manager.requester.NewApiRequest(phoneNumberId, http.MethodGet)
+	apiRequest.AddQueryParam("fields", phoneNumberFields(fields))
+	response, err := apiRequest.ExecuteContext(ctx)
 	if err != nil {
 		return nil, err
 	}
 
 	var responseToReturn WhatsappBusinessAccountPhoneNumber
-	err = json.Unmarshal([]byte(response), &responseToReturn)
-	if err != nil {
-		return nil, err
+	if err := json.Unmarshal([]byte(response), &responseToReturn); err != nil {
+		return nil, fmt.Errorf("decode phone number: %w", err)
 	}
 
 	return &responseToReturn, nil

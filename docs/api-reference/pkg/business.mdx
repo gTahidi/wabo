@@ -5,7 +5,7 @@ import "github.com/gTahidi/wabo/pkg/business"
 
 
 <a name="AccountAnalyticsOptions"></a>
-## type [AccountAnalyticsOptions](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L119-L128>)
+## type [AccountAnalyticsOptions](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L198-L207>)
 
 
 
@@ -23,7 +23,7 @@ type AccountAnalyticsOptions struct {
 ```
 
 <a name="AnalyticsDataPoint"></a>
-## type [AnalyticsDataPoint](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L130-L135>)
+## type [AnalyticsDataPoint](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L209-L214>)
 
 
 
@@ -37,7 +37,7 @@ type AnalyticsDataPoint struct {
 ```
 
 <a name="AnalyticsRequestGranularityType"></a>
-## type [AnalyticsRequestGranularityType](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L104>)
+## type [AnalyticsRequestGranularityType](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L183>)
 
 
 
@@ -56,7 +56,7 @@ const (
 ```
 
 <a name="BusinessClient"></a>
-## type [BusinessClient](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L16-L23>)
+## type [BusinessClient](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L19-L26>)
 
 BusinessClient is responsible for managing business account related operations.
 
@@ -72,7 +72,7 @@ type BusinessClient struct {
 ```
 
 <a name="NewBusinessClient"></a>
-### func [NewBusinessClient](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L33>)
+### func [NewBusinessClient](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L36>)
 
 ```go
 func NewBusinessClient(config *BusinessClientConfig) *BusinessClient
@@ -81,7 +81,7 @@ func NewBusinessClient(config *BusinessClientConfig) *BusinessClient
 NewBusinessClient creates a new instance of BusinessClient.
 
 <a name="BusinessClient.ConversationAnalytics"></a>
-### func \(\*BusinessClient\) [ConversationAnalytics](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L287>)
+### func \(\*BusinessClient\) [ConversationAnalytics](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L366>)
 
 ```go
 func (client *BusinessClient) ConversationAnalytics(options ConversationAnalyticsOptions) (*WhatsAppConversationAnalyticsResponse, error)
@@ -90,7 +90,7 @@ func (client *BusinessClient) ConversationAnalytics(options ConversationAnalytic
 ConversationAnalytics fetches the conversation analytics for the business account.
 
 <a name="BusinessClient.Fetch"></a>
-### func \(\*BusinessClient\) [Fetch](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L91>)
+### func \(\*BusinessClient\) [Fetch](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L94>)
 
 ```go
 func (client *BusinessClient) Fetch() (*FetchBusinessAccountResponse, error)
@@ -99,7 +99,7 @@ func (client *BusinessClient) Fetch() (*FetchBusinessAccountResponse, error)
 This method fetches the business account details.
 
 <a name="BusinessClient.FetchAnalytics"></a>
-### func \(\*BusinessClient\) [FetchAnalytics](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L145>)
+### func \(\*BusinessClient\) [FetchAnalytics](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L224>)
 
 ```go
 func (client *BusinessClient) FetchAnalytics(options AccountAnalyticsOptions) (WhatsappBusinessAccountAnalyticsResponse, error)
@@ -107,8 +107,26 @@ func (client *BusinessClient) FetchAnalytics(options AccountAnalyticsOptions) (W
 
 FetchAnalytics fetches the analytics for the business account.
 
+<a name="BusinessClient.FetchBusinessPortfolioContext"></a>
+### func \(\*BusinessClient\) [FetchBusinessPortfolioContext](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L126>)
+
+```go
+func (client *BusinessClient) FetchBusinessPortfolioContext(ctx context.Context, businessId string) (*BusinessPortfolio, error)
+```
+
+FetchBusinessPortfolioContext fetches the id and name of a business portfolio, bounded by ctx. A Graph API error is returned as a \*graph.Error.
+
+<a name="BusinessClient.FetchContext"></a>
+### func \(\*BusinessClient\) [FetchContext](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L110>)
+
+```go
+func (client *BusinessClient) FetchContext(ctx context.Context, fields ...string) (*FetchBusinessAccountResponse, error)
+```
+
+FetchContext fetches the business account, bounded by ctx. fields lists the fields to request; none returns Graph's default fields. A Graph API error is returned as a \*graph.Error.
+
 <a name="BusinessClient.GetBusinessId"></a>
-### func \(\*BusinessClient\) [GetBusinessId](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L56>)
+### func \(\*BusinessClient\) [GetBusinessId](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L59>)
 
 ```go
 func (bc *BusinessClient) GetBusinessId() string
@@ -117,7 +135,7 @@ func (bc *BusinessClient) GetBusinessId() string
 GetBusinessId returns the business account ID.
 
 <a name="BusinessClient.SetBusinessId"></a>
-### func \(\*BusinessClient\) [SetBusinessId](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L61>)
+### func \(\*BusinessClient\) [SetBusinessId](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L64>)
 
 ```go
 func (bc *BusinessClient) SetBusinessId(id string)
@@ -125,8 +143,26 @@ func (bc *BusinessClient) SetBusinessId(id string)
 
 SetBusinessId sets the business account ID.
 
+<a name="BusinessClient.SubscribeApp"></a>
+### func \(\*BusinessClient\) [SubscribeApp](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L150>)
+
+```go
+func (client *BusinessClient) SubscribeApp() error
+```
+
+SubscribeApp subscribes the calling app to the business account's webhooks.
+
+<a name="BusinessClient.SubscribeAppContext"></a>
+### func \(\*BusinessClient\) [SubscribeAppContext](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L156>)
+
+```go
+func (client *BusinessClient) SubscribeAppContext(ctx context.Context) error
+```
+
+SubscribeAppContext is SubscribeApp bounded by ctx. A Graph API error is returned as a \*graph.Error.
+
 <a name="BusinessClient.TemplateAnalytics"></a>
-### func \(\*BusinessClient\) [TemplateAnalytics](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L463>)
+### func \(\*BusinessClient\) [TemplateAnalytics](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L542>)
 
 ```go
 func (client *BusinessClient) TemplateAnalytics(options TemplateAnalyticsOptions) (*TemplateAnalyticsResponse, error)
@@ -134,8 +170,17 @@ func (client *BusinessClient) TemplateAnalytics(options TemplateAnalyticsOptions
 
 TemplateAnalytics fetches the template analytics for the business account.
 
+<a name="BusinessClient.fetchNode"></a>
+### func \(\*BusinessClient\) [fetchNode](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L137>)
+
+```go
+func (client *BusinessClient) fetchNode(ctx context.Context, id string, fields []string, out any) error
+```
+
+
+
 <a name="BusinessClientConfig"></a>
-## type [BusinessClientConfig](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L26-L30>)
+## type [BusinessClientConfig](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L29-L33>)
 
 BusinessClientConfig holds the configuration for BusinessClient.
 
@@ -147,8 +192,20 @@ type BusinessClientConfig struct {
 }
 ```
 
+<a name="BusinessPortfolio"></a>
+## type [BusinessPortfolio](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L119-L122>)
+
+BusinessPortfolio is a Meta business portfolio \(the Business that owns WABAs\).
+
+```go
+type BusinessPortfolio struct {
+    Id   string `json:"id"`
+    Name string `json:"name"`
+}
+```
+
 <a name="BusinessRole"></a>
-## type [BusinessRole](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L383>)
+## type [BusinessRole](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L462>)
 
 
 
@@ -175,7 +232,7 @@ const (
 ```
 
 <a name="ConversationAnalyticsGranularityType"></a>
-## type [ConversationAnalyticsGranularityType](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L226>)
+## type [ConversationAnalyticsGranularityType](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L305>)
 
 
 
@@ -194,7 +251,7 @@ const (
 ```
 
 <a name="ConversationAnalyticsOptions"></a>
-## type [ConversationAnalyticsOptions](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L234-L246>)
+## type [ConversationAnalyticsOptions](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L313-L325>)
 
 
 
@@ -215,7 +272,7 @@ type ConversationAnalyticsOptions struct {
 ```
 
 <a name="ConversationCategoryType"></a>
-## type [ConversationCategoryType](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L192>)
+## type [ConversationCategoryType](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L271>)
 
 
 
@@ -235,7 +292,7 @@ const (
 ```
 
 <a name="ConversationDimensionType"></a>
-## type [ConversationDimensionType](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L216>)
+## type [ConversationDimensionType](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L295>)
 
 
 
@@ -256,7 +313,7 @@ const (
 ```
 
 <a name="ConversationDirection"></a>
-## type [ConversationDirection](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L209>)
+## type [ConversationDirection](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L288>)
 
 
 
@@ -274,7 +331,7 @@ const (
 ```
 
 <a name="ConversationType"></a>
-## type [ConversationType](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L201>)
+## type [ConversationType](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L280>)
 
 
 
@@ -293,7 +350,7 @@ const (
 ```
 
 <a name="FetchBusinessAccountResponse"></a>
-## type [FetchBusinessAccountResponse](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L79-L88>)
+## type [FetchBusinessAccountResponse](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L82-L91>)
 
 
 
@@ -311,7 +368,7 @@ type FetchBusinessAccountResponse struct {
 ```
 
 <a name="Paging"></a>
-## type [Paging](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L270-L275>)
+## type [Paging](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L349-L354>)
 
 
 
@@ -325,7 +382,7 @@ type Paging struct {
 ```
 
 <a name="TemplateAnalyticsClick"></a>
-## type [TemplateAnalyticsClick](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L429-L433>)
+## type [TemplateAnalyticsClick](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L508-L512>)
 
 
 
@@ -338,7 +395,7 @@ type TemplateAnalyticsClick struct {
 ```
 
 <a name="TemplateAnalyticsCost"></a>
-## type [TemplateAnalyticsCost](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L424-L427>)
+## type [TemplateAnalyticsCost](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L503-L506>)
 
 
 
@@ -350,7 +407,7 @@ type TemplateAnalyticsCost struct {
 ```
 
 <a name="TemplateAnalyticsData"></a>
-## type [TemplateAnalyticsData](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L446-L450>)
+## type [TemplateAnalyticsData](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L525-L529>)
 
 
 
@@ -363,7 +420,7 @@ type TemplateAnalyticsData struct {
 ```
 
 <a name="TemplateAnalyticsDataPoint"></a>
-## type [TemplateAnalyticsDataPoint](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L435-L444>)
+## type [TemplateAnalyticsDataPoint](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L514-L523>)
 
 
 
@@ -381,7 +438,7 @@ type TemplateAnalyticsDataPoint struct {
 ```
 
 <a name="TemplateAnalyticsGranularityType"></a>
-## type [TemplateAnalyticsGranularityType](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L399>)
+## type [TemplateAnalyticsGranularityType](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L478>)
 
 
 
@@ -398,7 +455,7 @@ const (
 ```
 
 <a name="TemplateAnalyticsMetricType"></a>
-## type [TemplateAnalyticsMetricType](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L405>)
+## type [TemplateAnalyticsMetricType](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L484>)
 
 
 
@@ -419,7 +476,7 @@ const (
 ```
 
 <a name="TemplateAnalyticsOptions"></a>
-## type [TemplateAnalyticsOptions](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L415-L422>)
+## type [TemplateAnalyticsOptions](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L494-L501>)
 
 
 
@@ -435,7 +492,7 @@ type TemplateAnalyticsOptions struct {
 ```
 
 <a name="TemplateAnalyticsResponse"></a>
-## type [TemplateAnalyticsResponse](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L452-L460>)
+## type [TemplateAnalyticsResponse](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L531-L539>)
 
 
 
@@ -452,7 +509,7 @@ type TemplateAnalyticsResponse struct {
 ```
 
 <a name="WhatsAppBusinessAccountAnalyticsProductType"></a>
-## type [WhatsAppBusinessAccountAnalyticsProductType](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L112>)
+## type [WhatsAppBusinessAccountAnalyticsProductType](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L191>)
 
 
 
@@ -470,7 +527,7 @@ const (
 ```
 
 <a name="WhatsAppConversationAnalyticsDimension"></a>
-## type [WhatsAppConversationAnalyticsDimension](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L260-L263>)
+## type [WhatsAppConversationAnalyticsDimension](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L339-L342>)
 
 
 
@@ -482,7 +539,7 @@ type WhatsAppConversationAnalyticsDimension struct {
 ```
 
 <a name="WhatsAppConversationAnalyticsEdge"></a>
-## type [WhatsAppConversationAnalyticsEdge](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L265-L268>)
+## type [WhatsAppConversationAnalyticsEdge](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L344-L347>)
 
 
 
@@ -494,7 +551,7 @@ type WhatsAppConversationAnalyticsEdge struct {
 ```
 
 <a name="WhatsAppConversationAnalyticsNode"></a>
-## type [WhatsAppConversationAnalyticsNode](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L248-L258>)
+## type [WhatsAppConversationAnalyticsNode](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L327-L337>)
 
 
 
@@ -513,7 +570,7 @@ type WhatsAppConversationAnalyticsNode struct {
 ```
 
 <a name="WhatsAppConversationAnalyticsPayload"></a>
-## type [WhatsAppConversationAnalyticsPayload](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L277-L280>)
+## type [WhatsAppConversationAnalyticsPayload](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L356-L359>)
 
 
 
@@ -525,7 +582,7 @@ type WhatsAppConversationAnalyticsPayload struct {
 ```
 
 <a name="WhatsAppConversationAnalyticsResponse"></a>
-## type [WhatsAppConversationAnalyticsResponse](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L282-L284>)
+## type [WhatsAppConversationAnalyticsResponse](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L361-L363>)
 
 
 
@@ -536,7 +593,7 @@ type WhatsAppConversationAnalyticsResponse struct {
 ```
 
 <a name="WhatsappBusinessAccount"></a>
-## type [WhatsappBusinessAccount](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L66-L77>)
+## type [WhatsappBusinessAccount](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L69-L80>)
 
 WhatsappBusinessAccount represents a WhatsApp Business Account.
 
@@ -556,7 +613,7 @@ type WhatsappBusinessAccount struct {
 ```
 
 <a name="WhatsappBusinessAccountAnalyticsResponse"></a>
-## type [WhatsappBusinessAccountAnalyticsResponse](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L137-L142>)
+## type [WhatsappBusinessAccountAnalyticsResponse](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L216-L221>)
 
 
 
