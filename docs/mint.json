@@ -5,15 +5,10 @@
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
   },
-  "analytics": {
-    "gtm": {
-      "tagId": "G-7756LGPVG9"
-    }
-  },
   "metadata": {
     "title": "Wabo",
     "description": "Wabo is a Golang SDK, developed to build whatsapp business apps with ease and faster.",
-    "author": "Sarthak Jain <sarthak@softlancer.co>"
+    "author": "Wabo contributors"
   },
   "search": {
     "prompt": "Search documentation..."
@@ -52,16 +47,6 @@
       "name": "Star us on GitHub",
       "icon": "github",
       "url": "https://github.com/gTahidi/wabo"
-    },
-    {
-      "name": "Sign up for WapiKit",
-      "icon": "code",
-      "url": "https://app.wapikit.com"
-    },
-    {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://join.slack.com/t/wapikit/shared_invite/zt-2kl7eg29s-4DfP9lFwojQg_yCcyW_w6Q"
     }
   ],
   "navigation": [
@@ -113,7 +98,7 @@
     {
       "group": "Others",
       "pages": [
-        "guide/wapijs-sdk-scope",
+        "guide/sdk-scope",
         "guide/references",
         "guide/contributing",
         "guide/contact"
@@ -126,13 +111,11 @@
         "api-reference/pkg/components",
         "api-reference/pkg/events",
         "api-reference/pkg/business",
-        "api-reference/internal/manager"
+        "api-reference/manager"
       ]
     }
   ],
   "footerSocials": {
-    "x": "https://x.com/wapikit",
-    "github": "https://github.com/gTahidi/wabo",
-    "linkedin": "https://www.linkedin.com/company/wapikit"
+    "github": "https://github.com/gTahidi/wabo"
   }
 }

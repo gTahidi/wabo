@@ -87,8 +87,8 @@ func main() {
 
 	contactMessage, err := waboComponents.NewContactMessage([]waboComponents.Contact{
 		*waboComponents.NewContact(waboComponents.ContactName{
-			FormattedName: "Sarthak Jain",
-			FirstName:     "Sarthak",
+			FormattedName: "Alex Example",
+			FirstName:     "Alex",
 		})})
 
 	if err != nil {

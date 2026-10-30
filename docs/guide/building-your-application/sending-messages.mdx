@@ -1,32 +1,21 @@
 ---
 title: Sending Messages
-description: Learn how to send messages using the Wabo SDK
 ---
 
-<Tip>Check the architecture [guide](/guide/building-your-application/sdk-architecture) once before moving ahead with this send message guide.</Tip>
-
-Wabo SDK provides a simple and easy to use classes architecture to send messages. You can send message of following types using the Wabo SDK:
-
-## Send a message
-
-You can send a message to a user using the `send` method available on the messaging client on main client cloud api manager. Here is an example of how you can send a message:
-
-
+Create a messaging client for the business phone number ID, then send a component:
 
 ```go
-// assuming you already have initiated the client 
-const textMessage = new TextMessage({
-    text: 'Hello, how are you?'
-})
-
-// send a message
-const response = await whatsappClient.message.send({
-    to: '919876543210',
-    message: textMessagew
-})
+messaging := client.NewMessagingClient(phoneNumberID)
+response, err := messaging.Message.Send(message, recipientPhoneNumber)
+if err != nil {
+    return err
+}
+messageID := response.MessageID()
 ```
 
-<Warning>The .send() method is a asynchronous method and returns a promise of response which can either be a success response or a error response. It is suggested to acknowledge the response, as calling the .send() method does not gurantees the message has been sent, there may be some API error which may lead to message not being sent, the SDK does not retries the message, it is the application login responsibility to add retry mechanism. However, if you think this should be added to the SDK itlsef, you are invited to open a issue on the github repository of the SDK. </Warning>
+Use `SendContext` to supply a context and deadline. A successful response means
+Meta accepted the request; use delivery-status webhook events to track delivery.
+Calls return Go values and errors. Applications decide whether an operation can
+safely be retried without sending a duplicate message.
 
-
-
+See the [message manager reference](/api-reference/manager).
