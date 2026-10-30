@@ -1,0 +1,149 @@
+```go
+import "github.com/gTahidi/wabo/pkg/graph"
+```
+
+Package graph holds the typed error returned when the Graph API answers with a non\-2xx status, so callers can decide whether to retry, refresh the access token, or give up.
+
+Meta recommends handling errors by code and error\_data.details; error\_subcode is deprecated from v16.0. See https://developers.facebook.com/docs/whatsapp/cloud-api/support/error-codes
+
+
+
+## Constants
+
+<a name="CodeTemporarilyUnavailable"></a>Codes Meta documents as temporary: the same request may succeed later.
+
+```go
+const (
+    CodeTemporarilyUnavailable = 2
+    CodeAppRateLimit           = 4
+    CodeWABARateLimit          = 80007
+    CodeThroughputLimit        = 130429
+    CodeUnknown                = 131000
+    CodeServiceUnavailable     = 131016
+    CodePairRateLimit          = 131056
+    CodeServerUnavailable      = 133004
+    CodeMaintenanceMode        = 2494100
+)
+```
+
+<a name="CodeAuthUnknown"></a>Codes for an access token that is expired or no longer valid.
+
+```go
+const (
+    CodeAuthUnknown  = 0
+    CodeTokenExpired = 190
+)
+```
+
+<a name="CodeInvalidParameter"></a>Codes callers commonly branch on.
+
+```go
+const (
+    CodeInvalidParameter         = 100
+    CodeUndeliverable            = 131026
+    CodeReEngagementRequired     = 131047
+    CodeEcosystemEngagement      = 131049
+    CodeMarketingOptOut          = 131050
+    CodeTemplateParamMismatch    = 132000
+    CodeTemplateNotFound         = 132001
+    CodeTemplatePaused           = 132015
+    CodeTemplateDisabled         = 132016
+    CodeBusinessBlockedUser      = 130403
+    CodeSpamRateLimit            = 131048
+    CodeUnsupportedMessageType   = 131051
+    CodePhoneNumberNotRegistered = 133010
+)
+```
+
+<a name="CodeNotGraphError"></a>CodeNotGraphError marks an \*Error built from a non\-2xx response whose body was not a Graph error envelope \(e.g. a proxy error page\).
+
+```go
+const CodeNotGraphError = -1
+```
+
+<a name="HasCode"></a>
+## func [HasCode](<https://github.com/gTahidi/wabo/blob/master/pkg/graph/errors.go#L129>)
+
+```go
+func HasCode(err error, codes ...int) bool
+```
+
+HasCode reports whether err is a Graph error with one of the given codes.
+
+<a name="IsTemporary"></a>
+## func [IsTemporary](<https://github.com/gTahidi/wabo/blob/master/pkg/graph/errors.go#L123>)
+
+```go
+func IsTemporary(err error) bool
+```
+
+IsTemporary reports whether err is a Graph error that may succeed on retry.
+
+<a name="Error"></a>
+## type [Error](<https://github.com/gTahidi/wabo/blob/master/pkg/graph/errors.go#L18-L32>)
+
+Error is a Graph API error response.
+
+```go
+type Error struct {
+    // HTTPStatus is the HTTP status code of the response.
+    HTTPStatus int    `json:"-"`
+    Message    string `json:"message"`
+    Type       string `json:"type"`
+    Code       int    `json:"code"`
+    ErrorData  struct {
+        MessagingProduct string `json:"messaging_product"`
+        Details          string `json:"details"`
+    }   `json:"error_data"`
+    // ErrorSubcode is deprecated by Meta and not returned from v16.0.
+    ErrorSubcode int    `json:"error_subcode"`
+    ErrorUserMsg string `json:"error_user_msg"`
+    FbtraceID    string `json:"fbtrace_id"`
+}
+```
+
+<a name="AsError"></a>
+### func [AsError](<https://github.com/gTahidi/wabo/blob/master/pkg/graph/errors.go#L114>)
+
+```go
+func AsError(err error) (*Error, bool)
+```
+
+AsError returns the \*Error in err's chain, if any.
+
+<a name="Parse"></a>
+### func [Parse](<https://github.com/gTahidi/wabo/blob/master/pkg/graph/errors.go#L144>)
+
+```go
+func Parse(status int, body []byte) *Error
+```
+
+Parse builds an \*Error from a non\-2xx response body. A body that is not a Graph error envelope still yields an \*Error carrying the HTTP status.
+
+<a name="Error.Error"></a>
+### func \(\*Error\) [Error](<https://github.com/gTahidi/wabo/blob/master/pkg/graph/errors.go#L34>)
+
+```go
+func (e *Error) Error() string
+```
+
+
+
+<a name="Error.Temporary"></a>
+### func \(\*Error\) [Temporary](<https://github.com/gTahidi/wabo/blob/master/pkg/graph/errors.go#L92>)
+
+```go
+func (e *Error) Temporary() bool
+```
+
+Temporary reports whether Meta documents the error as one to retry later: rate limits, throughput limits and service unavailability. 5xx responses without a recognised code are also treated as temporary.
+
+<a name="Error.TokenInvalid"></a>
+### func \(\*Error\) [TokenInvalid](<https://github.com/gTahidi/wabo/blob/master/pkg/graph/errors.go#L103>)
+
+```go
+func (e *Error) TokenInvalid() bool
+```
+
+TokenInvalid reports whether the access token has expired or been invalidated, so a new token is needed before retrying.
+

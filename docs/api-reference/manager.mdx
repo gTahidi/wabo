@@ -1,11 +1,38 @@
 ```go
-import "github.com/gTahidi/wapi.go/manager"
+import "github.com/gTahidi/wabo/manager"
 ```
 
 
 
+<a name="VerifyWebhookSignature"></a>
+## func [VerifyWebhookSignature](<https://github.com/gTahidi/wabo/blob/master/manager/webhook_manager.go#L87>)
+
+```go
+func VerifyWebhookSignature(rawBody []byte, signatureHeader, appSecret string) bool
+```
+
+VerifyWebhookSignature reports whether signatureHeader \(the X\-Hub\-Signature\-256 header, "sha256=\<hex\>"\) is the HMAC\-SHA256 of rawBody keyed with the Meta app secret. The comparison is constant\-time.
+
+<a name="entryTime"></a>
+## func [entryTime](<https://github.com/gTahidi/wabo/blob/master/manager/webhook_manager.go#L334>)
+
+```go
+func entryTime(t *json.Number) string
+```
+
+entryTime returns the entry's unix time as a string, or "" when Meta omitted it.
+
+<a name="validateCatalogAndMPMButtons"></a>
+## func [validateCatalogAndMPMButtons](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L252>)
+
+```go
+func validateCatalogAndMPMButtons(components []WhatsappMessageTemplateComponentCreateOrUpdateRequestBody) error
+```
+
+validateCatalogAndMPMButtons ensures CATALOG and MPM buttons have required params and disallow unsupported fields.
+
 <a name="AccountAlertSeverityEnum"></a>
-## type AccountAlertSeverityEnum
+## type [AccountAlertSeverityEnum](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L346>)
 
 
 
@@ -23,7 +50,7 @@ const (
 ```
 
 <a name="AccountAlertsValue"></a>
-## type AccountAlertsValue
+## type [AccountAlertsValue](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L353-L360>)
 
 
 
@@ -39,7 +66,7 @@ type AccountAlertsValue struct {
 ```
 
 <a name="AccountReviewUpdateValue"></a>
-## type AccountReviewUpdateValue
+## type [AccountReviewUpdateValue](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L392-L394>)
 
 
 
@@ -50,7 +77,7 @@ type AccountReviewUpdateValue struct {
 ```
 
 <a name="AccountUpdateBanInfo"></a>
-## type AccountUpdateBanInfo
+## type [AccountUpdateBanInfo](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L364-L367>)
 
 
 
@@ -62,7 +89,7 @@ type AccountUpdateBanInfo struct {
 ```
 
 <a name="AccountUpdateEventEnum"></a>
-## type AccountUpdateEventEnum
+## type [AccountUpdateEventEnum](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L362>)
 
 
 
@@ -84,7 +111,7 @@ const (
 ```
 
 <a name="AccountUpdateRestrictionInfo"></a>
-## type AccountUpdateRestrictionInfo
+## type [AccountUpdateRestrictionInfo](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L369-L372>)
 
 
 
@@ -96,7 +123,7 @@ type AccountUpdateRestrictionInfo struct {
 ```
 
 <a name="AccountUpdateValue"></a>
-## type AccountUpdateValue
+## type [AccountUpdateValue](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L387-L390>)
 
 
 
@@ -108,7 +135,7 @@ type AccountUpdateValue struct {
 ```
 
 <a name="AccountUpdateViolationInfo"></a>
-## type AccountUpdateViolationInfo
+## type [AccountUpdateViolationInfo](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L374-L376>)
 
 
 
@@ -119,7 +146,7 @@ type AccountUpdateViolationInfo struct {
 ```
 
 <a name="AdInteractionSourceMediaTypeEnum"></a>
-## type AdInteractionSourceMediaTypeEnum
+## type [AdInteractionSourceMediaTypeEnum](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L212>)
 
 
 
@@ -137,7 +164,7 @@ const (
 ```
 
 <a name="AdInteractionSourceTypeEnum"></a>
-## type AdInteractionSourceTypeEnum
+## type [AdInteractionSourceTypeEnum](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L205>)
 
 
 
@@ -154,7 +181,7 @@ const (
 ```
 
 <a name="Applinks"></a>
-## type Applinks
+## type [Applinks](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L41-L43>)
 
 
 
@@ -165,7 +192,7 @@ type Applinks struct {
 ```
 
 <a name="BusinessCapabilityUpdateValue"></a>
-## type BusinessCapabilityUpdateValue
+## type [BusinessCapabilityUpdateValue](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L396-L399>)
 
 
 
@@ -177,7 +204,7 @@ type BusinessCapabilityUpdateValue struct {
 ```
 
 <a name="CapabilityReview"></a>
-## type CapabilityReview
+## type [CapabilityReview](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L50-L53>)
 
 
 
@@ -189,7 +216,7 @@ type CapabilityReview struct {
 ```
 
 <a name="Catalog"></a>
-## type Catalog
+## type [Catalog](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L229-L261>)
 
 Update Catalog to use \[\]ProductItem for Products.
 
@@ -230,7 +257,7 @@ type Catalog struct {
 ```
 
 <a name="CatalogFetchResponseEdge"></a>
-## type CatalogFetchResponseEdge
+## type [CatalogFetchResponseEdge](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L263-L266>)
 
 
 
@@ -242,7 +269,7 @@ type CatalogFetchResponseEdge struct {
 ```
 
 <a name="CatalogManager"></a>
-## type CatalogManager
+## type [CatalogManager](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L18-L21>)
 
 
 
@@ -254,7 +281,7 @@ type CatalogManager struct {
 ```
 
 <a name="NewCatalogManager"></a>
-### func NewCatalogManager
+### func [NewCatalogManager](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L28>)
 
 ```go
 func NewCatalogManager(config *CatalogManagerConfig) *CatalogManager
@@ -262,26 +289,91 @@ func NewCatalogManager(config *CatalogManagerConfig) *CatalogManager
 
 
 
+<a name="CatalogManager.AssociateCatalog"></a>
+### func \(\*CatalogManager\) [AssociateCatalog](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L422>)
+
+```go
+func (cm *CatalogManager) AssociateCatalog(catalogId string) (bool, error)
+```
+
+AssociateCatalog associates an existing product catalog to this business account \(WABA\). Endpoint: POST /\{business\_account\_id\}/product\_catalogs Body: \{ "catalog\_id": "\<catalog\_id\>" \} Returns true on success.
+
+<a name="CatalogManager.BatchUpsertProductItems"></a>
+### func \(\*CatalogManager\) [BatchUpsertProductItems](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L740>)
+
+```go
+func (cm *CatalogManager) BatchUpsertProductItems(catalogId string, items []map[string]interface{}) ([]ProductItem, map[int]error)
+```
+
+BatchUpsertProductItems performs multiple upserts sequentially. Returns the successfully upserted items and a map of index\-\>error for failures.
+
+<a name="CatalogManager.CreateCatalog"></a>
+### func \(\*CatalogManager\) [CreateCatalog](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L772>)
+
+```go
+func (cm *CatalogManager) CreateCatalog(name string, vertical string) (*Catalog, error)
+```
+
+CreateCatalog creates a new product catalog for the business account. vertical: "commerce" or "ecommerce" \(default: "commerce"\) Returns the created catalog with ID and name. CreateCatalog creates a new product catalog owned by the business account. vertical: "commerce" or "ecommerce" \(default: "commerce"\) Note: The business must accept Meta Commerce Terms of Service \(TOS\) in Business Manager before this endpoint can succeed. Returns the created catalog with ID and name.
+
 <a name="CatalogManager.CreateNewProductCatalog"></a>
-### func \(\*CatalogManager\) CreateNewProductCatalog
+### func \(\*CatalogManager\) [CreateNewProductCatalog](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L412>)
 
 ```go
 func (cm *CatalogManager) CreateNewProductCatalog() (CreateProductCatalogOptions, error)
 ```
 
+Deprecated: CreateNewProductCatalog misused the Graph API by calling POST /\{business\_account\_id\}/product\_catalogs without a body. That endpoint does not create a catalog; it associates an EXISTING catalog with the WhatsApp Business Account and requires a catalog\_id in the request body.
 
+Use CreateCatalog to create a new catalog owned by the business \(POST /\{business\_account\_id\}/owned\_product\_catalogs\) and AssociateCatalog to link an existing catalog to this business account.
+
+<a name="CatalogManager.CreateProductFeed"></a>
+### func \(\*CatalogManager\) [CreateProductFeed](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L677>)
+
+```go
+func (cm *CatalogManager) CreateProductFeed(catalogId string, name string) (*ProductFeed, error)
+```
+
+CreateProductFeed creates a product feed without a schedule \(for immediate CSV uploads\). Use UploadFeedCSV or UploadFeedCSVFromURL afterwards to ingest data.
+
+<a name="CatalogManager.CreateScheduledProductFeed"></a>
+### func \(\*CatalogManager\) [CreateScheduledProductFeed](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L622-L629>)
+
+```go
+func (cm *CatalogManager) CreateScheduledProductFeed(catalogId string, name string, schedule ProductFeedSchedule, updateOnly bool, ingestionSourceType string, primaryFeedIds []string) (*ProductFeed, error)
+```
+
+
+
+<a name="CatalogManager.DeleteCatalog"></a>
+### func \(\*CatalogManager\) [DeleteCatalog](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L898>)
+
+```go
+func (cm *CatalogManager) DeleteCatalog(catalogId string) error
+```
+
+DeleteCatalog deletes a catalog by ID.
 
 <a name="CatalogManager.GetAllCatalogs"></a>
-### func \(\*CatalogManager\) GetAllCatalogs
+### func \(\*CatalogManager\) [GetAllCatalogs](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L272>)
 
 ```go
 func (cm *CatalogManager) GetAllCatalogs() (*CatalogFetchResponseEdge, error)
 ```
 
+GetAllCatalogs retrieves catalogs linked to this WhatsApp Business Account via association \(i.e., /\{business\_account\_id\}/product\_catalogs\). Note: This is not the same as listing all catalogs OWNED by the business. For owned catalogs, use ListOwnedCatalogs.
 
+<a name="CatalogManager.GetCatalog"></a>
+### func \(\*CatalogManager\) [GetCatalog](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L820>)
+
+```go
+func (cm *CatalogManager) GetCatalog(catalogId string, fields string) (*Catalog, error)
+```
+
+GetCatalog retrieves a catalog by ID with optional fields. fields: comma\-separated list of fields to retrieve \(e.g., "id,name,product\_count,vertical"\)
 
 <a name="CatalogManager.GetCatalogProducts"></a>
-### func \(\*CatalogManager\) GetCatalogProducts
+### func \(\*CatalogManager\) [GetCatalogProducts](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L307>)
 
 ```go
 func (cm *CatalogManager) GetCatalogProducts(catalogId string) ([]ProductItem, error)
@@ -289,8 +381,116 @@ func (cm *CatalogManager) GetCatalogProducts(catalogId string) ([]ProductItem, e
 
 GetCatalogProducts retrieves the list of products for a given catalog.
 
+<a name="CatalogManager.GetFeedUploadErrorReport"></a>
+### func \(\*CatalogManager\) [GetFeedUploadErrorReport](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L602>)
+
+```go
+func (cm *CatalogManager) GetFeedUploadErrorReport(uploadId string) (*FeedUploadErrorReportResponse, error)
+```
+
+
+
+<a name="CatalogManager.GetFeedUploadErrors"></a>
+### func \(\*CatalogManager\) [GetFeedUploadErrors](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L570>)
+
+```go
+func (cm *CatalogManager) GetFeedUploadErrors(uploadId string) ([]FeedUploadError, error)
+```
+
+
+
+<a name="CatalogManager.GetFeedUploadStatus"></a>
+### func \(\*CatalogManager\) [GetFeedUploadStatus](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L555>)
+
+```go
+func (cm *CatalogManager) GetFeedUploadStatus(uploadId string) (*FeedUploadErrorReportResponse, error)
+```
+
+
+
+<a name="CatalogManager.ListFeedUploads"></a>
+### func \(\*CatalogManager\) [ListFeedUploads](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L539>)
+
+```go
+func (cm *CatalogManager) ListFeedUploads(feedId string) ([]FeedUploadSession, error)
+```
+
+
+
+<a name="CatalogManager.ListOwnedCatalogs"></a>
+### func \(\*CatalogManager\) [ListOwnedCatalogs](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L842>)
+
+```go
+func (cm *CatalogManager) ListOwnedCatalogs() ([]Catalog, error)
+```
+
+ListOwnedCatalogs retrieves all catalogs owned by the business account. Returns a simplified list of catalogs with basic information.
+
+<a name="CatalogManager.ListProductFeeds"></a>
+### func \(\*CatalogManager\) [ListProductFeeds](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L456>)
+
+```go
+func (cm *CatalogManager) ListProductFeeds(catalogId string) ([]ProductFeed, error)
+```
+
+ListProductFeeds lists product feeds for a given catalog.
+
+<a name="CatalogManager.RequestFeedUploadErrorReport"></a>
+### func \(\*CatalogManager\) [RequestFeedUploadErrorReport](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L586>)
+
+```go
+func (cm *CatalogManager) RequestFeedUploadErrorReport(uploadId string) (bool, error)
+```
+
+
+
+<a name="CatalogManager.UpdateCatalog"></a>
+### func \(\*CatalogManager\) [UpdateCatalog](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L862>)
+
+```go
+func (cm *CatalogManager) UpdateCatalog(catalogId string, name string) (*Catalog, error)
+```
+
+UpdateCatalog updates a catalog's name.
+
+<a name="CatalogManager.UpdateProductImages"></a>
+### func \(\*CatalogManager\) [UpdateProductImages](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L755>)
+
+```go
+func (cm *CatalogManager) UpdateProductImages(catalogId, retailerId, imageURL string, additionalImageURLs []string) (*ProductItem, error)
+```
+
+UpdateProductImages updates image\_url and additional\_image\_urls for a retailer\_id.
+
+<a name="CatalogManager.UploadFeedCSV"></a>
+### func \(\*CatalogManager\) [UploadFeedCSV](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L473>)
+
+```go
+func (cm *CatalogManager) UploadFeedCSV(feedId string, file io.Reader, filename, mimeType string, updateOnly bool) (*FeedUploadResponse, error)
+```
+
+UploadFeedCSV uploads a CSV file to a product feed using multipart/form\-data.
+
+<a name="CatalogManager.UploadFeedCSVFromURL"></a>
+### func \(\*CatalogManager\) [UploadFeedCSVFromURL](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L515>)
+
+```go
+func (cm *CatalogManager) UploadFeedCSVFromURL(feedId, csvURL string, updateOnly bool) (*FeedUploadResponse, error)
+```
+
+
+
+<a name="CatalogManager.UpsertProductItem"></a>
+### func \(\*CatalogManager\) [UpsertProductItem](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L719>)
+
+```go
+func (cm *CatalogManager) UpsertProductItem(catalogId string, fields map[string]interface{}) (*ProductItem, error)
+```
+
+UpsertProductItem updates or creates a product item using Meta's format. fields should include at least retailer\_id, name, price, currency, image\_url, availability, etc.
+
 <a name="CatalogManagerConfig"></a>
-## type CatalogManagerConfig
+## type [CatalogManagerConfig](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L23-L26>)
 
 
 
@@ -302,7 +502,7 @@ type CatalogManagerConfig struct {
 ```
 
 <a name="Change"></a>
-## type Change
+## type [Change](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L420-L423>)
 
 
 
@@ -313,8 +513,17 @@ type Change struct {
 }
 ```
 
+<a name="Change.UnmarshalJSON"></a>
+### func \(\*Change\) [UnmarshalJSON](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L408>)
+
+```go
+func (change *Change) UnmarshalJSON(data []byte) error
+```
+
+UnmarshalJSON retains the original change value without float64 conversion.
+
 <a name="ChannelEvent"></a>
-## type ChannelEvent
+## type [ChannelEvent](<https://github.com/gTahidi/wabo/blob/master/manager/event_manager.go#L11-L14>)
 
 ChannelEvent represents an event that can be published and subscribed to.
 
@@ -326,7 +535,7 @@ type ChannelEvent struct {
 ```
 
 <a name="Contact"></a>
-## type Contact
+## type [Contact](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L227-L230>)
 
 
 
@@ -338,7 +547,7 @@ type Contact struct {
 ```
 
 <a name="Conversation"></a>
-## type Conversation
+## type [Conversation](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L450-L453>)
 
 
 
@@ -349,8 +558,37 @@ type Conversation struct {
 }
 ```
 
+<a name="CreateFlowRequest"></a>
+## type [CreateFlowRequest](<https://github.com/gTahidi/wabo/blob/master/manager/flow_manager.go#L103-L110>)
+
+
+
+```go
+type CreateFlowRequest struct {
+    Name        string         `json:"name" validate:"required"`
+    Categories  []FlowCategory `json:"categories" validate:"required,min=1"`
+    FlowJSON    string         `json:"flow_json,omitempty"`
+    Publish     bool           `json:"publish,omitempty"`
+    CloneFlowID string         `json:"clone_flow_id,omitempty"`
+    EndpointURI string         `json:"endpoint_uri,omitempty"`
+}
+```
+
+<a name="CreateFlowResponse"></a>
+## type [CreateFlowResponse](<https://github.com/gTahidi/wabo/blob/master/manager/flow_manager.go#L111-L115>)
+
+
+
+```go
+type CreateFlowResponse struct {
+    ID               string                `json:"id"`
+    Success          bool                  `json:"success"`
+    ValidationErrors []FlowValidationError `json:"validation_errors,omitempty"`
+}
+```
+
 <a name="CreatePhoneNumberResponse"></a>
-## type CreatePhoneNumberResponse
+## type [CreatePhoneNumberResponse](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L194-L196>)
 
 
 
@@ -361,7 +599,7 @@ type CreatePhoneNumberResponse struct {
 ```
 
 <a name="CreateProductCatalogOptions"></a>
-## type CreateProductCatalogOptions
+## type [CreateProductCatalogOptions](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L400-L402>)
 
 
 
@@ -372,7 +610,7 @@ type CreateProductCatalogOptions struct {
 ```
 
 <a name="DeleteQrCodeResponse"></a>
-## type DeleteQrCodeResponse
+## type [DeleteQrCodeResponse](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L305-L307>)
 
 DeleteQrCodeResponse represents the response of deleting a QR code.
 
@@ -383,7 +621,7 @@ type DeleteQrCodeResponse struct {
 ```
 
 <a name="DeleteSuccessResponse"></a>
-## type DeleteSuccessResponse
+## type [DeleteSuccessResponse](<https://github.com/gTahidi/wabo/blob/master/manager/media_manager.go#L63-L65>)
 
 
 
@@ -394,7 +632,7 @@ type DeleteSuccessResponse struct {
 ```
 
 <a name="Entry"></a>
-## type Entry
+## type [Entry](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L241-L247>)
 
 
 
@@ -402,12 +640,14 @@ type DeleteSuccessResponse struct {
 type Entry struct {
     Id      string   `json:"id"`
     Changes []Change `json:"changes"`
-    Time    *string  `json:"time"`
+    // Time is the unix time of the change. Meta sends a number; a numeric
+    // string is also accepted.
+    Time *json.Number `json:"time"`
 }
 ```
 
 <a name="Error"></a>
-## type Error
+## type [Error](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L503-L511>)
 
 
 
@@ -424,7 +664,7 @@ type Error struct {
 ```
 
 <a name="EventManager"></a>
-## type EventManager
+## type [EventManager](<https://github.com/gTahidi/wabo/blob/master/manager/event_manager.go#L17-L20>)
 
 EventManager is responsible for managing events and their subscribers.
 
@@ -436,7 +676,7 @@ type EventManager struct {
 ```
 
 <a name="NewEventManager"></a>
-### func NewEventManager
+### func [NewEventManager](<https://github.com/gTahidi/wabo/blob/master/manager/event_manager.go#L23>)
 
 ```go
 func NewEventManager() *EventManager
@@ -445,7 +685,7 @@ func NewEventManager() *EventManager
 NewEventManager creates a new instance of EventManger.
 
 <a name="EventManager.On"></a>
-### func \(\*EventManager\) On
+### func \(\*EventManager\) [On](<https://github.com/gTahidi/wabo/blob/master/manager/event_manager.go#L69>)
 
 ```go
 func (em *EventManager) On(eventName events.EventType, handler func(events.BaseEvent)) events.EventType
@@ -454,7 +694,7 @@ func (em *EventManager) On(eventName events.EventType, handler func(events.BaseE
 On registers a handler function for the specified event type. The handler function will be called whenever the event is published. It returns the event type that the handler is registered for.
 
 <a name="EventManager.Publish"></a>
-### func \(\*EventManager\) Publish
+### func \(\*EventManager\) [Publish](<https://github.com/gTahidi/wabo/blob/master/manager/event_manager.go#L49>)
 
 ```go
 func (em *EventManager) Publish(event events.EventType, data events.BaseEvent) error
@@ -463,7 +703,7 @@ func (em *EventManager) Publish(event events.EventType, data events.BaseEvent) e
 Publish publishes an event to the event system and notifies all the subscribers.
 
 <a name="EventManager.Subscribe"></a>
-### func \(\*EventManager\) Subscribe
+### func \(\*EventManager\) [Subscribe](<https://github.com/gTahidi/wabo/blob/master/manager/event_manager.go#L31>)
 
 ```go
 func (em *EventManager) Subscribe(eventName events.EventType) (chan ChannelEvent, error)
@@ -472,7 +712,7 @@ func (em *EventManager) Subscribe(eventName events.EventType) (chan ChannelEvent
 Subscribe adds a new subscriber to the specified event type. The subscriber will be notified when the event is published.
 
 <a name="EventManager.Unsubscribe"></a>
-### func \(\*EventManager\) Unsubscribe
+### func \(\*EventManager\) [Unsubscribe](<https://github.com/gTahidi/wabo/blob/master/manager/event_manager.go#L42>)
 
 ```go
 func (em *EventManager) Unsubscribe(id events.EventType)
@@ -480,8 +720,352 @@ func (em *EventManager) Unsubscribe(id events.EventType)
 
 Unsubscribe removes a subscriber from the specified event type.
 
+<a name="FeedUpload"></a>
+## type [FeedUpload](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L72-L79>)
+
+FeedUpload represents a single upload attempt and its status/diagnostics.
+
+```go
+type FeedUpload struct {
+    Id           string   `json:"id,omitempty"`
+    Status       string   `json:"status,omitempty"`
+    Errors       []string `json:"errors,omitempty"`
+    ErrorMessage string   `json:"error_message,omitempty"`
+    CreatedTime  string   `json:"created_time,omitempty"`
+    LastUpdated  string   `json:"last_updated_time,omitempty"`
+}
+```
+
+<a name="FeedUploadError"></a>
+## type [FeedUploadError](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L102-L110>)
+
+FeedUploadError represents an individual ingestion error/warning.
+
+```go
+type FeedUploadError struct {
+    Id          string `json:"id"`
+    Summary     string `json:"summary"`
+    Description string `json:"description"`
+    Severity    string `json:"severity"` // fatal | warning
+    Samples     struct {
+        Data []FeedUploadErrorSample `json:"data"`
+    }   `json:"samples"`
+}
+```
+
+<a name="FeedUploadErrorReport"></a>
+## type [FeedUploadErrorReport](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L113-L116>)
+
+FeedUploadErrorReport represents the generated error report metadata.
+
+```go
+type FeedUploadErrorReport struct {
+    ReportStatus string `json:"report_status,omitempty"`
+    FileHandle   string `json:"file_handle,omitempty"`
+}
+```
+
+<a name="FeedUploadErrorReportResponse"></a>
+## type [FeedUploadErrorReportResponse](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L118-L121>)
+
+
+
+```go
+type FeedUploadErrorReportResponse struct {
+    ErrorReport FeedUploadErrorReport `json:"error_report,omitempty"`
+    Id          string                `json:"id,omitempty"`
+}
+```
+
+<a name="FeedUploadErrorSample"></a>
+## type [FeedUploadErrorSample](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L95-L99>)
+
+FeedUploadErrorSample represents a row sample in an error entry.
+
+```go
+type FeedUploadErrorSample struct {
+    RowNumber  int    `json:"row_number"`
+    RetailerId string `json:"retailer_id"`
+    Id         string `json:"id"`
+}
+```
+
+<a name="FeedUploadResponse"></a>
+## type [FeedUploadResponse](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L82-L85>)
+
+FeedUploadResponse wraps basic responses for CSV upload operations.
+
+```go
+type FeedUploadResponse struct {
+    Id     string `json:"id,omitempty"`
+    Status string `json:"status,omitempty"`
+}
+```
+
+<a name="FeedUploadSession"></a>
+## type [FeedUploadSession](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L88-L92>)
+
+FeedUploadSession represents an upload session listing entry \(start/end time\).
+
+```go
+type FeedUploadSession struct {
+    Id        string `json:"id"`
+    StartTime string `json:"start_time,omitempty"`
+    EndTime   string `json:"end_time,omitempty"`
+}
+```
+
+<a name="FlowCategory"></a>
+## type [FlowCategory](<https://github.com/gTahidi/wabo/blob/master/manager/flow_manager.go#L16>)
+
+FlowCategory represents the category of a WhatsApp Flow
+
+```go
+type FlowCategory string
+```
+
+<a name="FlowCategorySignUp"></a>
+
+```go
+const (
+    FlowCategorySignUp             FlowCategory = "SIGN_UP"
+    FlowCategorySignIn             FlowCategory = "SIGN_IN"
+    FlowCategoryAppointmentBooking FlowCategory = "APPOINTMENT_BOOKING"
+    FlowCategoryLeadGeneration     FlowCategory = "LEAD_GENERATION"
+    FlowCategoryContactUs          FlowCategory = "CONTACT_US"
+    FlowCategoryCustomerSupport    FlowCategory = "CUSTOMER_SUPPORT"
+    FlowCategorySurvey             FlowCategory = "SURVEY"
+    FlowCategoryOther              FlowCategory = "OTHER"
+)
+```
+
+<a name="FlowHealthStatus"></a>
+## type [FlowHealthStatus](<https://github.com/gTahidi/wabo/blob/master/manager/flow_manager.go#L55-L58>)
+
+
+
+```go
+type FlowHealthStatus struct {
+    CanSend  bool                     `json:"can_send"`
+    Entities []FlowHealthStatusEntity `json:"entities,omitempty"`
+}
+```
+
+<a name="FlowHealthStatusEntity"></a>
+## type [FlowHealthStatusEntity](<https://github.com/gTahidi/wabo/blob/master/manager/flow_manager.go#L59-L65>)
+
+
+
+```go
+type FlowHealthStatusEntity struct {
+    EntityType     string   `json:"entity_type"`
+    ID             string   `json:"id"`
+    CanSend        bool     `json:"can_send"`
+    Errors         []string `json:"errors,omitempty"`
+    AdditionalInfo string   `json:"additional_info,omitempty"`
+}
+```
+
+<a name="FlowManager"></a>
+## type [FlowManager](<https://github.com/gTahidi/wabo/blob/master/manager/flow_manager.go#L84-L88>)
+
+
+
+```go
+type FlowManager struct {
+    businessAccountId string
+    apiAccessToken    string
+    requester         *request_client.RequestClient
+}
+```
+
+<a name="NewFlowManager"></a>
+### func [NewFlowManager](<https://github.com/gTahidi/wabo/blob/master/manager/flow_manager.go#L95>)
+
+```go
+func NewFlowManager(config *FlowManagerConfig) *FlowManager
+```
+
+
+
+<a name="FlowManager.Create"></a>
+### func \(\*FlowManager\) [Create](<https://github.com/gTahidi/wabo/blob/master/manager/flow_manager.go#L117>)
+
+```go
+func (m *FlowManager) Create(req CreateFlowRequest) (*CreateFlowResponse, error)
+```
+
+
+
+<a name="FlowManager.Delete"></a>
+### func \(\*FlowManager\) [Delete](<https://github.com/gTahidi/wabo/blob/master/manager/flow_manager.go#L275>)
+
+```go
+func (m *FlowManager) Delete(flowID string) error
+```
+
+
+
+<a name="FlowManager.Deprecate"></a>
+### func \(\*FlowManager\) [Deprecate](<https://github.com/gTahidi/wabo/blob/master/manager/flow_manager.go#L265>)
+
+```go
+func (m *FlowManager) Deprecate(flowID string) error
+```
+
+
+
+<a name="FlowManager.Fetch"></a>
+### func \(\*FlowManager\) [Fetch](<https://github.com/gTahidi/wabo/blob/master/manager/flow_manager.go#L161>)
+
+```go
+func (m *FlowManager) Fetch(flowID string) (*FlowNode, error)
+```
+
+
+
+<a name="FlowManager.FetchAll"></a>
+### func \(\*FlowManager\) [FetchAll](<https://github.com/gTahidi/wabo/blob/master/manager/flow_manager.go#L142>)
+
+```go
+func (m *FlowManager) FetchAll() (*FlowsListResponse, error)
+```
+
+
+
+<a name="FlowManager.GetFlowJSON"></a>
+### func \(\*FlowManager\) [GetFlowJSON](<https://github.com/gTahidi/wabo/blob/master/manager/flow_manager.go#L282>)
+
+```go
+func (m *FlowManager) GetFlowJSON(flowID string) (string, error)
+```
+
+
+
+<a name="FlowManager.Publish"></a>
+### func \(\*FlowManager\) [Publish](<https://github.com/gTahidi/wabo/blob/master/manager/flow_manager.go#L255>)
+
+```go
+func (m *FlowManager) Publish(flowID string) error
+```
+
+
+
+<a name="FlowManager.Update"></a>
+### func \(\*FlowManager\) [Update](<https://github.com/gTahidi/wabo/blob/master/manager/flow_manager.go#L185>)
+
+```go
+func (m *FlowManager) Update(flowID string, req UpdateFlowRequest) error
+```
+
+
+
+<a name="FlowManager.UploadFlowJSON"></a>
+### func \(\*FlowManager\) [UploadFlowJSON](<https://github.com/gTahidi/wabo/blob/master/manager/flow_manager.go#L206>)
+
+```go
+func (m *FlowManager) UploadFlowJSON(flowID string, flowJSON string) (*UploadFlowJSONResponse, error)
+```
+
+UploadFlowJSON uploads or updates the Flow JSON for an existing flow. Meta API requires multipart/form\-data for the /\{FLOW\_ID\}/assets endpoint.
+
+<a name="FlowManagerConfig"></a>
+## type [FlowManagerConfig](<https://github.com/gTahidi/wabo/blob/master/manager/flow_manager.go#L89-L93>)
+
+
+
+```go
+type FlowManagerConfig struct {
+    BusinessAccountId string
+    ApiAccessToken    string
+    Requester         *request_client.RequestClient
+}
+```
+
+<a name="FlowNode"></a>
+## type [FlowNode](<https://github.com/gTahidi/wabo/blob/master/manager/flow_manager.go#L67-L78>)
+
+
+
+```go
+type FlowNode struct {
+    ID               string                `json:"id"`
+    Name             string                `json:"name"`
+    Status           FlowStatus            `json:"status"`
+    Categories       []FlowCategory        `json:"categories"`
+    ValidationErrors []FlowValidationError `json:"validation_errors,omitempty"`
+    JSONVersion      string                `json:"json_version,omitempty"`
+    DataAPIVersion   string                `json:"data_api_version,omitempty"`
+    EndpointURI      string                `json:"endpoint_uri,omitempty"`
+    Preview          *FlowPreview          `json:"preview,omitempty"`
+    HealthStatus     *FlowHealthStatus     `json:"health_status,omitempty"`
+}
+```
+
+<a name="FlowPreview"></a>
+## type [FlowPreview](<https://github.com/gTahidi/wabo/blob/master/manager/flow_manager.go#L50-L53>)
+
+
+
+```go
+type FlowPreview struct {
+    PreviewURL string `json:"preview_url"`
+    ExpiresAt  string `json:"expires_at"`
+}
+```
+
+<a name="FlowStatus"></a>
+## type [FlowStatus](<https://github.com/gTahidi/wabo/blob/master/manager/flow_manager.go#L30>)
+
+FlowStatus represents the status of a WhatsApp Flow
+
+```go
+type FlowStatus string
+```
+
+<a name="FlowStatusDraft"></a>
+
+```go
+const (
+    FlowStatusDraft      FlowStatus = "DRAFT"
+    FlowStatusPublished  FlowStatus = "PUBLISHED"
+    FlowStatusDeprecated FlowStatus = "DEPRECATED"
+    FlowStatusBlocked    FlowStatus = "BLOCKED"
+    FlowStatusThrottled  FlowStatus = "THROTTLED"
+)
+```
+
+<a name="FlowValidationError"></a>
+## type [FlowValidationError](<https://github.com/gTahidi/wabo/blob/master/manager/flow_manager.go#L40-L48>)
+
+
+
+```go
+type FlowValidationError struct {
+    Error       string `json:"error"`
+    ErrorType   string `json:"error_type"`
+    Message     string `json:"message"`
+    LineStart   int    `json:"line_start,omitempty"`
+    LineEnd     int    `json:"line_end,omitempty"`
+    ColumnStart int    `json:"column_start,omitempty"`
+    ColumnEnd   int    `json:"column_end,omitempty"`
+}
+```
+
+<a name="FlowsListResponse"></a>
+## type [FlowsListResponse](<https://github.com/gTahidi/wabo/blob/master/manager/flow_manager.go#L80-L83>)
+
+
+
+```go
+type FlowsListResponse struct {
+    Data   []FlowNode                                 `json:"data"`
+    Paging internal.WhatsAppBusinessApiPaginationMeta `json:"paging,omitempty"`
+}
+```
+
 <a name="GenerateQrCodeResponse"></a>
-## type GenerateQrCodeResponse
+## type [GenerateQrCodeResponse](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L247-L252>)
 
 GenerateQrCodeResponse represents the response of generating a QR code.
 
@@ -495,7 +1079,7 @@ type GenerateQrCodeResponse struct {
 ```
 
 <a name="GetAllQrCodesResponse"></a>
-## type GetAllQrCodesResponse
+## type [GetAllQrCodesResponse](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L275-L277>)
 
 GetAllQrCodesResponse represents the response of getting all QR codes for a phone number.
 
@@ -506,22 +1090,24 @@ type GetAllQrCodesResponse struct {
 ```
 
 <a name="HandleMessageSubscriptionEventPayload"></a>
-## type HandleMessageSubscriptionEventPayload
+## type [HandleMessageSubscriptionEventPayload](<https://github.com/gTahidi/wabo/blob/master/manager/webhook_manager.go#L369-L377>)
 
 
 
 ```go
 type HandleMessageSubscriptionEventPayload struct {
+    Contacts          []Contact                  `json:"contacts"`
     Messages          []Message                  `json:"messages"`
     Statuses          []Status                   `json:"statuses"`
     PhoneNumber       events.BusinessPhoneNumber `json:"phone_number_id"`     // * this is the phone number to which this event has bee sent to
     BusinessAccountId string                     `json:"business_account_id"` // * business account id to which this event has been sent to
     SenderName        string                     `json:"sender_name"`
+    UserActions       []UserAction               `json:"user_actions"`
 }
 ```
 
 <a name="ImageCdnUrl"></a>
-## type ImageCdnUrl
+## type [ImageCdnUrl](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L55-L58>)
 
 
 
@@ -533,7 +1119,7 @@ type ImageCdnUrl struct {
 ```
 
 <a name="InteractiveNotificationTypeEnum"></a>
-## type InteractiveNotificationTypeEnum
+## type [InteractiveNotificationTypeEnum](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L198>)
 
 
 
@@ -551,7 +1137,7 @@ const (
 ```
 
 <a name="KeyValue"></a>
-## type KeyValue
+## type [KeyValue](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L36-L39>)
 
 New helper type for key/value pairs.
 
@@ -562,8 +1148,22 @@ type KeyValue struct {
 }
 ```
 
+<a name="MarketingMessagesLinkClickData"></a>
+## type [MarketingMessagesLinkClickData](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L537-L542>)
+
+MarketingMessagesLinkClickData contains link click details from the webhook
+
+```go
+type MarketingMessagesLinkClickData struct {
+    ClickComponent string `json:"click_component"`
+    ProductId      string `json:"product_id,omitempty"`
+    ClickId        string `json:"click_id,omitempty"`
+    TrackingToken  string `json:"tracking_token,omitempty"`
+}
+```
+
 <a name="MediaManager"></a>
-## type MediaManager
+## type [MediaManager](<https://github.com/gTahidi/wabo/blob/master/manager/media_manager.go#L20-L22>)
 
 MediaManager is responsible for managing media related operations.
 
@@ -574,7 +1174,7 @@ type MediaManager struct {
 ```
 
 <a name="NewMediaManager"></a>
-### func NewMediaManager
+### func [NewMediaManager](<https://github.com/gTahidi/wabo/blob/master/manager/media_manager.go#L25>)
 
 ```go
 func NewMediaManager(requester request_client.RequestClient) *MediaManager
@@ -582,8 +1182,17 @@ func NewMediaManager(requester request_client.RequestClient) *MediaManager
 
 NewMediaManager creates a new instance of MediaManager.
 
+<a name="MediaManager.CreateResumableUploadSession"></a>
+### func \(\*MediaManager\) [CreateResumableUploadSession](<https://github.com/gTahidi/wabo/blob/master/manager/media_manager.go#L153>)
+
+```go
+func (mm *MediaManager) CreateResumableUploadSession(appID string, fileLength int64, fileType string) (string, error)
+```
+
+CreateResumableUploadSession creates a new resumable upload session for template media. This is used to upload media files that will be used in message template headers. appID is your Meta App ID, fileLength is the size in bytes, fileType is the MIME type \(e.g., "image/png"\). Returns the upload session ID.
+
 <a name="MediaManager.DeleteMedia"></a>
-### func \(\*MediaManager\) DeleteMedia
+### func \(\*MediaManager\) [DeleteMedia](<https://github.com/gTahidi/wabo/blob/master/manager/media_manager.go#L67>)
 
 ```go
 func (mm *MediaManager) DeleteMedia(id string) (string, error)
@@ -592,7 +1201,7 @@ func (mm *MediaManager) DeleteMedia(id string) (string, error)
 
 
 <a name="MediaManager.GetMediaUrlById"></a>
-### func \(\*MediaManager\) GetMediaUrlById
+### func \(\*MediaManager\) [GetMediaUrlById](<https://github.com/gTahidi/wabo/blob/master/manager/media_manager.go#L40>)
 
 ```go
 func (mm *MediaManager) GetMediaUrlById(id string) (string, error)
@@ -601,7 +1210,7 @@ func (mm *MediaManager) GetMediaUrlById(id string) (string, error)
 
 
 <a name="MediaManager.UploadMedia"></a>
-### func \(\*MediaManager\) UploadMedia
+### func \(\*MediaManager\) [UploadMedia](<https://github.com/gTahidi/wabo/blob/master/manager/media_manager.go#L90>)
 
 ```go
 func (mm *MediaManager) UploadMedia(phoneNumberId string, file io.Reader, filename, mimeType string) (string, error)
@@ -609,8 +1218,26 @@ func (mm *MediaManager) UploadMedia(phoneNumberId string, file io.Reader, filena
 
 UploadMedia uploads a media file to WhatsApp's Cloud API.
 
+<a name="MediaManager.UploadMediaForTemplate"></a>
+### func \(\*MediaManager\) [UploadMediaForTemplate](<https://github.com/gTahidi/wabo/blob/master/manager/media_manager.go#L239>)
+
+```go
+func (mm *MediaManager) UploadMediaForTemplate(appID string, fileData []byte, fileType string) (string, error)
+```
+
+UploadMediaForTemplate uploads a file and returns a handle suitable for use in template header\_handle. This is a convenience method that combines CreateResumableUploadSession and UploadResumableMedia. appID is your Meta App ID, fileData is the raw file bytes, fileType is the MIME type.
+
+<a name="MediaManager.UploadResumableMedia"></a>
+### func \(\*MediaManager\) [UploadResumableMedia](<https://github.com/gTahidi/wabo/blob/master/manager/media_manager.go#L190>)
+
+```go
+func (mm *MediaManager) UploadResumableMedia(sessionID string, fileData []byte, fileOffset int64) (string, error)
+```
+
+UploadResumableMedia uploads file data to an existing upload session. sessionID is the upload session ID from CreateResumableUploadSession. fileData is the raw file bytes, fileOffset is the starting byte offset \(usually 0\). Returns the media handle to use in template header\_handle.
+
 <a name="MediaMetadata"></a>
-## type MediaMetadata
+## type [MediaMetadata](<https://github.com/gTahidi/wabo/blob/master/manager/media_manager.go#L31-L38>)
 
 
 
@@ -626,12 +1253,13 @@ type MediaMetadata struct {
 ```
 
 <a name="Message"></a>
-## type Message
+## type [Message](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L480-L501>)
 
 
 
 ```go
 type Message struct {
+    RawMessage                                      json.RawMessage                             `json:"-"`
     Id                                              string                                      `json:"id"`
     From                                            string                                      `json:"from"`
     Timestamp                                       string                                      `json:"timestamp"`
@@ -654,8 +1282,17 @@ type Message struct {
 }
 ```
 
+<a name="Message.UnmarshalJSON"></a>
+### func \(\*Message\) [UnmarshalJSON](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L469>)
+
+```go
+func (message *Message) UnmarshalJSON(data []byte) error
+```
+
+UnmarshalJSON preserves the complete inbound payload alongside typed fields.
+
 <a name="MessageManager"></a>
-## type MessageManager
+## type [MessageManager](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L16-L19>)
 
 MessageManager is responsible for managing messages.
 
@@ -667,7 +1304,7 @@ type MessageManager struct {
 ```
 
 <a name="NewMessageManager"></a>
-### func NewMessageManager
+### func [NewMessageManager](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L22>)
 
 ```go
 func NewMessageManager(requester request_client.RequestClient, phoneNumberId string) *MessageManager
@@ -675,8 +1312,62 @@ func NewMessageManager(requester request_client.RequestClient, phoneNumberId str
 
 NewMessageManager creates a new instance of MessageManager.
 
+<a name="MessageManager.ReadMessageOnly"></a>
+### func \(\*MessageManager\) [ReadMessageOnly](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L195>)
+
+```go
+func (mm *MessageManager) ReadMessageOnly(messageId string) error
+```
+
+ReadMessageOnly marks a message as read without showing typing indicator. This is a convenience method for ReadMessage\(messageId, false\).
+
+<a name="MessageManager.ReadMessageOnlyContext"></a>
+### func \(\*MessageManager\) [ReadMessageOnlyContext](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L200>)
+
+```go
+func (mm *MessageManager) ReadMessageOnlyContext(ctx context.Context, messageId string) error
+```
+
+ReadMessageOnlyContext is ReadMessageOnly bounded by ctx.
+
+<a name="MessageManager.ReadMessageWithTyping"></a>
+### func \(\*MessageManager\) [ReadMessageWithTyping](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L184>)
+
+```go
+func (mm *MessageManager) ReadMessageWithTyping(messageId string) error
+```
+
+ReadMessageWithTyping marks a message as read and shows typing indicator. This is a convenience method for ReadMessage\(messageId, true\).
+
+<a name="MessageManager.ReadMessageWithTypingContext"></a>
+### func \(\*MessageManager\) [ReadMessageWithTypingContext](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L189>)
+
+```go
+func (mm *MessageManager) ReadMessageWithTypingContext(ctx context.Context, messageId string) error
+```
+
+ReadMessageWithTypingContext is ReadMessageWithTyping bounded by ctx.
+
+<a name="MessageManager.Reply"></a>
+### func \(\*MessageManager\) [Reply](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L77>)
+
+```go
+func (mm *MessageManager) Reply(message components.BaseMessage, phoneNumber string, replyTo string) (*MessageSendResponse, error)
+```
+
+Reply sends a reply message using the provided BaseMessage and returns a structured response. If the API response contains an error, it returns that error.
+
+<a name="MessageManager.ReplyContext"></a>
+### func \(\*MessageManager\) [ReplyContext](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L82>)
+
+```go
+func (mm *MessageManager) ReplyContext(ctx context.Context, message components.BaseMessage, phoneNumber string, replyTo string) (*MessageSendResponse, error)
+```
+
+ReplyContext is Reply bounded by ctx.
+
 <a name="MessageManager.Send"></a>
-### func \(\*MessageManager\) Send
+### func \(\*MessageManager\) [Send](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L91>)
 
 ```go
 func (mm *MessageManager) Send(message components.BaseMessage, phoneNumber string) (*MessageSendResponse, error)
@@ -684,8 +1375,35 @@ func (mm *MessageManager) Send(message components.BaseMessage, phoneNumber strin
 
 Send sends a message using the provided BaseMessage and returns a structured response. If the API response contains an error, it returns that error.
 
+<a name="MessageManager.SendContext"></a>
+### func \(\*MessageManager\) [SendContext](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L97>)
+
+```go
+func (mm *MessageManager) SendContext(ctx context.Context, message components.BaseMessage, phoneNumber string) (*MessageSendResponse, error)
+```
+
+SendContext sends a message, bounded by ctx, and returns Meta's response. A Graph API error is returned as a \*graph.Error.
+
+<a name="MessageManager.readMessage"></a>
+### func \(\*MessageManager\) [readMessage](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L140>)
+
+```go
+func (mm *MessageManager) readMessage(ctx context.Context, messageId string, showTyping bool) error
+```
+
+ReadMessage marks a message as read. messageId: The ID of the message to mark as read showTyping: Whether to show typing indicator \(will auto\-dismiss after 25 seconds or when you respond\)
+
+<a name="MessageManager.send"></a>
+### func \(\*MessageManager\) [send](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L103>)
+
+```go
+func (mm *MessageManager) send(ctx context.Context, message components.BaseMessage, configs components.ApiCompatibleJsonConverterConfigs) (*MessageSendResponse, error)
+```
+
+
+
 <a name="MessageSendError"></a>
-## type MessageSendError
+## type [MessageSendError](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L43-L53>)
 
 MessageSendError represents the error object in an API response.
 
@@ -703,8 +1421,17 @@ type MessageSendError struct {
 }
 ```
 
+<a name="MessageSendError.graphError"></a>
+### func \(\*MessageSendError\) [graphError](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L55>)
+
+```go
+func (e *MessageSendError) graphError(status int) *graph.Error
+```
+
+
+
 <a name="MessageSendResponse"></a>
-## type MessageSendResponse
+## type [MessageSendResponse](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L30-L40>)
 
 MessageSendResponse represents the structured API response for sending a message.
 
@@ -722,8 +1449,17 @@ type MessageSendResponse struct {
 }
 ```
 
+<a name="MessageSendResponse.MessageID"></a>
+### func \(\*MessageSendResponse\) [MessageID](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L130>)
+
+```go
+func (r *MessageSendResponse) MessageID() string
+```
+
+MessageID returns the id of the first sent message, or "".
+
 <a name="MessageStatusCategoryEnum"></a>
-## type MessageStatusCategoryEnum
+## type [MessageStatusCategoryEnum](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L513>)
 
 
 
@@ -740,7 +1476,7 @@ const (
 ```
 
 <a name="MessageStatusEnum"></a>
-## type MessageStatusEnum
+## type [MessageStatusEnum](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L519>)
 
 
 
@@ -761,7 +1497,7 @@ const (
 ```
 
 <a name="MessageTemplateCategory"></a>
-## type MessageTemplateCategory
+## type [MessageTemplateCategory](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L24>)
 
 MessageTemplateCategory represents the category of a WhatsApp Business message template.
 
@@ -780,7 +1516,7 @@ const (
 ```
 
 <a name="MessageTemplateComponentFormat"></a>
-## type MessageTemplateComponentFormat
+## type [MessageTemplateComponentFormat](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L142>)
 
 MessageTemplateComponentFormat represents the format of a template component.
 
@@ -801,7 +1537,7 @@ const (
 ```
 
 <a name="MessageTemplateComponentType"></a>
-## type MessageTemplateComponentType
+## type [MessageTemplateComponentType](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L129>)
 
 MessageTemplateComponentType represents the type of a template component.
 
@@ -824,7 +1560,7 @@ const (
 ```
 
 <a name="MessageTemplateCreationResponse"></a>
-## type MessageTemplateCreationResponse
+## type [MessageTemplateCreationResponse](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L289-L293>)
 
 MessageTemplateCreationResponse represents the response after creating a template.
 
@@ -837,7 +1573,7 @@ type MessageTemplateCreationResponse struct {
 ```
 
 <a name="MessageTemplateStatus"></a>
-## type MessageTemplateStatus
+## type [MessageTemplateStatus](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L15>)
 
 MessageTemplateStatus represents the status of a WhatsApp Business message template.
 
@@ -856,23 +1592,24 @@ const (
 ```
 
 <a name="MessagesValue"></a>
-## type MessagesValue
+## type [MessagesValue](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L425-L433>)
 
 
 
 ```go
 type MessagesValue struct {
-    MessagingProduct string    `json:"messaging_product"`
-    Metadata         Metadata  `json:"metadata"`
-    Contacts         []Contact `json:"contacts,omitempty"`
-    Statuses         []Status  `json:"statuses,omitempty"`
-    Messages         []Message `json:"messages,omitempty"`
-    Errors           []Error   `json:"errors,omitempty"`
+    MessagingProduct string       `json:"messaging_product"`
+    Metadata         Metadata     `json:"metadata"`
+    Contacts         []Contact    `json:"contacts,omitempty"`
+    Statuses         []Status     `json:"statuses,omitempty"`
+    Messages         []Message    `json:"messages,omitempty"`
+    Errors           []Error      `json:"errors,omitempty"`
+    UserActions      []UserAction `json:"user_actions,omitempty"`
 }
 ```
 
 <a name="Metadata"></a>
-## type Metadata
+## type [Metadata](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L435-L438>)
 
 
 
@@ -884,7 +1621,7 @@ type Metadata struct {
 ```
 
 <a name="NamedParamExample"></a>
-## type NamedParamExample
+## type [NamedParamExample](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L107-L110>)
 
 NamedParamExample represents a single named parameter and its example value.
 
@@ -896,7 +1633,7 @@ type NamedParamExample struct {
 ```
 
 <a name="NotificationMessageTypeEnum"></a>
-## type NotificationMessageTypeEnum
+## type [NotificationMessageTypeEnum](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L179>)
 
 
 
@@ -926,7 +1663,7 @@ const (
 ```
 
 <a name="NotificationPayloadAudioMessageSchemaType"></a>
-## type NotificationPayloadAudioMessageSchemaType
+## type [NotificationPayloadAudioMessageSchemaType](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L52-L58>)
 
 
 
@@ -941,21 +1678,21 @@ type NotificationPayloadAudioMessageSchemaType struct {
 ```
 
 <a name="NotificationPayloadButtonInteractionMessageSchemaType"></a>
-## type NotificationPayloadButtonInteractionMessageSchemaType
+## type [NotificationPayloadButtonInteractionMessageSchemaType](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L149-L154>)
 
 
 
 ```go
 type NotificationPayloadButtonInteractionMessageSchemaType struct {
     ButtonReply struct {
-        ReplyId string `json:"reply_id"`
-        Title   string `json:"title"`
+        Id    string `json:"id"`
+        Title string `json:"title"`
     } `json:"button_reply,omitempty"`
 }
 ```
 
 <a name="NotificationPayloadButtonMessageSchemaType"></a>
-## type NotificationPayloadButtonMessageSchemaType
+## type [NotificationPayloadButtonMessageSchemaType](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L69-L74>)
 
 
 
@@ -969,18 +1706,20 @@ type NotificationPayloadButtonMessageSchemaType struct {
 ```
 
 <a name="NotificationPayloadContactMessageSchemaType"></a>
-## type NotificationPayloadContactMessageSchemaType
+## type [NotificationPayloadContactMessageSchemaType](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L173-L177>)
 
 
 
 ```go
 type NotificationPayloadContactMessageSchemaType struct {
-    Contacts []Contact `json:"contacts"`
+    // Contacts is retained for source compatibility. Use ContactCards for inbound cards.
+    Contacts     []Contact            `json:"-"`
+    ContactCards []components.Contact `json:"contacts"`
 }
 ```
 
 <a name="NotificationPayloadDocumentMessageSchemaType"></a>
-## type NotificationPayloadDocumentMessageSchemaType
+## type [NotificationPayloadDocumentMessageSchemaType](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L76-L84>)
 
 
 
@@ -997,7 +1736,7 @@ type NotificationPayloadDocumentMessageSchemaType struct {
 ```
 
 <a name="NotificationPayloadErrorSchemaType"></a>
-## type NotificationPayloadErrorSchemaType
+## type [NotificationPayloadErrorSchemaType](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L14-L21>)
 
 
 
@@ -1013,7 +1752,7 @@ type NotificationPayloadErrorSchemaType struct {
 ```
 
 <a name="NotificationPayloadImageMessageSchemaType"></a>
-## type NotificationPayloadImageMessageSchemaType
+## type [NotificationPayloadImageMessageSchemaType](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L60-L67>)
 
 
 
@@ -1029,7 +1768,7 @@ type NotificationPayloadImageMessageSchemaType struct {
 ```
 
 <a name="NotificationPayloadInteractionMessageSchemaType"></a>
-## type NotificationPayloadInteractionMessageSchemaType
+## type [NotificationPayloadInteractionMessageSchemaType](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L141-L147>)
 
 
 
@@ -1044,7 +1783,7 @@ type NotificationPayloadInteractionMessageSchemaType struct {
 ```
 
 <a name="NotificationPayloadListInteractionMessageSchemaType"></a>
-## type NotificationPayloadListInteractionMessageSchemaType
+## type [NotificationPayloadListInteractionMessageSchemaType](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L156-L162>)
 
 
 
@@ -1059,7 +1798,7 @@ type NotificationPayloadListInteractionMessageSchemaType struct {
 ```
 
 <a name="NotificationPayloadLocationMessageSchemaType"></a>
-## type NotificationPayloadLocationMessageSchemaType
+## type [NotificationPayloadLocationMessageSchemaType](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L164-L171>)
 
 
 
@@ -1075,7 +1814,7 @@ type NotificationPayloadLocationMessageSchemaType struct {
 ```
 
 <a name="NotificationPayloadMessageContextSchemaType"></a>
-## type NotificationPayloadMessageContextSchemaType
+## type [NotificationPayloadMessageContextSchemaType](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L23-L32>)
 
 
 
@@ -1093,7 +1832,7 @@ type NotificationPayloadMessageContextSchemaType struct {
 ```
 
 <a name="NotificationPayloadOrderMessageSchemaType"></a>
-## type NotificationPayloadOrderMessageSchemaType
+## type [NotificationPayloadOrderMessageSchemaType](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L86-L98>)
 
 
 
@@ -1103,17 +1842,18 @@ type NotificationPayloadOrderMessageSchemaType struct {
     Order struct {
         CatalogId    string `json:"catalog_id"`
         ProductItems []struct {
-            ProductRetailerId string `json:"product_retailer_id"`
-            Quantity          string `json:"quantity"`
-            ItemPrice         string `json:"item_price"`
-            Currency          string `json:"currency"`
+            ProductRetailerId string  `json:"product_retailer_id"`
+            Quantity          int     `json:"quantity"`
+            ItemPrice         float64 `json:"item_price"`
+            Currency          string  `json:"currency"`
         }   `json:"product_items"`
+        Text *string `json:"text,omitempty"`
     } `json:"order,omitempty"`
 }
 ```
 
 <a name="NotificationPayloadReactionMessageSchemaType"></a>
-## type NotificationPayloadReactionMessageSchemaType
+## type [NotificationPayloadReactionMessageSchemaType](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L134-L139>)
 
 
 
@@ -1127,7 +1867,7 @@ type NotificationPayloadReactionMessageSchemaType struct {
 ```
 
 <a name="NotificationPayloadStickerMessageSchemaType"></a>
-## type NotificationPayloadStickerMessageSchemaType
+## type [NotificationPayloadStickerMessageSchemaType](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L100-L107>)
 
 
 
@@ -1143,7 +1883,7 @@ type NotificationPayloadStickerMessageSchemaType struct {
 ```
 
 <a name="NotificationPayloadSystemMessageSchemaType"></a>
-## type NotificationPayloadSystemMessageSchemaType
+## type [NotificationPayloadSystemMessageSchemaType](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L109-L122>)
 
 
 
@@ -1165,7 +1905,7 @@ type NotificationPayloadSystemMessageSchemaType struct {
 ```
 
 <a name="NotificationPayloadTextMessageSchemaType"></a>
-## type NotificationPayloadTextMessageSchemaType
+## type [NotificationPayloadTextMessageSchemaType](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L34-L50>)
 
 
 
@@ -1190,7 +1930,7 @@ type NotificationPayloadTextMessageSchemaType struct {
 ```
 
 <a name="NotificationPayloadVideoMessageSchemaType"></a>
-## type NotificationPayloadVideoMessageSchemaType
+## type [NotificationPayloadVideoMessageSchemaType](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L124-L132>)
 
 
 
@@ -1207,7 +1947,7 @@ type NotificationPayloadVideoMessageSchemaType struct {
 ```
 
 <a name="NotificationReasonEnum"></a>
-## type NotificationReasonEnum
+## type [NotificationReasonEnum](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L8>)
 
 
 
@@ -1224,7 +1964,7 @@ const (
 ```
 
 <a name="Origin"></a>
-## type Origin
+## type [Origin](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L455-L458>)
 
 
 
@@ -1236,7 +1976,7 @@ type Origin struct {
 ```
 
 <a name="PhoneNumberManager"></a>
-## type PhoneNumberManager
+## type [PhoneNumberManager](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L13-L17>)
 
 PhoneNumberManager is responsible for managing phone numbers for WhatsApp Business API and phone number specific operations.
 
@@ -1249,7 +1989,7 @@ type PhoneNumberManager struct {
 ```
 
 <a name="NewPhoneNumberManager"></a>
-### func NewPhoneNumberManager
+### func [NewPhoneNumberManager](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L27>)
 
 ```go
 func NewPhoneNumberManager(config *PhoneNumberManagerConfig) *PhoneNumberManager
@@ -1258,7 +1998,7 @@ func NewPhoneNumberManager(config *PhoneNumberManagerConfig) *PhoneNumberManager
 NewPhoneNumberManager creates a new instance of PhoneNumberManager.
 
 <a name="PhoneNumberManager.Create"></a>
-### func \(\*PhoneNumberManager\) Create
+### func \(\*PhoneNumberManager\) [Create](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L198>)
 
 ```go
 func (manager *PhoneNumberManager) Create(phoneNumber, verifiedName, countryCode string) (CreatePhoneNumberResponse, error)
@@ -1267,7 +2007,7 @@ func (manager *PhoneNumberManager) Create(phoneNumber, verifiedName, countryCode
 
 
 <a name="PhoneNumberManager.DeleteQrCode"></a>
-### func \(\*PhoneNumberManager\) DeleteQrCode
+### func \(\*PhoneNumberManager\) [DeleteQrCode](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L310>)
 
 ```go
 func (manager *PhoneNumberManager) DeleteQrCode(phoneNumber, id string) (*DeleteQrCodeResponse, error)
@@ -1276,7 +2016,7 @@ func (manager *PhoneNumberManager) DeleteQrCode(phoneNumber, id string) (*Delete
 DeleteQrCode deletes a QR code by its ID for the specified phone number.
 
 <a name="PhoneNumberManager.Fetch"></a>
-### func \(\*PhoneNumberManager\) Fetch
+### func \(\*PhoneNumberManager\) [Fetch](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L176>)
 
 ```go
 func (manager *PhoneNumberManager) Fetch(phoneNumberId string) (*WhatsappBusinessAccountPhoneNumber, error)
@@ -1285,7 +2025,7 @@ func (manager *PhoneNumberManager) Fetch(phoneNumberId string) (*WhatsappBusines
 Fetch fetches a phone number by its ID.
 
 <a name="PhoneNumberManager.FetchAll"></a>
-### func \(\*PhoneNumberManager\) FetchAll
+### func \(\*PhoneNumberManager\) [FetchAll](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L155>)
 
 ```go
 func (manager *PhoneNumberManager) FetchAll(getSandBoxNumbers bool) (*WhatsappBusinessAccountPhoneNumberEdge, error)
@@ -1294,7 +2034,7 @@ func (manager *PhoneNumberManager) FetchAll(getSandBoxNumbers bool) (*WhatsappBu
 FetchAll fetches all phone numbers based on the provided filters.
 
 <a name="PhoneNumberManager.GenerateQrCode"></a>
-### func \(\*PhoneNumberManager\) GenerateQrCode
+### func \(\*PhoneNumberManager\) [GenerateQrCode](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L255>)
 
 ```go
 func (manager *PhoneNumberManager) GenerateQrCode(phoneNumber string, prefilledMessage string) (*GenerateQrCodeResponse, error)
@@ -1303,7 +2043,7 @@ func (manager *PhoneNumberManager) GenerateQrCode(phoneNumber string, prefilledM
 GenerateQrCode generates a QR code for the specified phone number with the given prefilled message.
 
 <a name="PhoneNumberManager.GetAllQrCodes"></a>
-### func \(\*PhoneNumberManager\) GetAllQrCodes
+### func \(\*PhoneNumberManager\) [GetAllQrCodes](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L280>)
 
 ```go
 func (manager *PhoneNumberManager) GetAllQrCodes(phoneNumber string) (*GetAllQrCodesResponse, error)
@@ -1312,7 +2052,7 @@ func (manager *PhoneNumberManager) GetAllQrCodes(phoneNumber string) (*GetAllQrC
 GetAllQrCodes gets all QR codes for the specified phone number.
 
 <a name="PhoneNumberManager.GetQrCodeById"></a>
-### func \(\*PhoneNumberManager\) GetQrCodeById
+### func \(\*PhoneNumberManager\) [GetQrCodeById](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L293>)
 
 ```go
 func (manager *PhoneNumberManager) GetQrCodeById(phoneNumber, id string) (*GetAllQrCodesResponse, error)
@@ -1321,7 +2061,7 @@ func (manager *PhoneNumberManager) GetQrCodeById(phoneNumber, id string) (*GetAl
 GetQrCodeById gets a QR code by its ID for the specified phone number.
 
 <a name="PhoneNumberManager.RequestVerificationCode"></a>
-### func \(\*PhoneNumberManager\) RequestVerificationCode
+### func \(\*PhoneNumberManager\) [RequestVerificationCode](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L223>)
 
 ```go
 func (manager *PhoneNumberManager) RequestVerificationCode(phoneNumberId string, codeMethod VerifyCodeMethod, languageCode string) (RequestVerificationCodeResponse, error)
@@ -1330,7 +2070,7 @@ func (manager *PhoneNumberManager) RequestVerificationCode(phoneNumberId string,
 
 
 <a name="PhoneNumberManager.UpdateQrCode"></a>
-### func \(\*PhoneNumberManager\) UpdateQrCode
+### func \(\*PhoneNumberManager\) [UpdateQrCode](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L323>)
 
 ```go
 func (manager *PhoneNumberManager) UpdateQrCode(phoneNumber, id, prefilledMessage string) (*GenerateQrCodeResponse, error)
@@ -1339,7 +2079,7 @@ func (manager *PhoneNumberManager) UpdateQrCode(phoneNumber, id, prefilledMessag
 UpdateQrCode updates a QR code by its ID for the specified phone number with the given prefilled message.
 
 <a name="PhoneNumberManager.VerifyCode"></a>
-### func \(\*PhoneNumberManager\) VerifyCode
+### func \(\*PhoneNumberManager\) [VerifyCode](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L237>)
 
 ```go
 func (manager *PhoneNumberManager) VerifyCode(phoneNumberId, verificationCode string) (VerifyCodeResponse, error)
@@ -1348,7 +2088,7 @@ func (manager *PhoneNumberManager) VerifyCode(phoneNumberId, verificationCode st
 
 
 <a name="PhoneNumberManagerConfig"></a>
-## type PhoneNumberManagerConfig
+## type [PhoneNumberManagerConfig](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L20-L24>)
 
 PhoneNumberManagerConfig holds the configuration for PhoneNumberManager.
 
@@ -1361,7 +2101,7 @@ type PhoneNumberManagerConfig struct {
 ```
 
 <a name="PhoneNumberNameUpdateValue"></a>
-## type PhoneNumberNameUpdateValue
+## type [PhoneNumberNameUpdateValue](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L322-L327>)
 
 
 
@@ -1375,7 +2115,7 @@ type PhoneNumberNameUpdateValue struct {
 ```
 
 <a name="PhoneNumberQualityUpdateCurrentLimitEnum"></a>
-## type PhoneNumberQualityUpdateCurrentLimitEnum
+## type [PhoneNumberQualityUpdateCurrentLimitEnum](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L329>)
 
 
 
@@ -1397,7 +2137,7 @@ const (
 ```
 
 <a name="PhoneNumberQualityUpdateValue"></a>
-## type PhoneNumberQualityUpdateValue
+## type [PhoneNumberQualityUpdateValue](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L340-L344>)
 
 
 
@@ -1410,19 +2150,62 @@ type PhoneNumberQualityUpdateValue struct {
 ```
 
 <a name="Pricing"></a>
-## type Pricing
+## type [Pricing](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L460-L466>)
 
 
 
 ```go
 type Pricing struct {
+    Type string `json:"type,omitempty"`
+    // Billable distinguishes an explicit false from an omitted value.
+    Billable     *bool                     `json:"billable,omitempty"`
     PricingModel string                    `json:"pricing_model"`
     Category     MessageStatusCategoryEnum `json:"category"`
 }
 ```
 
+<a name="ProductError"></a>
+## type [ProductError](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L123-L128>)
+
+
+
+```go
+type ProductError struct {
+    ErrorType     string `json:"error_type"`
+    ErrorPriority string `json:"error_priority"`
+    Title         string `json:"title"`
+    Description   string `json:"description"`
+}
+```
+
+<a name="ProductFeed"></a>
+## type [ProductFeed](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L65-L69>)
+
+
+
+```go
+type ProductFeed struct {
+    Id       string `json:"id"`
+    FileName string `json:"file_name"`
+    Name     string `json:"name"`
+}
+```
+
+<a name="ProductFeedSchedule"></a>
+## type [ProductFeedSchedule](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L616-L620>)
+
+
+
+```go
+type ProductFeedSchedule struct {
+    Url      string `json:"url"`
+    Interval string `json:"interval"` // e.g., HOURLY, DAILY; Meta specific values
+    Hour     *int   `json:"hour,omitempty"`
+}
+```
+
 <a name="ProductGroup"></a>
-## type ProductGroup
+## type [ProductGroup](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L60-L63>)
 
 
 
@@ -1434,92 +2217,92 @@ type ProductGroup struct {
 ```
 
 <a name="ProductItem"></a>
-## type ProductItem
+## type [ProductItem](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L132-L208>)
 
 
 
 ```go
 type ProductItem struct {
-    Id                                                    string        `json:"id"`
-    AdditionalImageCdnUrls                                []ImageCdnUrl `json:"additional_image_cdn_urls,omitempty"`
-    AdditionalImageUrls                                   []string      `json:"additional_image_urls,omitempty"`
-    AdditionalVariantAttributes                           []KeyValue    `json:"additional_variant_attributes,omitempty"`
-    AgeGroup                                              string        `json:"age_group,omitempty"`
-    Applinks                                              *Applinks     `json:"applinks,omitempty"`
-    Availability                                          string        `json:"availability,omitempty"`
-    Brand                                                 string        `json:"brand,omitempty"`
-    CapabilityToReviewStatus                              []KeyValue    `json:"capability_to_review_status,omitempty"`
-    Category                                              string        `json:"category,omitempty"`
-    CategorySpecificFields                                interface{}        `json:"category_specific_fields,omitempty"`
-    Color                                                 string        `json:"color,omitempty"`
-    CommerceInsights                                      string        `json:"commerce_insights,omitempty"`
-    Condition                                             string        `json:"condition,omitempty"`
-    Currency                                              string        `json:"currency,omitempty"`
-    CustomData                                            []KeyValue    `json:"custom_data,omitempty"`
-    CustomLabel0                                          string        `json:"custom_label_0,omitempty"`
-    CustomLabel1                                          string        `json:"custom_label_1,omitempty"`
-    CustomLabel2                                          string        `json:"custom_label_2,omitempty"`
-    CustomLabel3                                          string        `json:"custom_label_3,omitempty"`
-    CustomLabel4                                          string        `json:"custom_label_4,omitempty"`
-    CustomNumber0                                         string        `json:"custom_number_0,omitempty"`
-    CustomNumber1                                         string        `json:"custom_number_1,omitempty"`
-    CustomNumber2                                         string        `json:"custom_number_2,omitempty"`
-    CustomNumber3                                         string        `json:"custom_number_3,omitempty"`
-    CustomNumber4                                         string        `json:"custom_number_4,omitempty"`
-    Description                                           string        `json:"description,omitempty"`
-    Errors                                                []string      `json:"errors,omitempty"`
-    ExpirationDate                                        string        `json:"expiration_date,omitempty"`
-    FbProductCategory                                     string        `json:"fb_product_category,omitempty"`
-    Gender                                                string        `json:"gender,omitempty"`
-    Gtin                                                  string        `json:"gtin,omitempty"`
-    ImageCdnUrls                                          []ImageCdnUrl `json:"image_cdn_urls,omitempty"`
-    ImageFetchStatus                                      string        `json:"image_fetch_status,omitempty"`
-    ImageUrl                                              string        `json:"image_url,omitempty"`
-    Images                                                []string      `json:"images,omitempty"`
-    ImporterAddress                                       string        `json:"importer_address,omitempty"`
-    ImporterName                                          string        `json:"importer_name,omitempty"`
-    InvalidationErrors                                    []string      `json:"invalidation_errors,omitempty"`
-    Inventory                                             int           `json:"inventory,omitempty"`
-    ManufacturerInfo                                      string        `json:"manufacturer_info,omitempty"`
-    ManufacturerPartNumber                                string        `json:"manufacturer_part_number,omitempty"`
-    MarkedForProductLaunch                                string        `json:"marked_for_product_launch,omitempty"`
-    Material                                              string        `json:"material,omitempty"`
-    MobileLink                                            string        `json:"mobile_link,omitempty"`
-    Name                                                  string        `json:"name,omitempty"`
-    OrderingIndex                                         int           `json:"ordering_index,omitempty"`
-    OriginCountry                                         string        `json:"origin_country,omitempty"`
-    ParentProductID                                       string        `json:"parent_product_id,omitempty"`
-    Pattern                                               string        `json:"pattern,omitempty"`
-    PostConversionSignalBasedEnforcementAppealEligibility bool          `json:"post_conversion_signal_based_enforcement_appeal_eligibility,omitempty"`
-    Price                                                 string        `json:"price,omitempty"`
-    ProductFeed                                           string        `json:"product_feed,omitempty"`
-    ProductGroup                                          *ProductGroup `json:"product_group,omitempty"`
-    ProductLocalInfo                                      string        `json:"product_local_info,omitempty"`
-    ProductType                                           string        `json:"product_type,omitempty"`
-    QuantityToSellOnFacebook                              int           `json:"quantity_to_sell_on_facebook,omitempty"`
-    RetailerId                                            string        `json:"retailer_id,omitempty"`
-    RetailerProductGroupID                                string        `json:"retailer_product_group_id,omitempty"`
-    ReviewRejectionReasons                                []string      `json:"review_rejection_reasons,omitempty"`
-    ReviewStatus                                          string        `json:"review_status,omitempty"`
-    SalePrice                                             string        `json:"sale_price,omitempty"`
-    SalePriceEndDate                                      string        `json:"sale_price_end_date,omitempty"`
-    SalePriceStartDate                                    string        `json:"sale_price_start_date,omitempty"`
-    ShippingWeightUnit                                    string        `json:"shipping_weight_unit,omitempty"`
-    ShippingWeightValue                                   float64       `json:"shipping_weight_value,omitempty"`
-    ShortDescription                                      string        `json:"short_description,omitempty"`
-    Size                                                  string        `json:"size,omitempty"`
-    StartDate                                             string        `json:"start_date,omitempty"`
-    Tags                                                  []string      `json:"tags,omitempty"`
-    Url                                                   string        `json:"url,omitempty"`
-    VendorId                                              string        `json:"vendor_id,omitempty"`
-    VideoFetchStatus                                      string        `json:"video_fetch_status,omitempty"`
-    Visibility                                            string        `json:"visibility,omitempty"`
-    WaComplianceCategory                                  string        `json:"wa_compliance_category,omitempty"`
+    Id                                                    string         `json:"id"`
+    AdditionalImageCdnUrls                                []ImageCdnUrl  `json:"additional_image_cdn_urls,omitempty"`
+    AdditionalImageUrls                                   []string       `json:"additional_image_urls,omitempty"`
+    AdditionalVariantAttributes                           []KeyValue     `json:"additional_variant_attributes,omitempty"`
+    AgeGroup                                              string         `json:"age_group,omitempty"`
+    Applinks                                              *Applinks      `json:"applinks,omitempty"`
+    Availability                                          string         `json:"availability,omitempty"`
+    Brand                                                 string         `json:"brand,omitempty"`
+    CapabilityToReviewStatus                              []KeyValue     `json:"capability_to_review_status,omitempty"`
+    Category                                              string         `json:"category,omitempty"`
+    CategorySpecificFields                                interface{}    `json:"category_specific_fields,omitempty"`
+    Color                                                 string         `json:"color,omitempty"`
+    CommerceInsights                                      string         `json:"commerce_insights,omitempty"`
+    Condition                                             string         `json:"condition,omitempty"`
+    Currency                                              string         `json:"currency,omitempty"`
+    CustomData                                            []KeyValue     `json:"custom_data,omitempty"`
+    CustomLabel0                                          string         `json:"custom_label_0,omitempty"`
+    CustomLabel1                                          string         `json:"custom_label_1,omitempty"`
+    CustomLabel2                                          string         `json:"custom_label_2,omitempty"`
+    CustomLabel3                                          string         `json:"custom_label_3,omitempty"`
+    CustomLabel4                                          string         `json:"custom_label_4,omitempty"`
+    CustomNumber0                                         string         `json:"custom_number_0,omitempty"`
+    CustomNumber1                                         string         `json:"custom_number_1,omitempty"`
+    CustomNumber2                                         string         `json:"custom_number_2,omitempty"`
+    CustomNumber3                                         string         `json:"custom_number_3,omitempty"`
+    CustomNumber4                                         string         `json:"custom_number_4,omitempty"`
+    Description                                           string         `json:"description,omitempty"`
+    Errors                                                []ProductError `json:"errors,omitempty"`
+    ExpirationDate                                        string         `json:"expiration_date,omitempty"`
+    FbProductCategory                                     string         `json:"fb_product_category,omitempty"`
+    Gender                                                string         `json:"gender,omitempty"`
+    Gtin                                                  string         `json:"gtin,omitempty"`
+    ImageCdnUrls                                          []ImageCdnUrl  `json:"image_cdn_urls,omitempty"`
+    ImageFetchStatus                                      string         `json:"image_fetch_status,omitempty"`
+    ImageUrl                                              string         `json:"image_url,omitempty"`
+    Images                                                []string       `json:"images,omitempty"`
+    ImporterAddress                                       string         `json:"importer_address,omitempty"`
+    ImporterName                                          string         `json:"importer_name,omitempty"`
+    InvalidationErrors                                    []string       `json:"invalidation_errors,omitempty"`
+    Inventory                                             int            `json:"inventory,omitempty"`
+    ManufacturerInfo                                      string         `json:"manufacturer_info,omitempty"`
+    ManufacturerPartNumber                                string         `json:"manufacturer_part_number,omitempty"`
+    MarkedForProductLaunch                                string         `json:"marked_for_product_launch,omitempty"`
+    Material                                              string         `json:"material,omitempty"`
+    MobileLink                                            string         `json:"mobile_link,omitempty"`
+    Name                                                  string         `json:"name,omitempty"`
+    OrderingIndex                                         int            `json:"ordering_index,omitempty"`
+    OriginCountry                                         string         `json:"origin_country,omitempty"`
+    ParentProductID                                       string         `json:"parent_product_id,omitempty"`
+    Pattern                                               string         `json:"pattern,omitempty"`
+    PostConversionSignalBasedEnforcementAppealEligibility bool           `json:"post_conversion_signal_based_enforcement_appeal_eligibility,omitempty"`
+    Price                                                 string         `json:"price,omitempty"`
+    ProductFeed                                           *ProductFeed   `json:"product_feed,omitempty"`
+    ProductGroup                                          *ProductGroup  `json:"product_group,omitempty"`
+    ProductLocalInfo                                      string         `json:"product_local_info,omitempty"`
+    ProductType                                           string         `json:"product_type,omitempty"`
+    QuantityToSellOnFacebook                              int            `json:"quantity_to_sell_on_facebook,omitempty"`
+    RetailerId                                            string         `json:"retailer_id,omitempty"`
+    RetailerProductGroupID                                string         `json:"retailer_product_group_id,omitempty"`
+    ReviewRejectionReasons                                []string       `json:"review_rejection_reasons,omitempty"`
+    ReviewStatus                                          string         `json:"review_status,omitempty"`
+    SalePrice                                             string         `json:"sale_price,omitempty"`
+    SalePriceEndDate                                      string         `json:"sale_price_end_date,omitempty"`
+    SalePriceStartDate                                    string         `json:"sale_price_start_date,omitempty"`
+    ShippingWeightUnit                                    string         `json:"shipping_weight_unit,omitempty"`
+    ShippingWeightValue                                   float64        `json:"shipping_weight_value,omitempty"`
+    ShortDescription                                      string         `json:"short_description,omitempty"`
+    Size                                                  string         `json:"size,omitempty"`
+    StartDate                                             string         `json:"start_date,omitempty"`
+    Tags                                                  []string       `json:"tags,omitempty"`
+    Url                                                   string         `json:"url,omitempty"`
+    VendorId                                              string         `json:"vendor_id,omitempty"`
+    VideoFetchStatus                                      string         `json:"video_fetch_status,omitempty"`
+    Visibility                                            string         `json:"visibility,omitempty"`
+    WaComplianceCategory                                  string         `json:"wa_compliance_category,omitempty"`
 }
 ```
 
 <a name="ProductSet"></a>
-## type ProductSet
+## type [ProductSet](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L216-L226>)
 
 ProductSet represents a product set within a catalog.
 
@@ -1538,20 +2321,18 @@ type ProductSet struct {
 ```
 
 <a name="ProductSetMetadata"></a>
-## type ProductSetMetadata
+## type [ProductSetMetadata](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L211-L213>)
 
 ProductSetMetadata represents metadata for a product set.
 
 ```go
 type ProductSetMetadata struct {
-    // Define minimal metadata fields as needed.
-    // For example:
     UpdateTime string `json:"update_time,omitempty"`
 }
 ```
 
 <a name="Profile"></a>
-## type Profile
+## type [Profile](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L232-L234>)
 
 
 
@@ -1562,7 +2343,7 @@ type Profile struct {
 ```
 
 <a name="RequestVerificationCodeResponse"></a>
-## type RequestVerificationCodeResponse
+## type [RequestVerificationCodeResponse](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L219-L221>)
 
 
 
@@ -1572,8 +2353,30 @@ type RequestVerificationCodeResponse struct {
 }
 ```
 
+<a name="ResumableUploadResult"></a>
+## type [ResumableUploadResult](<https://github.com/gTahidi/wabo/blob/master/manager/media_manager.go#L145-L147>)
+
+ResumableUploadResult represents the response from completing an upload
+
+```go
+type ResumableUploadResult struct {
+    Handle string `json:"h"` // The media handle to use in templates (4::xxx format)
+}
+```
+
+<a name="ResumableUploadSession"></a>
+## type [ResumableUploadSession](<https://github.com/gTahidi/wabo/blob/master/manager/media_manager.go#L140-L142>)
+
+ResumableUploadSession represents the response from creating an upload session
+
+```go
+type ResumableUploadSession struct {
+    ID string `json:"id"` // The upload session ID (h:xxx format)
+}
+```
+
 <a name="SecurityValue"></a>
-## type SecurityValue
+## type [SecurityValue](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L401-L405>)
 
 
 
@@ -1586,7 +2389,7 @@ type SecurityValue struct {
 ```
 
 <a name="Status"></a>
-## type Status
+## type [Status](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L440-L448>)
 
 
 
@@ -1602,8 +2405,20 @@ type Status struct {
 }
 ```
 
+<a name="StatusResponse"></a>
+## type [StatusResponse](<https://github.com/gTahidi/wabo/blob/master/manager/message_manager.go#L70-L73>)
+
+StatusResponse represents the API response for status updates \(read receipts\).
+
+```go
+type StatusResponse struct {
+    Success bool              `json:"success"`
+    Error   *MessageSendError `json:"error,omitempty"`
+}
+```
+
 <a name="SystemNotificationTypeEnum"></a>
-## type SystemNotificationTypeEnum
+## type [SystemNotificationTypeEnum](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L220>)
 
 
 
@@ -1621,7 +2436,7 @@ const (
 ```
 
 <a name="TemplateCategoryUpdateValue"></a>
-## type TemplateCategoryUpdateValue
+## type [TemplateCategoryUpdateValue](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L305-L312>)
 
 
 
@@ -1637,7 +2452,7 @@ type TemplateCategoryUpdateValue struct {
 ```
 
 <a name="TemplateManager"></a>
-## type TemplateManager
+## type [TemplateManager](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L50-L54>)
 
 TemplateManager is responsible for managing WhatsApp Business message templates.
 
@@ -1650,7 +2465,7 @@ type TemplateManager struct {
 ```
 
 <a name="NewTemplateManager"></a>
-### func NewTemplateManager
+### func [NewTemplateManager](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L64>)
 
 ```go
 func NewTemplateManager(config *TemplateManagerConfig) *TemplateManager
@@ -1659,7 +2474,7 @@ func NewTemplateManager(config *TemplateManagerConfig) *TemplateManager
 NewTemplateManager creates a new TemplateManager with the given configuration.
 
 <a name="TemplateManager.Create"></a>
-### func \(\*TemplateManager\) Create
+### func \(\*TemplateManager\) [Create](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L296>)
 
 ```go
 func (manager *TemplateManager) Create(body WhatsappMessageTemplateCreateRequestBody) (*MessageTemplateCreationResponse, error)
@@ -1668,7 +2483,7 @@ func (manager *TemplateManager) Create(body WhatsappMessageTemplateCreateRequest
 Create sends a creation request for a message template.
 
 <a name="TemplateManager.Delete"></a>
-### func \(\*TemplateManager\) Delete
+### func \(\*TemplateManager\) [Delete](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L355>)
 
 ```go
 func (tm *TemplateManager) Delete(id string)
@@ -1677,7 +2492,7 @@ func (tm *TemplateManager) Delete(id string)
 Delete dissociates a template \(delete implementation to be added as needed\).
 
 <a name="TemplateManager.Fetch"></a>
-### func \(\*TemplateManager\) Fetch
+### func \(\*TemplateManager\) [Fetch](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L201>)
 
 ```go
 func (manager *TemplateManager) Fetch(Id string) (*WhatsAppBusinessMessageTemplateNode, error)
@@ -1686,7 +2501,7 @@ func (manager *TemplateManager) Fetch(Id string) (*WhatsAppBusinessMessageTempla
 Fetch fetches a single WhatsApp Business message template by its ID.
 
 <a name="TemplateManager.FetchAll"></a>
-### func \(\*TemplateManager\) FetchAll
+### func \(\*TemplateManager\) [FetchAll](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L174>)
 
 ```go
 func (manager *TemplateManager) FetchAll() (*WhatsAppBusinessTemplatesFetchResponseEdge, error)
@@ -1695,7 +2510,7 @@ func (manager *TemplateManager) FetchAll() (*WhatsAppBusinessTemplatesFetchRespo
 FetchAll fetches all WhatsApp Business message templates.
 
 <a name="TemplateManager.MigrateFromOtherBusinessAccount"></a>
-### func \(\*TemplateManager\) MigrateFromOtherBusinessAccount
+### func \(\*TemplateManager\) [MigrateFromOtherBusinessAccount](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L387>)
 
 ```go
 func (manager *TemplateManager) MigrateFromOtherBusinessAccount(sourcePageNumber int, sourceWabaId int) (*TemplateMigrationResponse, error)
@@ -1704,7 +2519,7 @@ func (manager *TemplateManager) MigrateFromOtherBusinessAccount(sourcePageNumber
 MigrateFromOtherBusinessAccount migrates templates from another business account.
 
 <a name="TemplateManager.Update"></a>
-### func \(\*TemplateManager\) Update
+### func \(\*TemplateManager\) [Update](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L325>)
 
 ```go
 func (manager *TemplateManager) Update(templateId string, updates WhatsAppBusinessAccountMessageTemplateUpdateRequestBody) (*MessageTemplateCreationResponse, error)
@@ -1713,7 +2528,7 @@ func (manager *TemplateManager) Update(templateId string, updates WhatsAppBusine
 Update sends an update request for a template.
 
 <a name="TemplateManagerConfig"></a>
-## type TemplateManagerConfig
+## type [TemplateManagerConfig](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L57-L61>)
 
 TemplateManagerConfig represents the configuration for creating a new TemplateManager.
 
@@ -1726,7 +2541,7 @@ type TemplateManagerConfig struct {
 ```
 
 <a name="TemplateMessageButtonType"></a>
-## type TemplateMessageButtonType
+## type [TemplateMessageButtonType](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L85>)
 
 TemplateMessageButtonType represents the type of a button.
 
@@ -1744,11 +2559,12 @@ const (
     TemplateMessageButtonTypeCopyCode            TemplateMessageButtonType = "COPY_CODE"
     TemplateMessageButtonTypeCatalog             TemplateMessageButtonType = "CATALOG"
     TemplateMessageButtonTypeMultiProductMessage TemplateMessageButtonType = "MPM"
+    TemplateMessageButtonTypeFlow                TemplateMessageButtonType = "FLOW"
 )
 ```
 
 <a name="TemplateMessageComponentButton"></a>
-## type TemplateMessageComponentButton
+## type [TemplateMessageComponentButton](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L98-L104>)
 
 TemplateMessageComponentButton represents a button component in a message template.
 
@@ -1763,7 +2579,7 @@ type TemplateMessageComponentButton struct {
 ```
 
 <a name="TemplateMessageComponentCard"></a>
-## type TemplateMessageComponentCard
+## type [TemplateMessageComponentCard](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L79-L82>)
 
 TemplateMessageComponentCard represents a card component in a message template.
 
@@ -1775,13 +2591,14 @@ type TemplateMessageComponentCard struct {
 ```
 
 <a name="TemplateMessageComponentExample"></a>
-## type TemplateMessageComponentExample
+## type [TemplateMessageComponentExample](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L113-L120>)
 
 TemplateMessageComponentExample represents an example object for a template component.
 
 ```go
 type TemplateMessageComponentExample struct {
-    HeaderHandle          *[]string            `json:"header_handle,omitempty"`            // for media headers (IMAGE, VIDEO, DOCUMENT)
+    HeaderHandle          *[]string            `json:"header_handle,omitempty"`            // for media headers using Meta upload handle
+    HeaderUrl             *[]string            `json:"header_url,omitempty"`               // for media headers using external URL (IMAGE, VIDEO, DOCUMENT)
     HeaderTextNamedParams *[]NamedParamExample `json:"header_text_named_params,omitempty"` // for named header params
     HeaderText            *[]string            `json:"header_text,omitempty"`              // for text headers (positional examples)
     BodyText              *[][]string          `json:"body_text,omitempty"`                // for body components (array of arrays for positional examples)
@@ -1790,7 +2607,7 @@ type TemplateMessageComponentExample struct {
 ```
 
 <a name="TemplateMessageLimitedTimeOfferParameter"></a>
-## type TemplateMessageLimitedTimeOfferParameter
+## type [TemplateMessageLimitedTimeOfferParameter](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L123-L126>)
 
 TemplateMessageLimitedTimeOfferParameter represents a limited time offer parameter.
 
@@ -1802,7 +2619,7 @@ type TemplateMessageLimitedTimeOfferParameter struct {
 ```
 
 <a name="TemplateMessagePreviewEdge"></a>
-## type TemplateMessagePreviewEdge
+## type [TemplateMessagePreviewEdge](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L375-L378>)
 
 TemplateMessagePreviewEdge represents the preview response.
 
@@ -1814,7 +2631,7 @@ type TemplateMessagePreviewEdge struct {
 ```
 
 <a name="TemplateMessagePreviewNode"></a>
-## type TemplateMessagePreviewNode
+## type [TemplateMessagePreviewNode](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L366-L372>)
 
 TemplateMessagePreviewNode represents a preview node.
 
@@ -1829,7 +2646,7 @@ type TemplateMessagePreviewNode struct {
 ```
 
 <a name="TemplateMessageQualityScore"></a>
-## type TemplateMessageQualityScore
+## type [TemplateMessageQualityScore](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L167-L171>)
 
 TemplateMessageQualityScore represents the quality score of a template.
 
@@ -1842,7 +2659,7 @@ type TemplateMessageQualityScore struct {
 ```
 
 <a name="TemplateMessageRejectionReasonEnum"></a>
-## type TemplateMessageRejectionReasonEnum
+## type [TemplateMessageRejectionReasonEnum](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L285>)
 
 
 
@@ -1863,7 +2680,7 @@ const (
 ```
 
 <a name="TemplateMessageStatusUpdateDisableInfo"></a>
-## type TemplateMessageStatusUpdateDisableInfo
+## type [TemplateMessageStatusUpdateDisableInfo](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L277-L279>)
 
 
 
@@ -1874,7 +2691,7 @@ type TemplateMessageStatusUpdateDisableInfo struct {
 ```
 
 <a name="TemplateMessageStatusUpdateEventEnum"></a>
-## type TemplateMessageStatusUpdateEventEnum
+## type [TemplateMessageStatusUpdateEventEnum](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L267>)
 
 
 
@@ -1895,7 +2712,7 @@ const (
 ```
 
 <a name="TemplateMessageStatusUpdateOtherInfo"></a>
-## type TemplateMessageStatusUpdateOtherInfo
+## type [TemplateMessageStatusUpdateOtherInfo](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L281-L283>)
 
 
 
@@ -1906,7 +2723,7 @@ type TemplateMessageStatusUpdateOtherInfo struct {
 ```
 
 <a name="TemplateMigrationResponse"></a>
-## type TemplateMigrationResponse
+## type [TemplateMigrationResponse](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L381-L384>)
 
 TemplateMigrationResponse represents the migration response.
 
@@ -1918,7 +2735,7 @@ type TemplateMigrationResponse struct {
 ```
 
 <a name="TemplateQualityUpdateValue"></a>
-## type TemplateQualityUpdateValue
+## type [TemplateQualityUpdateValue](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L314-L320>)
 
 
 
@@ -1933,7 +2750,7 @@ type TemplateQualityUpdateValue struct {
 ```
 
 <a name="TemplateStatusUpdateValue"></a>
-## type TemplateStatusUpdateValue
+## type [TemplateStatusUpdateValue](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L295-L303>)
 
 
 
@@ -1949,8 +2766,63 @@ type TemplateStatusUpdateValue struct {
 }
 ```
 
+<a name="UpdateFlowRequest"></a>
+## type [UpdateFlowRequest](<https://github.com/gTahidi/wabo/blob/master/manager/flow_manager.go#L179-L183>)
+
+
+
+```go
+type UpdateFlowRequest struct {
+    Name        string         `json:"name,omitempty"`
+    Categories  []FlowCategory `json:"categories,omitempty"`
+    EndpointURI string         `json:"endpoint_uri,omitempty"`
+}
+```
+
+<a name="UploadFlowJSONResponse"></a>
+## type [UploadFlowJSONResponse](<https://github.com/gTahidi/wabo/blob/master/manager/flow_manager.go#L199-L202>)
+
+UploadFlowJSONResponse represents the response from uploading flow JSON
+
+```go
+type UploadFlowJSONResponse struct {
+    Success          bool                  `json:"success"`
+    ValidationErrors []FlowValidationError `json:"validation_errors,omitempty"`
+}
+```
+
+<a name="UserAction"></a>
+## type [UserAction](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L545-L549>)
+
+UserAction represents a user action from the webhook payload
+
+```go
+type UserAction struct {
+    ActionType                     UserActionTypeEnum             `json:"action_type"`
+    Timestamp                      string                         `json:"timestamp"`
+    MarketingMessagesLinkClickData MarketingMessagesLinkClickData `json:"marketing_messages_link_click_data,omitempty"`
+}
+```
+
+<a name="UserActionTypeEnum"></a>
+## type [UserActionTypeEnum](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L530>)
+
+UserActionTypeEnum represents the type of user action
+
+```go
+type UserActionTypeEnum string
+```
+
+<a name="UserActionTypeMarketingMessagesLinkClick"></a>
+
+```go
+const (
+    UserActionTypeMarketingMessagesLinkClick UserActionTypeEnum = "marketing_messages_link_click"
+)
+```
+
 <a name="VerifyCodeMethod"></a>
-## type VerifyCodeMethod
+## type [VerifyCodeMethod](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L212>)
 
 
 
@@ -1968,7 +2840,7 @@ const (
 ```
 
 <a name="VerifyCodeResponse"></a>
-## type VerifyCodeResponse
+## type [VerifyCodeResponse](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L233-L235>)
 
 
 
@@ -1978,8 +2850,63 @@ type VerifyCodeResponse struct {
 }
 ```
 
+<a name="WabaHealthStatus"></a>
+## type [WabaHealthStatus](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L90-L103>)
+
+
+
+```go
+type WabaHealthStatus struct {
+    CanSendMessage string `json:"can_send_message"`
+    Entities       []struct {
+        EntityType        string `json:"entity_type"`
+        ID                string `json:"id"`
+        CanSendMessage    string `json:"can_send_message,omitempty"`
+        CanReceiveCallSIP string `json:"can_receive_call_sip,omitempty"`
+        Errors            []struct {
+            ErrorCode        int    `json:"error_code"`
+            ErrorDescription string `json:"error_description"`
+            PossibleSolution string `json:"possible_solution"`
+        }   `json:"errors,omitempty"`
+    }   `json:"entities"`
+}
+```
+
+<a name="WabaOfficialBusinessAccount"></a>
+## type [WabaOfficialBusinessAccount](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L113-L115>)
+
+
+
+```go
+type WabaOfficialBusinessAccount struct {
+    OBAStatus string `json:"oba_status"`
+}
+```
+
+<a name="WabaQualityScore"></a>
+## type [WabaQualityScore](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L105-L107>)
+
+
+
+```go
+type WabaQualityScore struct {
+    Score string `json:"score"`
+}
+```
+
+<a name="WabaThroughput"></a>
+## type [WabaThroughput](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L109-L111>)
+
+
+
+```go
+type WabaThroughput struct {
+    Level string `json:"level"`
+}
+```
+
 <a name="WebApplink"></a>
-## type WebApplink
+## type [WebApplink](<https://github.com/gTahidi/wabo/blob/master/manager/catalog_manager.go#L45-L48>)
 
 
 
@@ -1991,9 +2918,9 @@ type WebApplink struct {
 ```
 
 <a name="WebhookFieldEnum"></a>
-## type WebhookFieldEnum
+## type [WebhookFieldEnum](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L251>)
 
-
+WebhookFieldEnum is a changes\[\].field value, as listed in Meta's webhook field reference.
 
 ```go
 type WebhookFieldEnum string
@@ -2007,33 +2934,34 @@ const (
     WebhookFieldEnumMessages               WebhookFieldEnum = "messages"
     WebhookFieldEnumSecurity               WebhookFieldEnum = "security"
     WebhookFieldEnumAccountUpdate          WebhookFieldEnum = "account_update"
-    WebhookFieldEnumAccountReview          WebhookFieldEnum = "account_review"
-    WebhookFieldEnumBusinessCapability     WebhookFieldEnum = "business_capability"
-    WebhookFieldEnumMessageTemplateQuality WebhookFieldEnum = "message_template_quality"
-    WebhookFieldEnumMessageTemplateStatus  WebhookFieldEnum = "message_template_status"
-    WebhookFieldEnumPhoneNumberName        WebhookFieldEnum = "phone_number_name"
-    WebhookFieldEnumPhoneNumberQuality     WebhookFieldEnum = "phone_number_quality"
-    WebhookFieldEnumTemplateCategoryUpdate WebhookFieldEnum = "template_category"
+    WebhookFieldEnumAccountReview          WebhookFieldEnum = "account_review_update"
+    WebhookFieldEnumBusinessCapability     WebhookFieldEnum = "business_capability_update"
+    WebhookFieldEnumMessageTemplateQuality WebhookFieldEnum = "message_template_quality_update"
+    WebhookFieldEnumMessageTemplateStatus  WebhookFieldEnum = "message_template_status_update"
+    WebhookFieldEnumPhoneNumberName        WebhookFieldEnum = "phone_number_name_update"
+    WebhookFieldEnumPhoneNumberQuality     WebhookFieldEnum = "phone_number_quality_update"
+    WebhookFieldEnumTemplateCategoryUpdate WebhookFieldEnum = "template_category_update"
 )
 ```
 
 <a name="WebhookManager"></a>
-## type WebhookManager
+## type [WebhookManager](<https://github.com/gTahidi/wabo/blob/master/manager/webhook_manager.go#L27-L34>)
 
 WebhookManager represents a manager for handling webhooks.
 
 ```go
 type WebhookManager struct {
     secret       string
+    appSecret    string
     path         string
     port         int
-    EventManager EventManager
+    EventManager *EventManager
     Requester    request_client.RequestClient
 }
 ```
 
 <a name="NewWebhook"></a>
-### func NewWebhook
+### func [NewWebhook](<https://github.com/gTahidi/wabo/blob/master/manager/webhook_manager.go#L49>)
 
 ```go
 func NewWebhook(options *WebhookManagerConfig) *WebhookManager
@@ -2042,16 +2970,16 @@ func NewWebhook(options *WebhookManagerConfig) *WebhookManager
 NewWebhook creates a new WebhookManager with the given options.
 
 <a name="WebhookManager.GetRequestHandler"></a>
-### func \(\*WebhookManager\) GetRequestHandler
+### func \(\*WebhookManager\) [GetRequestHandler](<https://github.com/gTahidi/wabo/blob/master/manager/webhook_manager.go#L73>)
 
 ```go
 func (wh *WebhookManager) GetRequestHandler(c echo.Context) error
 ```
 
-GetRequestHandler handles GET requests to the webhook endpoint.
+GetRequestHandler handles GET requests to the webhook endpoint: Meta's verification request, answered with hub.challenge when hub.verify\_token matches the configured secret.
 
 <a name="WebhookManager.ListenToEvents"></a>
-### func \(\*WebhookManager\) ListenToEvents
+### func \(\*WebhookManager\) [ListenToEvents](<https://github.com/gTahidi/wabo/blob/master/manager/webhook_manager.go#L342>)
 
 ```go
 func (wh *WebhookManager) ListenToEvents()
@@ -2060,16 +2988,16 @@ func (wh *WebhookManager) ListenToEvents()
 ListenToEvents starts listening to events and handles incoming requests.
 
 <a name="WebhookManager.PostRequestHandler"></a>
-### func \(\*WebhookManager\) PostRequestHandler
+### func \(\*WebhookManager\) [PostRequestHandler](<https://github.com/gTahidi/wabo/blob/master/manager/webhook_manager.go#L104>)
 
 ```go
 func (wh *WebhookManager) PostRequestHandler(c echo.Context) error
 ```
 
-PostRequestHandler handles POST requests to the webhook endpoint.
+PostRequestHandler handles POST requests to the webhook endpoint. When an app secret is configured, payloads with a missing or invalid X\-Hub\-Signature\-256 are rejected with 401.
 
 <a name="WebhookManager.createEchoHttpServer"></a>
-### func \(\*WebhookManager\) createEchoHttpServer
+### func \(\*WebhookManager\) [createEchoHttpServer](<https://github.com/gTahidi/wabo/blob/master/manager/webhook_manager.go#L65>)
 
 ```go
 func (wh *WebhookManager) createEchoHttpServer() *echo.Echo
@@ -2078,7 +3006,7 @@ func (wh *WebhookManager) createEchoHttpServer() *echo.Echo
 createEchoHttpServer creates a new instance of Echo HTTP server. This function is used in case the client has not provided any custom HTTP server.
 
 <a name="WebhookManager.handleAccountAlertsSubscriptionEvents"></a>
-### func \(\*WebhookManager\) handleAccountAlertsSubscriptionEvents
+### func \(\*WebhookManager\) [handleAccountAlertsSubscriptionEvents](<https://github.com/gTahidi/wabo/blob/master/manager/webhook_manager.go#L713>)
 
 ```go
 func (wh *WebhookManager) handleAccountAlertsSubscriptionEvents(baseEvent events.BaseBusinessAccountEvent, value AccountAlertsValue) error
@@ -2087,7 +3015,7 @@ func (wh *WebhookManager) handleAccountAlertsSubscriptionEvents(baseEvent events
 
 
 <a name="WebhookManager.handleAccountReviewSubscriptionEvents"></a>
-### func \(\*WebhookManager\) handleAccountReviewSubscriptionEvents
+### func \(\*WebhookManager\) [handleAccountReviewSubscriptionEvents](<https://github.com/gTahidi/wabo/blob/master/manager/webhook_manager.go#L741>)
 
 ```go
 func (wh *WebhookManager) handleAccountReviewSubscriptionEvents(baseEvent events.BaseBusinessAccountEvent, value AccountReviewUpdateValue) error
@@ -2096,7 +3024,7 @@ func (wh *WebhookManager) handleAccountReviewSubscriptionEvents(baseEvent events
 
 
 <a name="WebhookManager.handleAccountUpdateSubscriptionEvents"></a>
-### func \(\*WebhookManager\) handleAccountUpdateSubscriptionEvents
+### func \(\*WebhookManager\) [handleAccountUpdateSubscriptionEvents](<https://github.com/gTahidi/wabo/blob/master/manager/webhook_manager.go#L731>)
 
 ```go
 func (wh *WebhookManager) handleAccountUpdateSubscriptionEvents(baseEvent events.BaseBusinessAccountEvent, value AccountUpdateValue)
@@ -2105,7 +3033,7 @@ func (wh *WebhookManager) handleAccountUpdateSubscriptionEvents(baseEvent events
 
 
 <a name="WebhookManager.handleBusinessCapabilitySubscriptionEvents"></a>
-### func \(\*WebhookManager\) handleBusinessCapabilitySubscriptionEvents
+### func \(\*WebhookManager\) [handleBusinessCapabilitySubscriptionEvents](<https://github.com/gTahidi/wabo/blob/master/manager/webhook_manager.go#L750>)
 
 ```go
 func (wh *WebhookManager) handleBusinessCapabilitySubscriptionEvents(baseEvent events.BaseBusinessAccountEvent, value BusinessCapabilityUpdateValue) error
@@ -2114,7 +3042,7 @@ func (wh *WebhookManager) handleBusinessCapabilitySubscriptionEvents(baseEvent e
 
 
 <a name="WebhookManager.handleMessageTemplateQualitySubscriptionEvents"></a>
-### func \(\*WebhookManager\) handleMessageTemplateQualitySubscriptionEvents
+### func \(\*WebhookManager\) [handleMessageTemplateQualitySubscriptionEvents](<https://github.com/gTahidi/wabo/blob/master/manager/webhook_manager.go#L760>)
 
 ```go
 func (wh *WebhookManager) handleMessageTemplateQualitySubscriptionEvents(baseEvent events.BaseBusinessAccountEvent, value TemplateQualityUpdateValue) error
@@ -2123,7 +3051,7 @@ func (wh *WebhookManager) handleMessageTemplateQualitySubscriptionEvents(baseEve
 
 
 <a name="WebhookManager.handleMessageTemplateStatusSubscriptionEvents"></a>
-### func \(\*WebhookManager\) handleMessageTemplateStatusSubscriptionEvents
+### func \(\*WebhookManager\) [handleMessageTemplateStatusSubscriptionEvents](<https://github.com/gTahidi/wabo/blob/master/manager/webhook_manager.go#L774>)
 
 ```go
 func (wh *WebhookManager) handleMessageTemplateStatusSubscriptionEvents(baseEvent events.BaseBusinessAccountEvent, value TemplateStatusUpdateValue) error
@@ -2132,7 +3060,7 @@ func (wh *WebhookManager) handleMessageTemplateStatusSubscriptionEvents(baseEven
 
 
 <a name="WebhookManager.handleMessagesSubscriptionEvents"></a>
-### func \(\*WebhookManager\) handleMessagesSubscriptionEvents
+### func \(\*WebhookManager\) [handleMessagesSubscriptionEvents](<https://github.com/gTahidi/wabo/blob/master/manager/webhook_manager.go#L379>)
 
 ```go
 func (wh *WebhookManager) handleMessagesSubscriptionEvents(payload HandleMessageSubscriptionEventPayload) error
@@ -2141,7 +3069,7 @@ func (wh *WebhookManager) handleMessagesSubscriptionEvents(payload HandleMessage
 
 
 <a name="WebhookManager.handlePhoneNumberNameSubscriptionEvents"></a>
-### func \(\*WebhookManager\) handlePhoneNumberNameSubscriptionEvents
+### func \(\*WebhookManager\) [handlePhoneNumberNameSubscriptionEvents](<https://github.com/gTahidi/wabo/blob/master/manager/webhook_manager.go#L787>)
 
 ```go
 func (wh *WebhookManager) handlePhoneNumberNameSubscriptionEvents(baseEvent events.BaseBusinessAccountEvent, value PhoneNumberNameUpdateValue) error
@@ -2150,7 +3078,7 @@ func (wh *WebhookManager) handlePhoneNumberNameSubscriptionEvents(baseEvent even
 
 
 <a name="WebhookManager.handlePhoneNumberQualitySubscriptionEvents"></a>
-### func \(\*WebhookManager\) handlePhoneNumberQualitySubscriptionEvents
+### func \(\*WebhookManager\) [handlePhoneNumberQualitySubscriptionEvents](<https://github.com/gTahidi/wabo/blob/master/manager/webhook_manager.go#L798>)
 
 ```go
 func (wh *WebhookManager) handlePhoneNumberQualitySubscriptionEvents(baseEvent events.BaseBusinessAccountEvent, value PhoneNumberQualityUpdateValue) error
@@ -2159,7 +3087,7 @@ func (wh *WebhookManager) handlePhoneNumberQualitySubscriptionEvents(baseEvent e
 
 
 <a name="WebhookManager.handleSecuritySubscriptionEvents"></a>
-### func \(\*WebhookManager\) handleSecuritySubscriptionEvents
+### func \(\*WebhookManager\) [handleSecuritySubscriptionEvents](<https://github.com/gTahidi/wabo/blob/master/manager/webhook_manager.go#L726>)
 
 ```go
 func (wh *WebhookManager) handleSecuritySubscriptionEvents(value SecurityValue)
@@ -2168,7 +3096,7 @@ func (wh *WebhookManager) handleSecuritySubscriptionEvents(value SecurityValue)
 
 
 <a name="WebhookManager.handleTemplateCategoryUpdateSubscriptionEvents"></a>
-### func \(\*WebhookManager\) handleTemplateCategoryUpdateSubscriptionEvents
+### func \(\*WebhookManager\) [handleTemplateCategoryUpdateSubscriptionEvents](<https://github.com/gTahidi/wabo/blob/master/manager/webhook_manager.go#L808>)
 
 ```go
 func (wh *WebhookManager) handleTemplateCategoryUpdateSubscriptionEvents(baseEvent events.BaseBusinessAccountEvent, value TemplateCategoryUpdateValue) error
@@ -2177,14 +3105,17 @@ func (wh *WebhookManager) handleTemplateCategoryUpdateSubscriptionEvents(baseEve
 
 
 <a name="WebhookManagerConfig"></a>
-## type WebhookManagerConfig
+## type [WebhookManagerConfig](<https://github.com/gTahidi/wabo/blob/master/manager/webhook_manager.go#L37-L46>)
 
 WebhookManagerConfig represents the configuration options for creating a new WebhookManager.
 
 ```go
 type WebhookManagerConfig struct {
-    Secret       string                       `validate:"required"`
-    EventManager EventManager                 `validate:"required"`
+    Secret string `validate:"required"`
+    // AppSecret, when set, makes PostRequestHandler reject payloads whose
+    // X-Hub-Signature-256 header does not match.
+    AppSecret    string
+    EventManager *EventManager                `validate:"required"`
     Requester    request_client.RequestClient `validate:"required"`
     Path         string
     Port         int
@@ -2192,7 +3123,7 @@ type WebhookManagerConfig struct {
 ```
 
 <a name="WhatsAppBusinessAccountMessageTemplateDeleteRequestBody"></a>
-## type WhatsAppBusinessAccountMessageTemplateDeleteRequestBody
+## type [WhatsAppBusinessAccountMessageTemplateDeleteRequestBody](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L349-L352>)
 
 WhatsAppBusinessAccountMessageTemplateDeleteRequestBody represents the request body for deleting a template.
 
@@ -2204,7 +3135,7 @@ type WhatsAppBusinessAccountMessageTemplateDeleteRequestBody struct {
 ```
 
 <a name="WhatsAppBusinessAccountMessageTemplatePreviewButton"></a>
-## type WhatsAppBusinessAccountMessageTemplatePreviewButton
+## type [WhatsAppBusinessAccountMessageTemplatePreviewButton](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L360-L363>)
 
 WhatsAppBusinessAccountMessageTemplatePreviewButton represents a preview button.
 
@@ -2216,7 +3147,7 @@ type WhatsAppBusinessAccountMessageTemplatePreviewButton struct {
 ```
 
 <a name="WhatsAppBusinessAccountMessageTemplateUpdateRequestBody"></a>
-## type WhatsAppBusinessAccountMessageTemplateUpdateRequestBody
+## type [WhatsAppBusinessAccountMessageTemplateUpdateRequestBody](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L318-L322>)
 
 WhatsAppBusinessAccountMessageTemplateUpdateRequestBody represents the request body for updating a template.
 
@@ -2229,7 +3160,7 @@ type WhatsAppBusinessAccountMessageTemplateUpdateRequestBody struct {
 ```
 
 <a name="WhatsAppBusinessHSMWhatsAppHSMComponent"></a>
-## type WhatsAppBusinessHSMWhatsAppHSMComponent
+## type [WhatsAppBusinessHSMWhatsAppHSMComponent](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L154-L164>)
 
 WhatsAppBusinessHSMWhatsAppHSMComponent represents a component in a message template. Note: The "Type" field here now uses MessageTemplateComponentType.
 
@@ -2248,7 +3179,7 @@ type WhatsAppBusinessHSMWhatsAppHSMComponent struct {
 ```
 
 <a name="WhatsAppBusinessMessageTemplateNode"></a>
-## type WhatsAppBusinessMessageTemplateNode
+## type [WhatsAppBusinessMessageTemplateNode](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L33-L47>)
 
 WhatsAppBusinessMessageTemplateNode represents a WhatsApp Business message template.
 
@@ -2271,7 +3202,7 @@ type WhatsAppBusinessMessageTemplateNode struct {
 ```
 
 <a name="WhatsAppBusinessTemplatesFetchResponseEdge"></a>
-## type WhatsAppBusinessTemplatesFetchResponseEdge
+## type [WhatsAppBusinessTemplatesFetchResponseEdge](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L73-L76>)
 
 WhatsAppBusinessTemplatesFetchResponseEdge represents the response structure for fetching templates.
 
@@ -2283,7 +3214,7 @@ type WhatsAppBusinessTemplatesFetchResponseEdge struct {
 ```
 
 <a name="WhatsappApiNotificationPayloadSchemaType"></a>
-## type WhatsappApiNotificationPayloadSchemaType
+## type [WhatsappApiNotificationPayloadSchemaType](<https://github.com/gTahidi/wabo/blob/master/manager/types.go#L236-L239>)
 
 
 
@@ -2295,26 +3226,62 @@ type WhatsappApiNotificationPayloadSchemaType struct {
 ```
 
 <a name="WhatsappBusinessAccountPhoneNumber"></a>
-## type WhatsappBusinessAccountPhoneNumber
+## type [WhatsappBusinessAccountPhoneNumber](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L118-L145>)
 
 WhatsappBusinessAccountPhoneNumber represents a WhatsApp Business Account phone number.
 
 ```go
 type WhatsappBusinessAccountPhoneNumber struct {
-    VerifiedName           string `json:"verified_name,omitempty"`
-    DisplayPhoneNumber     string `json:"display_phone_number,omitempty"`
-    Id                     string `json:"id,omitempty"`
-    QualityRating          string `json:"quality_rating,omitempty"`
-    CodeVerificationStatus string `json:"code_verification_status,omitempty"`
-    Status                 string `json:"status,omitempty"` // CONNECTED
-    PlatformType           string `json:"platform_type,omitempty"`
-    CountryDialCode        string `json:"country_dial_code,omitempty"`
-    SearchVisibility       string `json:"search_visibility,omitempty"`
+    VerifiedName                          string                                                   `json:"verified_name,omitempty"`
+    DisplayPhoneNumber                    string                                                   `json:"display_phone_number,omitempty"`
+    Id                                    string                                                   `json:"id,omitempty"`
+    QualityRating                         string                                                   `json:"quality_rating,omitempty"`
+    CodeVerificationStatus                WhatsappBusinessAccountPhoneNumberCodeVerificationStatus `json:"code_verification_status,omitempty"`
+    Status                                WhatsappBusinessAccountPhoneNumberStatus                 `json:"status,omitempty"` // CONNECTED
+    PlatformType                          WhatsappBusinessAccountPhoneNumberPlatformType           `json:"platform_type,omitempty"`
+    CountryDialCode                       string                                                   `json:"country_dial_code,omitempty"`
+    SearchVisibility                      string                                                   `json:"search_visibility,omitempty"`
+    Certificate                           string                                                   `json:"certificate,omitempty"`
+    HealthStatus                          *WabaHealthStatus                                        `json:"health_status,omitempty"`
+    IsOfficialBusinessAccount             bool                                                     `json:"is_official_business_account,omitempty"`
+    IsOnBizApp                            bool                                                     `json:"is_on_biz_app,omitempty"`
+    IsPinEnabled                          bool                                                     `json:"is_pin_enabled,omitempty"`
+    IsPreverifiedNumber                   bool                                                     `json:"is_preverified_number,omitempty"`
+    LastOnboardedTime                     string                                                   `json:"last_onboarded_time,omitempty"`
+    MessagingLimitTier                    WhatsappBusinessAccountPhoneNumberMessagingLimitTier     `json:"messaging_limit_tier,omitempty"`
+    NameStatus                            WhatsappBusinessAccountPhoneNumberNameStatus             `json:"name_status,omitempty"`
+    NewCertificate                        string                                                   `json:"new_certificate,omitempty"`
+    NewDisplayName                        string                                                   `json:"new_display_name,omitempty"`
+    NewNameStatus                         WhatsappBusinessAccountPhoneNumberNameStatus             `json:"new_name_status,omitempty"`
+    EligibilityForApiBusinessGlobalSearch string                                                   `json:"eligibility_for_api_business_global_search,omitempty"`
+    AccountMode                           string                                                   `json:"account_mode,omitempty"`
+    Throughput                            *WabaThroughput                                          `json:"throughput,omitempty"`
+    OfficialBusinessAccount               *WabaOfficialBusinessAccount                             `json:"official_business_account,omitempty"`
+    QualityScore                          *WabaQualityScore                                        `json:"quality_score,omitempty"`
 }
 ```
 
+<a name="WhatsappBusinessAccountPhoneNumberCodeVerificationStatus"></a>
+## type [WhatsappBusinessAccountPhoneNumberCodeVerificationStatus](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L35>)
+
+
+
+```go
+type WhatsappBusinessAccountPhoneNumberCodeVerificationStatus string
+```
+
+<a name="WhatsappBusinessAccountPhoneNumberCodeVerificationStatusVerified"></a>
+
+```go
+const (
+    WhatsappBusinessAccountPhoneNumberCodeVerificationStatusVerified    WhatsappBusinessAccountPhoneNumberCodeVerificationStatus = "VERIFIED"
+    WhatsappBusinessAccountPhoneNumberCodeVerificationStatusNotVerified WhatsappBusinessAccountPhoneNumberCodeVerificationStatus = "NOT_VERIFIED"
+    WhatsappBusinessAccountPhoneNumberCodeVerificationStatusExpired     WhatsappBusinessAccountPhoneNumberCodeVerificationStatus = "EXPIRED"
+)
+```
+
 <a name="WhatsappBusinessAccountPhoneNumberEdge"></a>
-## type WhatsappBusinessAccountPhoneNumberEdge
+## type [WhatsappBusinessAccountPhoneNumberEdge](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L148-L152>)
 
 WhatsappBusinessAccountPhoneNumberEdge represents a list of WhatsApp Business Account phone numbers.
 
@@ -2326,8 +3293,99 @@ type WhatsappBusinessAccountPhoneNumberEdge struct {
 }
 ```
 
+<a name="WhatsappBusinessAccountPhoneNumberMessagingLimitTier"></a>
+## type [WhatsappBusinessAccountPhoneNumberMessagingLimitTier](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L43>)
+
+
+
+```go
+type WhatsappBusinessAccountPhoneNumberMessagingLimitTier string
+```
+
+<a name="WhatsappBusinessAccountPhoneNumberMessagingLimitTierTier50"></a>
+
+```go
+const (
+    WhatsappBusinessAccountPhoneNumberMessagingLimitTierTier50        WhatsappBusinessAccountPhoneNumberMessagingLimitTier = "TIER_50"
+    WhatsappBusinessAccountPhoneNumberMessagingLimitTierTier250       WhatsappBusinessAccountPhoneNumberMessagingLimitTier = "TIER_250"
+    WhatsappBusinessAccountPhoneNumberMessagingLimitTierTier1K        WhatsappBusinessAccountPhoneNumberMessagingLimitTier = "TIER_1K"
+    WhatsappBusinessAccountPhoneNumberMessagingLimitTierTier10K       WhatsappBusinessAccountPhoneNumberMessagingLimitTier = "TIER_10K"
+    WhatsappBusinessAccountPhoneNumberMessagingLimitTierTier100K      WhatsappBusinessAccountPhoneNumberMessagingLimitTier = "TIER_100K"
+    WhatsappBusinessAccountPhoneNumberMessagingLimitTierTierUnlimited WhatsappBusinessAccountPhoneNumberMessagingLimitTier = "TIER_UNLIMITED"
+)
+```
+
+<a name="WhatsappBusinessAccountPhoneNumberNameStatus"></a>
+## type [WhatsappBusinessAccountPhoneNumberNameStatus](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L54>)
+
+
+
+```go
+type WhatsappBusinessAccountPhoneNumberNameStatus string
+```
+
+<a name="WhatsappBusinessAccountPhoneNumberNameStatusApproved"></a>
+
+```go
+const (
+    WhatsappBusinessAccountPhoneNumberNameStatusApproved               WhatsappBusinessAccountPhoneNumberNameStatus = "APPROVED"
+    WhatsappBusinessAccountPhoneNumberNameStatusAvailableWithoutReview WhatsappBusinessAccountPhoneNumberNameStatus = "AVAILABLE_WITHOUT_REVIEW"
+    WhatsappBusinessAccountPhoneNumberNameStatusDeclined               WhatsappBusinessAccountPhoneNumberNameStatus = "DECLINED"
+    WhatsappBusinessAccountPhoneNumberNameStatusExpired                WhatsappBusinessAccountPhoneNumberNameStatus = "EXPIRED"
+    WhatsappBusinessAccountPhoneNumberNameStatusNonExists              WhatsappBusinessAccountPhoneNumberNameStatus = "NON_EXISTS"
+    WhatsappBusinessAccountPhoneNumberNameStatusNone                   WhatsappBusinessAccountPhoneNumberNameStatus = "NONE"
+    WhatsappBusinessAccountPhoneNumberNameStatusPendingReview          WhatsappBusinessAccountPhoneNumberNameStatus = "PENDING_REVIEW"
+)
+```
+
+<a name="WhatsappBusinessAccountPhoneNumberPlatformType"></a>
+## type [WhatsappBusinessAccountPhoneNumberPlatformType](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L66>)
+
+
+
+```go
+type WhatsappBusinessAccountPhoneNumberPlatformType string
+```
+
+<a name="WhatsappBusinessAccountPhoneNumberPlatformTypeCloudApi"></a>
+
+```go
+const (
+    WhatsappBusinessAccountPhoneNumberPlatformTypeCloudApi      WhatsappBusinessAccountPhoneNumberPlatformType = "CLOUD_API"
+    WhatsappBusinessAccountPhoneNumberPlatformTypeNotApplicable WhatsappBusinessAccountPhoneNumberPlatformType = "NOT_APPLICABLE"
+    WhatsappBusinessAccountPhoneNumberPlatformTypeOnPremise     WhatsappBusinessAccountPhoneNumberPlatformType = "ON_PREMISE"
+)
+```
+
+<a name="WhatsappBusinessAccountPhoneNumberStatus"></a>
+## type [WhatsappBusinessAccountPhoneNumberStatus](<https://github.com/gTahidi/wabo/blob/master/manager/phone_number_manager.go#L74>)
+
+
+
+```go
+type WhatsappBusinessAccountPhoneNumberStatus string
+```
+
+<a name="WhatsappBusinessAccountPhoneNumberStatusPending"></a>
+
+```go
+const (
+    WhatsappBusinessAccountPhoneNumberStatusPending      WhatsappBusinessAccountPhoneNumberStatus = "PENDING"
+    WhatsappBusinessAccountPhoneNumberStatusDeleted      WhatsappBusinessAccountPhoneNumberStatus = "DELETED"
+    WhatsappBusinessAccountPhoneNumberStatusMigrated     WhatsappBusinessAccountPhoneNumberStatus = "MIGRATED"
+    WhatsappBusinessAccountPhoneNumberStatusBanned       WhatsappBusinessAccountPhoneNumberStatus = "BANNED"
+    WhatsappBusinessAccountPhoneNumberStatusRestricted   WhatsappBusinessAccountPhoneNumberStatus = "RESTRICTED"
+    WhatsappBusinessAccountPhoneNumberStatusRateLimited  WhatsappBusinessAccountPhoneNumberStatus = "RATE_LIMITED"
+    WhatsappBusinessAccountPhoneNumberStatusFlagged      WhatsappBusinessAccountPhoneNumberStatus = "FLAGGED"
+    WhatsappBusinessAccountPhoneNumberStatusConnected    WhatsappBusinessAccountPhoneNumberStatus = "CONNECTED"
+    WhatsappBusinessAccountPhoneNumberStatusDisconnected WhatsappBusinessAccountPhoneNumberStatus = "DISCONNECTED"
+    WhatsappBusinessAccountPhoneNumberStatusUnknown      WhatsappBusinessAccountPhoneNumberStatus = "UNKNOWN"
+    WhatsappBusinessAccountPhoneNumberStatusUnverified   WhatsappBusinessAccountPhoneNumberStatus = "UNVERIFIED"
+)
+```
+
 <a name="WhatsappMessageTemplateButtonCreateRequestBody"></a>
-## type WhatsappMessageTemplateButtonCreateRequestBody
+## type [WhatsappMessageTemplateButtonCreateRequestBody](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L224-L236>)
 
 WhatsappMessageTemplateButtonCreateRequestBody represents the request body for creating a button.
 
@@ -2337,14 +3395,18 @@ type WhatsappMessageTemplateButtonCreateRequestBody struct {
     Text                 string   `json:"text,omitempty"`
     Url                  string   `json:"url,omitempty"`
     PhoneNumber          string   `json:"phone_number,omitempty"`
-    Example              []string `json:"example,omitempty"` // For URL buttons with variables.
+    Example              []string `json:"example,omitempty"`
     FlowId               string   `json:"flow_id,omitempty"`
+    FlowName             string   `json:"flow_name,omitempty"`
+    FlowJSON             string   `json:"flow_json,omitempty"`
+    FlowAction           string   `json:"flow_action,omitempty"`
+    NavigateScreen       string   `json:"navigate_screen,omitempty"`
     ZeroTapTermsAccepted bool     `json:"zero_tap_terms_accepted,omitempty"`
 }
 ```
 
 <a name="WhatsappMessageTemplateButtonCreateRequestBodyAlias"></a>
-## type WhatsappMessageTemplateButtonCreateRequestBodyAlias
+## type [WhatsappMessageTemplateButtonCreateRequestBodyAlias](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L239>)
 
 WhatsappMessageTemplateButtonCreateRequestBody alias used in component creation.
 
@@ -2353,7 +3415,7 @@ type WhatsappMessageTemplateButtonCreateRequestBodyAlias = WhatsappMessageTempla
 ```
 
 <a name="WhatsappMessageTemplateComponentCreateOrUpdateRequestBody"></a>
-## type WhatsappMessageTemplateComponentCreateOrUpdateRequestBody
+## type [WhatsappMessageTemplateComponentCreateOrUpdateRequestBody](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L242-L248>)
 
 WhatsappMessageTemplateComponentCreateOrUpdateRequestBody represents the request body for creating/updating a component.
 
@@ -2368,7 +3430,7 @@ type WhatsappMessageTemplateComponentCreateOrUpdateRequestBody struct {
 ```
 
 <a name="WhatsappMessageTemplateCreateRequestBody"></a>
-## type WhatsappMessageTemplateCreateRequestBody
+## type [WhatsappMessageTemplateCreateRequestBody](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L273-L281>)
 
 WhatsappMessageTemplateCreateRequestBody represents the request body for creating a message template.
 
@@ -2385,7 +3447,7 @@ type WhatsappMessageTemplateCreateRequestBody struct {
 ```
 
 <a name="WhatsappMessageTemplateCreateRequestBody.AddComponent"></a>
-### func \(\*WhatsappMessageTemplateCreateRequestBody\) AddComponent
+### func \(\*WhatsappMessageTemplateCreateRequestBody\) [AddComponent](<https://github.com/gTahidi/wabo/blob/master/manager/template_manager.go#L284>)
 
 ```go
 func (body *WhatsappMessageTemplateCreateRequestBody) AddComponent(component WhatsappMessageTemplateComponentCreateOrUpdateRequestBody)

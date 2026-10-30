@@ -16,10 +16,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gTahidi/wapi.go/internal"
-	"github.com/gTahidi/wapi.go/internal/request_client"
-	"github.com/gTahidi/wapi.go/pkg/components"
-	"github.com/gTahidi/wapi.go/pkg/events"
+	"github.com/gTahidi/wabo/internal"
+	"github.com/gTahidi/wabo/internal/request_client"
+	"github.com/gTahidi/wabo/pkg/components"
+	"github.com/gTahidi/wabo/pkg/events"
 	"github.com/labstack/echo/v4"
 )
 
@@ -133,11 +133,6 @@ func (wh *WebhookManager) PostRequestHandler(c echo.Context) error {
 					return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid MessagesValue JSON: %v", err))
 				}
 
-				senderName := ""
-				if len(messageValue.Contacts) > 0 {
-					senderName = messageValue.Contacts[0].Profile.Name
-				}
-
 				err = wh.handleMessagesSubscriptionEvents(HandleMessageSubscriptionEventPayload{
 					Messages: messageValue.Messages,
 					Statuses: messageValue.Statuses,
@@ -146,7 +141,7 @@ func (wh *WebhookManager) PostRequestHandler(c echo.Context) error {
 						Id:            messageValue.Metadata.PhoneNumberId,
 					},
 					BusinessAccountId: entry.Id,
-					SenderName:        senderName,
+					Contacts:          messageValue.Contacts,
 					UserActions:       messageValue.UserActions,
 				})
 
@@ -321,6 +316,12 @@ func (wh *WebhookManager) PostRequestHandler(c echo.Context) error {
 					c.String(http.StatusInternalServerError, "Internal server error")
 					return err
 				}
+			default:
+				raw, err := json.Marshal(change.Value)
+				if err != nil {
+					return err
+				}
+				wh.EventManager.Publish(events.UnknownEventType, &events.UnknownWebhookEvent{Field: string(change.Field), BaseMessageEvent: events.BaseMessageEvent{BusinessAccountId: entry.Id}, Raw: raw})
 			}
 		}
 	}
@@ -366,6 +367,7 @@ func (wh *WebhookManager) ListenToEvents() {
 }
 
 type HandleMessageSubscriptionEventPayload struct {
+	Contacts          []Contact                  `json:"contacts"`
 	Messages          []Message                  `json:"messages"`
 	Statuses          []Status                   `json:"statuses"`
 	PhoneNumber       events.BusinessPhoneNumber `json:"phone_number_id"`     // * this is the phone number to which this event has bee sent to
@@ -445,19 +447,35 @@ func (wh *WebhookManager) handleMessagesSubscriptionEvents(payload HandleMessage
 			repliedTo = message.Context.Id
 		}
 
+		senderName := payload.SenderName
+		if len(payload.Contacts) > 0 {
+			senderName = ""
+			for _, contact := range payload.Contacts {
+				if message.From != "" && contact.WaId == message.From {
+					senderName = contact.Profile.Name
+					break
+				}
+			}
+		}
 		baseMessageEvent := events.NewBaseMessageEvent(events.BaseMessageEventParams{
 			BusinessAccountId: payload.BusinessAccountId,
 			MessageId:         message.Id,
 			PhoneNumber:       payload.PhoneNumber,
 			Timestamp:         message.Timestamp,
 			From:              message.From,
-			SenderName:        payload.SenderName,
+			SenderName:        senderName,
 			IsForwarded:       message.Context.Forwarded,
 			Context: events.MessageContext{
 				RepliedToMessageId: repliedTo,
 			},
 			Requester: wh.Requester,
 		})
+
+		baseMessageEvent.RawMessage = message.RawMessage
+		var rawFields map[string]json.RawMessage
+		if json.Unmarshal(message.RawMessage, &rawFields) == nil {
+			baseMessageEvent.Referral = rawFields["referral"]
+		}
 
 		switch message.Type {
 		case NotificationMessageTypeText:
@@ -525,23 +543,14 @@ func (wh *WebhookManager) handleMessagesSubscriptionEvents(payload HandleMessage
 
 			}
 		case NotificationMessageTypeDocument:
-			{
-				documentMessageComponent, err := components.NewVideoMessage(components.VideoMessageConfigs{
-					Id:      message.Document.Id,
-					Caption: message.Document.Caption,
-				})
-
-				if err != nil {
-					// ! TODO: emit error event here
-					return err
-				}
-
-				wh.EventManager.Publish(events.DocumentMessageEventType, events.NewVideoMessageEvent(
-					baseMessageEvent,
-					*documentMessageComponent,
-					message.Document.MIMEType, message.Document.SHA256, message.Document.Id),
-				)
+			// Inbound filenames and captions are optional; outbound constructor
+			// validation must not reject a valid incoming document.
+			document := components.DocumentMessage{Id: message.Document.Id, FileName: message.Document.Filename}
+			if message.Document.Caption != "" {
+				document.Caption = &message.Document.Caption
 			}
+			wh.EventManager.Publish(events.DocumentMessageEventType, events.NewDocumentMessageEvent(
+				baseMessageEvent, document, message.Document.Id, message.Document.SHA256, message.Document.MIMEType))
 		case NotificationMessageTypeLocation:
 			{
 				locationMessageComponent, err := components.NewLocationMessage(message.Location.Latitude, message.Location.Longitude)
@@ -558,8 +567,7 @@ func (wh *WebhookManager) handleMessagesSubscriptionEvents(payload HandleMessage
 			}
 		case NotificationMessageTypeContacts:
 			{
-				contactMessageComponent, _ := components.NewContactMessage([]components.Contact{})
-				// ! TODO: add the contact here to the contact message component
+				contactMessageComponent, _ := components.NewContactMessage(message.ContactCards)
 				wh.EventManager.Publish(events.ContactMessageEventType, events.NewContactsMessageEvent(
 					baseMessageEvent,
 					*contactMessageComponent,
@@ -660,7 +668,7 @@ func (wh *WebhookManager) handleMessagesSubscriptionEvents(payload HandleMessage
 						CreationTimestamp: message.Identity.CreatedTimestamp,
 						Hash:              message.Identity.Hash,
 					})
-				} else {
+				} else if message.System.Type == SystemNotificationTypeCustomerPhoneNumberChange {
 					wh.EventManager.Publish(events.CustomerNumberChangedEventType, events.CustomerNumberChangedEvent{
 						BaseSystemEvent: events.BaseSystemEvent{
 							Timestamp: message.Timestamp,
@@ -669,12 +677,12 @@ func (wh *WebhookManager) handleMessagesSubscriptionEvents(payload HandleMessage
 						OldWaId:           message.System.Customer,
 						ChangeDescription: message.System.Body,
 					})
+				} else {
+					wh.EventManager.Publish(events.UnknownEventType, &events.UnknownWebhookEvent{BaseMessageEvent: baseMessageEvent, Field: "messages", Raw: message.RawMessage})
 				}
 			}
-		case NotificationMessageTypeUnknown:
-			{
-				// ! TODO: handle error in the event and then emit it.
-			}
+		default:
+			wh.EventManager.Publish(events.UnknownEventType, &events.UnknownWebhookEvent{BaseMessageEvent: baseMessageEvent, Field: "messages", Raw: message.RawMessage})
 		}
 	}
 

@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gTahidi/wapi.go/pkg/graph"
+	"github.com/gTahidi/wabo/pkg/graph"
 )
 
 const (
@@ -70,8 +70,17 @@ func NewRequestClient(apiAccessToken string) *RequestClient {
 // NewRequestClientWithHTTPClient creates a RequestClient that sends through
 // httpClient (nil uses a shared client with DefaultTimeout).
 func NewRequestClientWithHTTPClient(apiAccessToken string, httpClient *http.Client) *RequestClient {
+	return NewRequestClientWithVersion(apiAccessToken, httpClient, "")
+}
+
+// NewRequestClientWithVersion configures the Graph version (for example v26.0).
+// An empty version retains the existing default.
+func NewRequestClientWithVersion(apiAccessToken string, httpClient *http.Client, apiVersion string) *RequestClient {
+	if apiVersion == "" {
+		apiVersion = API_VERSION
+	}
 	return &RequestClient{
-		apiVersion:     API_VERSION,
+		apiVersion:     apiVersion,
 		baseUrl:        BASE_URL,
 		apiAccessToken: apiAccessToken,
 		httpClient:     httpClient,

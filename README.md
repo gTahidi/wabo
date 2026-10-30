@@ -1,102 +1,66 @@
-<div align="center">
-<br />
-<p align="center">
-<a href="https://wapijs.co"><img src="https://mintlify.s3-us-west-1.amazonaws.com/softlancer/assets/banner.svg" alt="Wapi.go" /></a>
-</p>
-<br />
-</div>
+# Wabo
 
-Visit the documentation of the SDK [here](https://golang.wapikit.com)
+Wabo is a Go SDK for the WhatsApp Business Platform: messaging, business
+management, templates, media, Flows and webhook events.
 
-## Status
-
-Beta Version - This SDK is not stable right now. It is currently in beta version. Report issues [here](https://github.com/gTahidi/wapi.go/issues).
-
-This SDK is part of a technical suite built to support the WhatsApp Business Application Development ecosystem. This SDK also has a Node.js version, you can check it out [here](https://wapikit/wapi.js/js).
-
-## About
-
-Wapi.go is a Golang SDK, that supports WhatsApp API products i.e., Business Management API and Cloud API
-to build WhatsApp applications easily.
-This SDK supports managing WhatsApp business accounts, and managing phone numbers for a WhatsApp business account which includes creating, verifying, and registering a phone number to use for messaging via cloud API and deregistering a phone number. This SDK also supports the management of message templates which includes creating new templates or updating/deleting the existing ones.
-
-You can listen to the incoming webhook events via the inbuilt standalone HTTP server built using echo and also you can integrate the SDK within your existing backend applications using the getters for the route handlers of the webhook server.
-
-## Features
-
-- Supports multiple phone number messaging clients.
-- Supports WhatsApp
-- Send Messages with the least configuration
-- Event Listener for Notifications (support both User and System Notifications) and all the events provided by the WhatsApp Business Platform.
-- Manage Phone numbers and messaging templates right from the SDK programmatically.
-- Upload Media to WhatsApp servers
-- Reply and React to incoming messages.
+This SDK is in beta and is not affiliated with Meta or WhatsApp.
+It requires Go 1.23 or newer; go.mod specifies the development toolchain.
 
 ## Installation
 
-This assumes you already have a working Go environment, if not please see
-[this page](https://golang.org/doc/install) first.
-
-`go get` _will always pull the latest tagged release from the master branch._
-
 ```sh
-go get github.com/gTahidi/wapi.go
+go get github.com/gTahidi/wabo@v0.10.0-beta.1
 ```
 
-> Note: This SDK is not affiliated with the official WhatsApp Cloud API or does not act as any official solution provided the the Meta Inclusive Private Limited, this is just a open source SDK built for developers to support them in building whatsapp cloud api based chat bots easily.
+For migration from Wapi, see [the migration guide](docs/guide/migrating-to-wabo.md).
 
 ## Usage
 
-You can check out the example WhatsApp bot here. [Example Chatbot](./example-chat-bot/)
-
-# Example Usage
-
-Import the package into your project.
-This repository has three packages exported:
-
-- github.com/gTahidi/wapi.go/components
-- github.com/gTahidi/wapi.go/wapi/wapi
-- github.com/gTahidi/wapi.go/wapi/business
-- github.com/gTahidi/wapi.go/wapi/events
-
 ```go
-import "github.com/gTahidi/wapi.go/wapi/wapi"
+package main
+
+import (
+    "os"
+
+    "github.com/gTahidi/wabo"
+    "github.com/gTahidi/wabo/pkg/components"
+)
+
+func main() {
+    client := wabo.New(&wabo.ClientConfig{
+        BusinessAccountId: os.Getenv("WHATSAPP_BUSINESS_ACCOUNT_ID"),
+        ApiAccessToken: os.Getenv("WHATSAPP_ACCESS_TOKEN"),
+        WebhookSecret: os.Getenv("WHATSAPP_VERIFY_TOKEN"),
+        AppSecret: os.Getenv("META_APP_SECRET"),
+    })
+    messaging := client.NewMessagingClient(os.Getenv("WHATSAPP_PHONE_NUMBER_ID"))
+    message, err := components.NewTextMessage(components.TextMessageConfigs{Text: "Hello from Wabo"})
+    if err != nil {
+        panic(err)
+    }
+    _, err = messaging.Message.Send(message, os.Getenv("WHATSAPP_RECIPIENT"))
+    if err != nil {
+        panic(err)
+    }
+}
 ```
 
-Construct a new Wapi Client to access the managers in order to send messages and listen to incoming notifications.
+Use `ClientConfig.APIVersion` to select a Graph version explicitly. Empty retains
+`v24.0`; selecting a newer version does not certify all API features against it.
 
-```go
-whatsappClient, err := wapi.New(wapi.ClientConfig{
-		PhoneNumberId:     "",
-		ApiAccessToken: "",
-		BusinessAccountId: "",
-		WebhookPath:       "/webhook",
-		WebhookSecret:     "",
-		WebhookServerPort: 8080,
-	})
+Examples: [chat bot](examples/chat-bot) and
+[HTTP backend integration](examples/http-backend-integration).
+Public service packages remain under `pkg/`; orchestration helpers are in `manager/`.
+
+## Development
+
+```sh
+go build ./...
+go test ./...
+make format
+make docs
 ```
 
-## References
+See [repository guidelines](AGENTS.md) and [commit conventions](COMMIT_CONVENTION.md).
 
-- **Message Structures**: Refer to the WhatsApp Docs [here](https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages).
-
-- **Notification Payloads**: Details can be found [here](https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/components).
-
-## Contribution Guidelines
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-For detailed guidelines, check [Contributing.md](./CONTRIBUTING.md).
-
-## License
-
-Distributed under the Apache 2.0 License. View [LICENSE](./LICENSE).
-
-## Contact
-
-- Email: sarthak@softlancer.co
-- [Twitter](https://twitter.com/wapikit) | [LinkedIn](https://www.linkedin.com/in/wapikit)
+Distributed under the [Apache 2.0 license](LICENSE).

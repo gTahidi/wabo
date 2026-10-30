@@ -11,8 +11,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gTahidi/wapi.go/internal"
-	"github.com/gTahidi/wapi.go/internal/request_client"
+	"github.com/gTahidi/wabo/internal"
+	"github.com/gTahidi/wabo/internal/request_client"
 )
 
 type CatalogManager struct {

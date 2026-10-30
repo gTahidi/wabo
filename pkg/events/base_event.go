@@ -1,11 +1,12 @@
 package events
 
 import (
+	"encoding/json"
 	"net/http"
 	"strings"
 
-	"github.com/gTahidi/wapi.go/internal/request_client"
-	"github.com/gTahidi/wapi.go/pkg/components"
+	"github.com/gTahidi/wabo/internal/request_client"
+	"github.com/gTahidi/wabo/pkg/components"
 )
 
 type MessageContext struct {
@@ -36,7 +37,11 @@ type BusinessPhoneNumber struct {
 }
 
 type BaseMessageEvent struct {
-	BusinessAccountId string `json:"business_account_id"`
+	// RawMessage retains the complete inbound message, including unknown fields.
+	RawMessage json.RawMessage `json:"raw_message,omitempty"`
+	// Referral retains click-to-WhatsApp attribution when present.
+	Referral          json.RawMessage `json:"referral,omitempty"`
+	BusinessAccountId string          `json:"business_account_id"`
 	requester         request_client.RequestClient
 	MessageId         string              `json:"message_id"`
 	From              string              `json:"from"`

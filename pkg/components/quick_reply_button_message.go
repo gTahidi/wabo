@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/gTahidi/wapi.go/internal"
+	"github.com/gTahidi/wabo/internal"
 )
 
 // quickReplyButtonMessageButtonReply represents the reply structure of a quick reply button.

@@ -1,0 +1,66 @@
+```go
+import "github.com/gTahidi/wabo/internal/testutil"
+```
+
+Package testutil stubs Graph API HTTP for tests.
+
+
+
+<a name="Recorded"></a>
+## type [Recorded](<https://github.com/gTahidi/wabo/blob/master/internal/testutil/roundtripper.go#L12-L17>)
+
+Recorded is one request seen by a Transport.
+
+```go
+type Recorded struct {
+    Method string
+    URL    string
+    Header http.Header
+    Body   string
+}
+```
+
+<a name="Transport"></a>
+## type [Transport](<https://github.com/gTahidi/wabo/blob/master/internal/testutil/roundtripper.go#L20-L28>)
+
+Transport answers every request with Status and Body and records it.
+
+```go
+type Transport struct {
+    Status int
+    Body   string
+    // Handler, when set, replaces the fixed response.
+    Handler func(*http.Request) (*http.Response, error)
+
+    mu       sync.Mutex
+    Requests []Recorded
+}
+```
+
+<a name="Transport.Client"></a>
+### func \(\*Transport\) [Client](<https://github.com/gTahidi/wabo/blob/master/internal/testutil/roundtripper.go#L65>)
+
+```go
+func (t *Transport) Client() *http.Client
+```
+
+Client returns an \*http.Client using t.
+
+<a name="Transport.Last"></a>
+### func \(\*Transport\) [Last](<https://github.com/gTahidi/wabo/blob/master/internal/testutil/roundtripper.go#L55>)
+
+```go
+func (t *Transport) Last() Recorded
+```
+
+Last returns the most recent request.
+
+<a name="Transport.RoundTrip"></a>
+### func \(\*Transport\) [RoundTrip](<https://github.com/gTahidi/wabo/blob/master/internal/testutil/roundtripper.go#L30>)
+
+```go
+func (t *Transport) RoundTrip(r *http.Request) (*http.Response, error)
+```
+
+
+

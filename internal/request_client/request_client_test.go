@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gTahidi/wapi.go/internal/testutil"
-	"github.com/gTahidi/wapi.go/pkg/graph"
+	"github.com/gTahidi/wabo/internal/testutil"
+	"github.com/gTahidi/wabo/pkg/graph"
 )
 
 func TestExecuteEncodesQueryParams(t *testing.T) {
@@ -85,5 +85,14 @@ func TestExecuteContextHonoursDeadline(t *testing.T) {
 func TestDefaultHTTPClientHasTimeout(t *testing.T) {
 	if NewRequestClient("tok").HTTPClient().Timeout != DefaultTimeout {
 		t.Fatal("default client must have a timeout")
+	}
+}
+
+func TestVersionedURLs(t *testing.T) {
+	for _, version := range []string{"v24.0", "v26.0"} {
+		rc := NewRequestClientWithVersion("token", nil, version)
+		if got, want := rc.url("phone/messages", nil), "https://graph.facebook.com/"+version+"/phone/messages"; got != want {
+			t.Fatalf("URL %s want %s", got, want)
+		}
 	}
 }

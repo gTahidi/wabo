@@ -1,6 +1,9 @@
 package manager
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"github.com/gTahidi/wabo/pkg/components"
+)
 
 type NotificationReasonEnum string
 
@@ -168,7 +171,9 @@ type NotificationPayloadLocationMessageSchemaType struct {
 }
 
 type NotificationPayloadContactMessageSchemaType struct {
-	Contacts []Contact `json:"contacts"`
+	// Contacts is retained for source compatibility. Use ContactCards for inbound cards.
+	Contacts     []Contact            `json:"-"`
+	ContactCards []components.Contact `json:"contacts"`
 }
 
 type NotificationMessageTypeEnum string
@@ -399,6 +404,19 @@ type SecurityValue struct {
 	Requester          string `json:"requester"`
 }
 
+// UnmarshalJSON retains the original change value without float64 conversion.
+func (change *Change) UnmarshalJSON(data []byte) error {
+	var wire struct {
+		Value json.RawMessage  `json:"value"`
+		Field WebhookFieldEnum `json:"field"`
+	}
+	if err := json.Unmarshal(data, &wire); err != nil {
+		return err
+	}
+	change.Value, change.Field = wire.Value, wire.Field
+	return nil
+}
+
 type Change struct {
 	Value interface{}      `json:"value"`
 	Field WebhookFieldEnum `json:"field"`
@@ -440,11 +458,27 @@ type Origin struct {
 }
 
 type Pricing struct {
+	Type string `json:"type,omitempty"`
+	// Billable distinguishes an explicit false from an omitted value.
+	Billable     *bool                     `json:"billable,omitempty"`
 	PricingModel string                    `json:"pricing_model"`
 	Category     MessageStatusCategoryEnum `json:"category"`
 }
 
+// UnmarshalJSON preserves the complete inbound payload alongside typed fields.
+func (message *Message) UnmarshalJSON(data []byte) error {
+	type wireMessage Message
+	var decoded wireMessage
+	if err := json.Unmarshal(data, &decoded); err != nil {
+		return err
+	}
+	*message = Message(decoded)
+	message.RawMessage = append(json.RawMessage(nil), data...)
+	return nil
+}
+
 type Message struct {
+	RawMessage                                      json.RawMessage                             `json:"-"`
 	Id                                              string                                      `json:"id"`
 	From                                            string                                      `json:"from"`
 	Timestamp                                       string                                      `json:"timestamp"`

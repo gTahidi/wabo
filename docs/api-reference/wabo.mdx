@@ -1,0 +1,35 @@
+```go
+import "github.com/gTahidi/wabo"
+```
+
+Package wabo provides a WhatsApp Business Platform SDK. Create a Client with New, then use its business and messaging services.
+
+
+
+<a name="Client"></a>
+## type [Client](<https://github.com/gTahidi/wabo/blob/master/wabo.go#L8>)
+
+Client manages business, messaging, media, Flow and webhook services.
+
+```go
+type Client = client.Client
+```
+
+<a name="New"></a>
+### func [New](<https://github.com/gTahidi/wabo/blob/master/wabo.go#L14>)
+
+```go
+func New(config *ClientConfig) *Client
+```
+
+New creates a client with the supplied configuration.
+
+<a name="ClientConfig"></a>
+## type [ClientConfig](<https://github.com/gTahidi/wabo/blob/master/wabo.go#L11>)
+
+ClientConfig configures credentials, transport and webhook handling.
+
+```go
+type ClientConfig = client.ClientConfig
+```
+

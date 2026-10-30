@@ -1,9 +1,9 @@
 ---
 title: Building Message Components
-description: Build message components with ease using the Wapi.go SDK
+description: Build message components with ease using the Wabo SDK
 ---
 
-Wapi.go SDK provides a simaple and easy to use classes architecture to build message components. You can build message component of following types using the Wapi.go SDK:
+Wabo SDK provides a simaple and easy to use classes architecture to build message components. You can build message component of following types using the Wabo SDK:
 
 - [Text Message](#text-message)
 - [Image Message](#image-message)
@@ -22,7 +22,7 @@ Wapi.go SDK provides a simaple and easy to use classes architecture to build mes
 
 <Note>In all the media messages which includes image, document, audio, video and sticker, either we will have to use the Id of media, or a publicly accessible hosted media Url.</Note>
 
-<Tip> With the rapidly changing whatsapp business platform features and offerings, we try our best to be in sync with the new features provided by the API. If you think we are missing upon any of the available type of message support. You can open a github issue [here](https://github.com/gTahidi/wapi.go/issues) or direclty [contact](/guide/contact) the maintainer of the project.</Tip>
+<Tip> With the rapidly changing whatsapp business platform features and offerings, we try our best to be in sync with the new features provided by the API. If you think we are missing upon any of the available type of message support. You can open a github issue [here](https://github.com/gTahidi/wabo/issues) or direclty [contact](/guide/contact) the maintainer of the project.</Tip>
 
 ### Text Message
 
@@ -182,7 +182,7 @@ List message is a message component that you can use to send a list of items to 
 import { ListInteractionMessage } from '@wapijs/Wapi.go'
 
 const listMessage = new ListInteractionMessage({
-		bodyText: 'Welcome to Wapi.go',
+		bodyText: 'Welcome to Wabo',
 		buttonText: 'Ask questions',
 		footerText: 'Beta version',
 		sections: [
@@ -207,7 +207,7 @@ Button message is a message component that you can use to send a button to a use
 ```typescript
 import { ButtonInteractionMessage } from '@wapijs/Wapi.go'
 const buttonMessage = new ButtonInteractionMessage({
-		bodyText: 'Welcome to Wapi.go',
+		bodyText: 'Welcome to Wabo',
 		buttons: [{
 			id: 'I am a button',
 			title: 'Click me'
@@ -238,7 +238,7 @@ Product List message is a message component that you can use to send a list of p
 ```typescript
 import { ProductListMessage, ProductListSection, Product, HeaderTypeEnum } from '@wapijs/Wapi.go'
 const productListMessage = new ProductListMessage({
-		bodyText: 'Welcome to Wapi.go',
+		bodyText: 'Welcome to Wabo',
 		buttonText: 'Buy',
 		footerText: 'Beta version',
 		catalogId: '123',

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/gTahidi/wapi.go/internal"
+	"github.com/gTahidi/wabo/internal"
 )
 
 // TemplateMessageComponentType represents the type of a template message component.
@@ -38,7 +38,7 @@ type TemplateMessageComponent interface {
 type TemplateMessageComponentButtonType struct {
 	Type       TemplateMessageComponentType       `json:"type" validate:"required"`                 // e.g., "button"
 	SubType    TemplateMessageButtonComponentType `json:"sub_type" validate:"required"`             // e.g., "quick_reply", "url", etc.
-	Index      int                                `json:"index" validate:"required"`                // Position index of the button (0 to 9)
+	Index      int                                `json:"index" validate:"gte=0,lte=9"`             // Position index of the button (0 to 9)
 	Parameters *[]TemplateMessageParameter        `json:"parameters,omitempty" validate:"required"` // Parameters for the button component.
 }
 
@@ -290,6 +290,9 @@ func (tm *TemplateMessage) AddBody(params TemplateMessageComponentBodyType) {
 // AddButton adds a button component to the template message.
 // A maximum of 10 buttons is allowed.
 func (tm *TemplateMessage) AddButton(params TemplateMessageComponentButtonType) error {
+	if err := internal.GetValidator().Struct(params); err != nil {
+		return fmt.Errorf("error validating button: %w", err)
+	}
 	// Count existing button components.
 	numberOfButtons := 0
 	for _, component := range tm.Components {

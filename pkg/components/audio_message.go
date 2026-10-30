@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/gTahidi/wapi.go/internal"
+	"github.com/gTahidi/wabo/internal"
 )
 
 // AudioMessage represents an audio message.

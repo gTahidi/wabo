@@ -1,11 +1,11 @@
 ```go
-import "github.com/gTahidi/wapi.go/pkg/components"
+import "github.com/gTahidi/wabo/pkg/components"
 ```
 
 
 
 <a name="AddressType"></a>
-## type AddressType
+## type [AddressType](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L10>)
 
 
 
@@ -32,7 +32,7 @@ const (
 ```
 
 <a name="ApiCompatibleJsonConverterConfigs"></a>
-## type ApiCompatibleJsonConverterConfigs
+## type [ApiCompatibleJsonConverterConfigs](<https://github.com/gTahidi/wabo/blob/master/pkg/components/base_message.go#L22-L25>)
 
 ApiCompatibleJsonConverterConfigs represents the configuration for converting to JSON.
 
@@ -44,7 +44,7 @@ type ApiCompatibleJsonConverterConfigs struct {
 ```
 
 <a name="AudioMessage"></a>
-## type AudioMessage
+## type [AudioMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/audio_message.go#L11-L14>)
 
 AudioMessage represents an audio message.
 
@@ -56,7 +56,7 @@ type AudioMessage struct {
 ```
 
 <a name="NewAudioMessage"></a>
-### func NewAudioMessage
+### func [NewAudioMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/audio_message.go#L26>)
 
 ```go
 func NewAudioMessage(params AudioMessageConfigs) (*AudioMessage, error)
@@ -65,7 +65,7 @@ func NewAudioMessage(params AudioMessageConfigs) (*AudioMessage, error)
 NewAudioMessage creates a new AudioMessage object.
 
 <a name="AudioMessage.ToJson"></a>
-### func \(\*AudioMessage\) ToJson
+### func \(\*AudioMessage\) [ToJson](<https://github.com/gTahidi/wabo/blob/master/pkg/components/audio_message.go#L48>)
 
 ```go
 func (audio *AudioMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]byte, error)
@@ -74,7 +74,7 @@ func (audio *AudioMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]
 ToJson converts the AudioMessage object to JSON.
 
 <a name="AudioMessageApiPayload"></a>
-## type AudioMessageApiPayload
+## type [AudioMessageApiPayload](<https://github.com/gTahidi/wabo/blob/master/pkg/components/audio_message.go#L17-L20>)
 
 AudioMessageApiPayload represents the payload for an audio message API request.
 
@@ -86,7 +86,7 @@ type AudioMessageApiPayload struct {
 ```
 
 <a name="AudioMessageConfigs"></a>
-## type AudioMessageConfigs
+## type [AudioMessageConfigs](<https://github.com/gTahidi/wabo/blob/master/pkg/components/audio_message.go#L23>)
 
 AudioMessageConfigs is an alias for AudioMessage.
 
@@ -95,7 +95,7 @@ type AudioMessageConfigs = AudioMessage
 ```
 
 <a name="BaseMessage"></a>
-## type BaseMessage
+## type [BaseMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/base_message.go#L52-L54>)
 
 BaseMessage is an interface for sending messages.
 
@@ -106,7 +106,7 @@ type BaseMessage interface {
 ```
 
 <a name="BaseMessagePayload"></a>
-## type BaseMessagePayload
+## type [BaseMessagePayload](<https://github.com/gTahidi/wabo/blob/master/pkg/components/base_message.go#L33-L39>)
 
 BaseMessagePayload represents the base payload to send messages.
 
@@ -121,7 +121,7 @@ type BaseMessagePayload struct {
 ```
 
 <a name="NewBaseMessagePayload"></a>
-### func NewBaseMessagePayload
+### func [NewBaseMessagePayload](<https://github.com/gTahidi/wabo/blob/master/pkg/components/base_message.go#L42>)
 
 ```go
 func NewBaseMessagePayload(to string, messageType MessageType) BaseMessagePayload
@@ -129,8 +129,38 @@ func NewBaseMessagePayload(to string, messageType MessageType) BaseMessagePayloa
 
 NewBaseMessagePayload creates a new instance of BaseMessagePayload.
 
+<a name="CallToAction"></a>
+## type [CallToAction](<https://github.com/gTahidi/wabo/blob/master/pkg/components/cta_message.go#L10-L13>)
+
+
+
+```go
+type CallToAction struct {
+    DisplayText string `json:"display_text" validate:"required"`
+    Url         string `json:"url" validate:"required"`
+}
+```
+
+<a name="CallToAction.SetDisplayText"></a>
+### func \(\*CallToAction\) [SetDisplayText](<https://github.com/gTahidi/wabo/blob/master/pkg/components/cta_message.go#L15>)
+
+```go
+func (p *CallToAction) SetDisplayText(text string)
+```
+
+
+
+<a name="CallToAction.SetUrl"></a>
+### func \(\*CallToAction\) [SetUrl](<https://github.com/gTahidi/wabo/blob/master/pkg/components/cta_message.go#L19>)
+
+```go
+func (p *CallToAction) SetUrl(url string)
+```
+
+
+
 <a name="CatalogMessage"></a>
-## type CatalogMessage
+## type [CatalogMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/catalog_message.go#L32-L38>)
 
 ProductMessage represents a product message.
 
@@ -145,7 +175,7 @@ type CatalogMessage struct {
 ```
 
 <a name="NewCatalogMessage"></a>
-### func NewCatalogMessage
+### func [NewCatalogMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/catalog_message.go#L40>)
 
 ```go
 func NewCatalogMessage(name, thumbnailProductRetailerId string) (*CatalogMessage, error)
@@ -154,7 +184,7 @@ func NewCatalogMessage(name, thumbnailProductRetailerId string) (*CatalogMessage
 
 
 <a name="CatalogMessage.SetBody"></a>
-### func \(\*CatalogMessage\) SetBody
+### func \(\*CatalogMessage\) [SetBody](<https://github.com/gTahidi/wabo/blob/master/pkg/components/catalog_message.go#L64>)
 
 ```go
 func (m *CatalogMessage) SetBody(text string)
@@ -163,7 +193,7 @@ func (m *CatalogMessage) SetBody(text string)
 
 
 <a name="CatalogMessage.SetFooter"></a>
-### func \(\*CatalogMessage\) SetFooter
+### func \(\*CatalogMessage\) [SetFooter](<https://github.com/gTahidi/wabo/blob/master/pkg/components/catalog_message.go#L70>)
 
 ```go
 func (m *CatalogMessage) SetFooter(text string)
@@ -172,7 +202,7 @@ func (m *CatalogMessage) SetFooter(text string)
 
 
 <a name="CatalogMessage.SetHeader"></a>
-### func \(\*CatalogMessage\) SetHeader
+### func \(\*CatalogMessage\) [SetHeader](<https://github.com/gTahidi/wabo/blob/master/pkg/components/catalog_message.go#L58>)
 
 ```go
 func (m *CatalogMessage) SetHeader(text string)
@@ -181,7 +211,7 @@ func (m *CatalogMessage) SetHeader(text string)
 
 
 <a name="CatalogMessage.ToJson"></a>
-### func \(\*CatalogMessage\) ToJson
+### func \(\*CatalogMessage\) [ToJson](<https://github.com/gTahidi/wabo/blob/master/pkg/components/catalog_message.go#L83>)
 
 ```go
 func (m *CatalogMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]byte, error)
@@ -190,7 +220,7 @@ func (m *CatalogMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]by
 ToJson converts the product message to JSON with the given configurations.
 
 <a name="CatalogMessageAction"></a>
-## type CatalogMessageAction
+## type [CatalogMessageAction](<https://github.com/gTahidi/wabo/blob/master/pkg/components/catalog_message.go#L14-L17>)
 
 
 
@@ -202,7 +232,7 @@ type CatalogMessageAction struct {
 ```
 
 <a name="CatalogMessageActionParameter"></a>
-## type CatalogMessageActionParameter
+## type [CatalogMessageActionParameter](<https://github.com/gTahidi/wabo/blob/master/pkg/components/catalog_message.go#L10-L12>)
 
 
 
@@ -213,7 +243,7 @@ type CatalogMessageActionParameter struct {
 ```
 
 <a name="CatalogMessageApiPayload"></a>
-## type CatalogMessageApiPayload
+## type [CatalogMessageApiPayload](<https://github.com/gTahidi/wabo/blob/master/pkg/components/catalog_message.go#L77-L80>)
 
 ProductMessageApiPayload represents the API payload for a product message.
 
@@ -225,7 +255,7 @@ type CatalogMessageApiPayload struct {
 ```
 
 <a name="CatalogMessageBody"></a>
-## type CatalogMessageBody
+## type [CatalogMessageBody](<https://github.com/gTahidi/wabo/blob/master/pkg/components/catalog_message.go#L19-L21>)
 
 
 
@@ -236,7 +266,7 @@ type CatalogMessageBody struct {
 ```
 
 <a name="CatalogMessageFooter"></a>
-## type CatalogMessageFooter
+## type [CatalogMessageFooter](<https://github.com/gTahidi/wabo/blob/master/pkg/components/catalog_message.go#L23-L25>)
 
 
 
@@ -247,7 +277,7 @@ type CatalogMessageFooter struct {
 ```
 
 <a name="CatalogMessageHeader"></a>
-## type CatalogMessageHeader
+## type [CatalogMessageHeader](<https://github.com/gTahidi/wabo/blob/master/pkg/components/catalog_message.go#L27-L29>)
 
 
 
@@ -258,7 +288,7 @@ type CatalogMessageHeader struct {
 ```
 
 <a name="Contact"></a>
-## type Contact
+## type [Contact](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L82-L90>)
 
 
 
@@ -275,7 +305,7 @@ type Contact struct {
 ```
 
 <a name="NewContact"></a>
-### func NewContact
+### func [NewContact](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L92>)
 
 ```go
 func NewContact(name ContactName) *Contact
@@ -284,7 +314,7 @@ func NewContact(name ContactName) *Contact
 
 
 <a name="Contact.AddEmail"></a>
-### func \(\*Contact\) AddEmail
+### func \(\*Contact\) [AddEmail](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L122>)
 
 ```go
 func (contact *Contact) AddEmail(params ContactEmail)
@@ -293,7 +323,7 @@ func (contact *Contact) AddEmail(params ContactEmail)
 
 
 <a name="Contact.AddPhone"></a>
-### func \(\*Contact\) AddPhone
+### func \(\*Contact\) [AddPhone](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L118>)
 
 ```go
 func (contact *Contact) AddPhone(params ContactPhone)
@@ -302,7 +332,7 @@ func (contact *Contact) AddPhone(params ContactPhone)
 
 
 <a name="Contact.AddUrl"></a>
-### func \(\*Contact\) AddUrl
+### func \(\*Contact\) [AddUrl](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L126>)
 
 ```go
 func (contact *Contact) AddUrl(params ContactUrl)
@@ -311,7 +341,7 @@ func (contact *Contact) AddUrl(params ContactUrl)
 
 
 <a name="Contact.SetBirthday"></a>
-### func \(\*Contact\) SetBirthday
+### func \(\*Contact\) [SetBirthday](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L131>)
 
 ```go
 func (contact *Contact) SetBirthday(params string)
@@ -320,7 +350,7 @@ func (contact *Contact) SetBirthday(params string)
 \! TODO: add regex check here in the params
 
 <a name="Contact.SetFirstName"></a>
-### func \(\*Contact\) SetFirstName
+### func \(\*Contact\) [SetFirstName](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L102>)
 
 ```go
 func (contact *Contact) SetFirstName(firstName string)
@@ -329,7 +359,7 @@ func (contact *Contact) SetFirstName(firstName string)
 
 
 <a name="Contact.SetLastName"></a>
-### func \(\*Contact\) SetLastName
+### func \(\*Contact\) [SetLastName](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L106>)
 
 ```go
 func (contact *Contact) SetLastName(lastName string)
@@ -338,7 +368,7 @@ func (contact *Contact) SetLastName(lastName string)
 
 
 <a name="Contact.SetMiddleName"></a>
-### func \(\*Contact\) SetMiddleName
+### func \(\*Contact\) [SetMiddleName](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L110>)
 
 ```go
 func (contact *Contact) SetMiddleName(middleName string)
@@ -347,7 +377,7 @@ func (contact *Contact) SetMiddleName(middleName string)
 
 
 <a name="Contact.SetOrg"></a>
-### func \(\*Contact\) SetOrg
+### func \(\*Contact\) [SetOrg](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L114>)
 
 ```go
 func (contact *Contact) SetOrg(params ContactOrg)
@@ -356,7 +386,7 @@ func (contact *Contact) SetOrg(params ContactOrg)
 
 
 <a name="ContactAddress"></a>
-## type ContactAddress
+## type [ContactAddress](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L41-L49>)
 
 
 
@@ -373,7 +403,7 @@ type ContactAddress struct {
 ```
 
 <a name="ContactEmail"></a>
-## type ContactEmail
+## type [ContactEmail](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L66-L69>)
 
 
 
@@ -385,7 +415,7 @@ type ContactEmail struct {
 ```
 
 <a name="ContactMessage"></a>
-## type ContactMessage
+## type [ContactMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L135-L137>)
 
 
 
@@ -396,7 +426,7 @@ type ContactMessage struct {
 ```
 
 <a name="NewContactMessage"></a>
-### func NewContactMessage
+### func [NewContactMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L148>)
 
 ```go
 func NewContactMessage(configs []Contact) (*ContactMessage, error)
@@ -405,7 +435,7 @@ func NewContactMessage(configs []Contact) (*ContactMessage, error)
 
 
 <a name="ContactMessage.AddContact"></a>
-### func \(\*ContactMessage\) AddContact
+### func \(\*ContactMessage\) [AddContact](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L98>)
 
 ```go
 func (contact *ContactMessage) AddContact(params Contact)
@@ -414,7 +444,7 @@ func (contact *ContactMessage) AddContact(params Contact)
 
 
 <a name="ContactMessage.ToJson"></a>
-### func \(\*ContactMessage\) ToJson
+### func \(\*ContactMessage\) [ToJson](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L154>)
 
 ```go
 func (m *ContactMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]byte, error)
@@ -423,7 +453,7 @@ func (m *ContactMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]by
 
 
 <a name="ContactMessageApiPayload"></a>
-## type ContactMessageApiPayload
+## type [ContactMessageApiPayload](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L143-L146>)
 
 
 
@@ -435,7 +465,7 @@ type ContactMessageApiPayload struct {
 ```
 
 <a name="ContactMessageConfigs"></a>
-## type ContactMessageConfigs
+## type [ContactMessageConfigs](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L139-L141>)
 
 
 
@@ -446,7 +476,7 @@ type ContactMessageConfigs struct {
 ```
 
 <a name="ContactName"></a>
-## type ContactName
+## type [ContactName](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L51-L58>)
 
 
 
@@ -462,7 +492,7 @@ type ContactName struct {
 ```
 
 <a name="ContactOrg"></a>
-## type ContactOrg
+## type [ContactOrg](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L60-L64>)
 
 
 
@@ -475,7 +505,7 @@ type ContactOrg struct {
 ```
 
 <a name="ContactPhone"></a>
-## type ContactPhone
+## type [ContactPhone](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L71-L75>)
 
 
 
@@ -488,7 +518,7 @@ type ContactPhone struct {
 ```
 
 <a name="ContactUrl"></a>
-## type ContactUrl
+## type [ContactUrl](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L77-L80>)
 
 
 
@@ -500,7 +530,7 @@ type ContactUrl struct {
 ```
 
 <a name="Context"></a>
-## type Context
+## type [Context](<https://github.com/gTahidi/wabo/blob/master/pkg/components/base_message.go#L28-L30>)
 
 Context represents the context of the message.
 
@@ -510,8 +540,175 @@ type Context struct {
 }
 ```
 
+<a name="CtaMessage"></a>
+## type [CtaMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/cta_message.go#L54-L60>)
+
+CtaMessage represents a cta message.
+
+```go
+type CtaMessage struct {
+    Action CtaMessageAction       `json:"action" validate:"required"`
+    Body   CtaMessageBody         `json:"body" validate:"required"`
+    Footer *CtaMessageFooter      `json:"footer,omitempty"`
+    Header CtaMessageHeader       `json:"header,omitempty"`
+    Type   InteractiveMessageType `json:"type" validate:"required"`
+}
+```
+
+<a name="NewCtaMessage"></a>
+### func [NewCtaMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/cta_message.go#L100>)
+
+```go
+func NewCtaMessage(params CtaMessageParams) (*CtaMessage, error)
+```
+
+NewCtaMessage creates a new cta message.
+
+<a name="CtaMessage.SetAction"></a>
+### func \(\*CtaMessage\) [SetAction](<https://github.com/gTahidi/wabo/blob/master/pkg/components/cta_message.go#L81>)
+
+```go
+func (message *CtaMessage) SetAction(params CtaMessageActionParams)
+```
+
+
+
+<a name="CtaMessage.SetBody"></a>
+### func \(\*CtaMessage\) [SetBody](<https://github.com/gTahidi/wabo/blob/master/pkg/components/cta_message.go#L62>)
+
+```go
+func (message *CtaMessage) SetBody(text string)
+```
+
+
+
+<a name="CtaMessage.SetFooter"></a>
+### func \(\*CtaMessage\) [SetFooter](<https://github.com/gTahidi/wabo/blob/master/pkg/components/cta_message.go#L68>)
+
+```go
+func (message *CtaMessage) SetFooter(text string)
+```
+
+
+
+<a name="CtaMessage.SetHeader"></a>
+### func \(\*CtaMessage\) [SetHeader](<https://github.com/gTahidi/wabo/blob/master/pkg/components/cta_message.go#L74>)
+
+```go
+func (message *CtaMessage) SetHeader(text string)
+```
+
+
+
+<a name="CtaMessage.ToJson"></a>
+### func \(\*CtaMessage\) [ToJson](<https://github.com/gTahidi/wabo/blob/master/pkg/components/cta_message.go#L114>)
+
+```go
+func (m *CtaMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]byte, error)
+```
+
+ToJson converts the cta message to JSON.
+
+<a name="CtaMessageAction"></a>
+## type [CtaMessageAction](<https://github.com/gTahidi/wabo/blob/master/pkg/components/cta_message.go#L48-L51>)
+
+
+
+```go
+type CtaMessageAction struct {
+    Name       string                 `json:"name" validate:"required"`
+    Parameters CtaMessageActionParams `json:"parameters" validate:"required"`
+}
+```
+
+<a name="CtaMessageActionParams"></a>
+## type [CtaMessageActionParams](<https://github.com/gTahidi/wabo/blob/master/pkg/components/cta_message.go#L43-L46>)
+
+
+
+```go
+type CtaMessageActionParams struct {
+    DisplayText string `json:"display_text" validate:"required"`
+    Url         string `json:"url" validate:"required"`
+}
+```
+
+<a name="CtaMessageApiPayload"></a>
+## type [CtaMessageApiPayload](<https://github.com/gTahidi/wabo/blob/master/pkg/components/cta_message.go#L94-L97>)
+
+CtaMessageApiPayload represents the API payload for a cta message.
+
+```go
+type CtaMessageApiPayload struct {
+    BaseMessagePayload
+    Interactive CtaMessage `json:"interactive" validate:"required"`
+}
+```
+
+<a name="CtaMessageBody"></a>
+## type [CtaMessageBody](<https://github.com/gTahidi/wabo/blob/master/pkg/components/cta_message.go#L23-L25>)
+
+
+
+```go
+type CtaMessageBody struct {
+    Text string `json:"text" validate:"required"`
+}
+```
+
+<a name="CtaMessageFooter"></a>
+## type [CtaMessageFooter](<https://github.com/gTahidi/wabo/blob/master/pkg/components/cta_message.go#L27-L29>)
+
+
+
+```go
+type CtaMessageFooter struct {
+    Text string `json:"text"`
+}
+```
+
+<a name="CtaMessageHeader"></a>
+## type [CtaMessageHeader](<https://github.com/gTahidi/wabo/blob/master/pkg/components/cta_message.go#L38-L41>)
+
+\! TODO: support more header types
+
+```go
+type CtaMessageHeader struct {
+    Type CtaMessageHeaderType `json:"type" validate:"required"`
+    Text string               `json:"text"`
+}
+```
+
+<a name="CtaMessageHeaderType"></a>
+## type [CtaMessageHeaderType](<https://github.com/gTahidi/wabo/blob/master/pkg/components/cta_message.go#L31>)
+
+
+
+```go
+type CtaMessageHeaderType string
+```
+
+<a name="CtaMessageHeaderTypeText"></a>
+
+```go
+const (
+    CtaMessageHeaderTypeText CtaMessageHeaderType = "text"
+)
+```
+
+<a name="CtaMessageParams"></a>
+## type [CtaMessageParams](<https://github.com/gTahidi/wabo/blob/master/pkg/components/cta_message.go#L89-L91>)
+
+CtaMessageParams represents the parameters for creating a cta message.
+
+```go
+type CtaMessageParams struct {
+    BodyText string `validate:"required"`
+}
+```
+
 <a name="DocumentMessage"></a>
-## type DocumentMessage
+## type [DocumentMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/document_message.go#L11-L16>)
 
 DocumentMessage represents a document message.
 
@@ -525,7 +722,7 @@ type DocumentMessage struct {
 ```
 
 <a name="NewDocumentMessage"></a>
-### func NewDocumentMessage
+### func [NewDocumentMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/document_message.go#L33>)
 
 ```go
 func NewDocumentMessage(params DocumentMessageConfigs) (*DocumentMessage, error)
@@ -534,7 +731,7 @@ func NewDocumentMessage(params DocumentMessageConfigs) (*DocumentMessage, error)
 NewDocumentMessage creates a new DocumentMessage instance.
 
 <a name="DocumentMessage.ToJson"></a>
-### func \(\*DocumentMessage\) ToJson
+### func \(\*DocumentMessage\) [ToJson](<https://github.com/gTahidi/wabo/blob/master/pkg/components/document_message.go#L46>)
 
 ```go
 func (dm *DocumentMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]byte, error)
@@ -543,7 +740,7 @@ func (dm *DocumentMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]
 ToJson converts the DocumentMessage instance to JSON.
 
 <a name="DocumentMessageApiPayload"></a>
-## type DocumentMessageApiPayload
+## type [DocumentMessageApiPayload](<https://github.com/gTahidi/wabo/blob/master/pkg/components/document_message.go#L19-L22>)
 
 DocumentMessageApiPayload represents the API payload for a document message.
 
@@ -555,7 +752,7 @@ type DocumentMessageApiPayload struct {
 ```
 
 <a name="DocumentMessageConfigs"></a>
-## type DocumentMessageConfigs
+## type [DocumentMessageConfigs](<https://github.com/gTahidi/wabo/blob/master/pkg/components/document_message.go#L25-L30>)
 
 DocumentMessageConfigs represents the configurations for a document message.
 
@@ -569,7 +766,7 @@ type DocumentMessageConfigs struct {
 ```
 
 <a name="EmailType"></a>
-## type EmailType
+## type [EmailType](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L24>)
 
 
 
@@ -586,8 +783,264 @@ const (
 )
 ```
 
+<a name="FlowAction"></a>
+## type [FlowAction](<https://github.com/gTahidi/wabo/blob/master/pkg/components/flow_message.go#L21>)
+
+FlowAction represents the action type for a flow
+
+```go
+type FlowAction string
+```
+
+<a name="FlowActionNavigate"></a>
+
+```go
+const (
+    // FlowActionNavigate triggers navigation to another screen with static payload
+    FlowActionNavigate FlowAction = "navigate"
+    // FlowActionDataExchange sends data to WhatsApp Flows Data Endpoint
+    FlowActionDataExchange FlowAction = "data_exchange"
+)
+```
+
+<a name="FlowActionPayload"></a>
+## type [FlowActionPayload](<https://github.com/gTahidi/wabo/blob/master/pkg/components/flow_message.go#L31-L37>)
+
+FlowActionPayload contains the payload for navigate action
+
+```go
+type FlowActionPayload struct {
+    // Screen is the unique ID of the Screen to navigate to
+    // Default is "FIRST_ENTRY_SCREEN"
+    Screen string `json:"screen,omitempty"`
+    // Data is the input data for the screen
+    Data map[string]interface{} `json:"data,omitempty"`
+}
+```
+
+<a name="FlowMessage"></a>
+## type [FlowMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/flow_message.go#L93-L99>)
+
+FlowMessage represents an interactive flow message See: https://developers.facebook.com/docs/whatsapp/flows/gettingstarted/sendingaflow
+
+```go
+type FlowMessage struct {
+    Type   InteractiveMessageType `json:"type" validate:"required"`
+    Header *FlowMessageHeader     `json:"header,omitempty"`
+    Body   FlowMessageBody        `json:"body" validate:"required"`
+    Footer *FlowMessageFooter     `json:"footer,omitempty"`
+    Action FlowMessageAction      `json:"action" validate:"required"`
+}
+```
+
+<a name="NewFlowMessage"></a>
+### func [NewFlowMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/flow_message.go#L122>)
+
+```go
+func NewFlowMessage(params FlowMessageParams) (*FlowMessage, error)
+```
+
+NewFlowMessage creates a new flow message for user\-initiated conversations
+
+<a name="FlowMessage.SetFlowAction"></a>
+### func \(\*FlowMessage\) [SetFlowAction](<https://github.com/gTahidi/wabo/blob/master/pkg/components/flow_message.go#L181>)
+
+```go
+func (m *FlowMessage) SetFlowAction(action FlowAction, payload *FlowActionPayload)
+```
+
+SetFlowAction sets the flow action and optional payload
+
+<a name="FlowMessage.SetFlowToken"></a>
+### func \(\*FlowMessage\) [SetFlowToken](<https://github.com/gTahidi/wabo/blob/master/pkg/components/flow_message.go#L171>)
+
+```go
+func (m *FlowMessage) SetFlowToken(token string)
+```
+
+SetFlowToken sets the flow token for authentication
+
+<a name="FlowMessage.SetFooter"></a>
+### func \(\*FlowMessage\) [SetFooter](<https://github.com/gTahidi/wabo/blob/master/pkg/components/flow_message.go#L166>)
+
+```go
+func (m *FlowMessage) SetFooter(text string)
+```
+
+SetFooter sets the footer text for the flow message
+
+<a name="FlowMessage.SetHeader"></a>
+### func \(\*FlowMessage\) [SetHeader](<https://github.com/gTahidi/wabo/blob/master/pkg/components/flow_message.go#L158>)
+
+```go
+func (m *FlowMessage) SetHeader(text string)
+```
+
+SetHeader sets the text header for the flow message
+
+<a name="FlowMessage.SetMode"></a>
+### func \(\*FlowMessage\) [SetMode](<https://github.com/gTahidi/wabo/blob/master/pkg/components/flow_message.go#L176>)
+
+```go
+func (m *FlowMessage) SetMode(mode FlowMessageMode)
+```
+
+SetMode sets the flow mode \(draft or published\)
+
+<a name="FlowMessage.ToJson"></a>
+### func \(\*FlowMessage\) [ToJson](<https://github.com/gTahidi/wabo/blob/master/pkg/components/flow_message.go#L187>)
+
+```go
+func (m *FlowMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]byte, error)
+```
+
+ToJson converts the flow message to JSON for the WhatsApp Cloud API
+
+<a name="FlowMessageAction"></a>
+## type [FlowMessageAction](<https://github.com/gTahidi/wabo/blob/master/pkg/components/flow_message.go#L61-L66>)
+
+FlowMessageAction represents the action for a flow message
+
+```go
+type FlowMessageAction struct {
+    // Name must be "flow"
+    Name string `json:"name" validate:"required"`
+    // Parameters contains the flow action parameters
+    Parameters FlowMessageActionParams `json:"parameters" validate:"required"`
+}
+```
+
+<a name="FlowMessageActionParams"></a>
+## type [FlowMessageActionParams](<https://github.com/gTahidi/wabo/blob/master/pkg/components/flow_message.go#L41-L58>)
+
+FlowMessageActionParams contains the parameters for a flow action See: https://developers.facebook.com/docs/whatsapp/flows/gettingstarted/sendingaflow
+
+```go
+type FlowMessageActionParams struct {
+    // FlowMessageVersion is required, typically "3"
+    FlowMessageVersion string `json:"flow_message_version" validate:"required"`
+    // FlowID is the unique identifier for the flow (either FlowID or FlowName required)
+    FlowID string `json:"flow_id,omitempty"`
+    // FlowName is the name of the flow (either FlowID or FlowName required)
+    FlowName string `json:"flow_name,omitempty"`
+    // FlowCTA is the call to action button text (required)
+    FlowCTA string `json:"flow_cta" validate:"required"`
+    // FlowToken is an optional token to authenticate the flow, default is "unused"
+    FlowToken string `json:"flow_token,omitempty"`
+    // FlowAction is either "navigate" or "data_exchange", default is "navigate"
+    FlowAction FlowAction `json:"flow_action,omitempty"`
+    // FlowActionPayload contains screen and data for navigate action
+    FlowActionPayload *FlowActionPayload `json:"flow_action_payload,omitempty"`
+    // Mode is "draft" or "published", default is "published"
+    Mode FlowMessageMode `json:"mode,omitempty"`
+}
+```
+
+<a name="FlowMessageApiPayload"></a>
+## type [FlowMessageApiPayload](<https://github.com/gTahidi/wabo/blob/master/pkg/components/flow_message.go#L116-L119>)
+
+FlowMessageApiPayload represents the API payload for a flow message
+
+```go
+type FlowMessageApiPayload struct {
+    BaseMessagePayload
+    Interactive FlowMessage `json:"interactive" validate:"required"`
+}
+```
+
+<a name="FlowMessageBody"></a>
+## type [FlowMessageBody](<https://github.com/gTahidi/wabo/blob/master/pkg/components/flow_message.go#L69-L71>)
+
+FlowMessageBody represents the body of a flow message
+
+```go
+type FlowMessageBody struct {
+    Text string `json:"text" validate:"required"`
+}
+```
+
+<a name="FlowMessageFooter"></a>
+## type [FlowMessageFooter](<https://github.com/gTahidi/wabo/blob/master/pkg/components/flow_message.go#L74-L76>)
+
+FlowMessageFooter represents the footer of a flow message
+
+```go
+type FlowMessageFooter struct {
+    Text string `json:"text"`
+}
+```
+
+<a name="FlowMessageHeader"></a>
+## type [FlowMessageHeader](<https://github.com/gTahidi/wabo/blob/master/pkg/components/flow_message.go#L86-L89>)
+
+FlowMessageHeader represents the header of a flow message
+
+```go
+type FlowMessageHeader struct {
+    Type FlowMessageHeaderType `json:"type" validate:"required"`
+    Text string                `json:"text,omitempty"`
+}
+```
+
+<a name="FlowMessageHeaderType"></a>
+## type [FlowMessageHeaderType](<https://github.com/gTahidi/wabo/blob/master/pkg/components/flow_message.go#L79>)
+
+FlowMessageHeaderType defines the type of header
+
+```go
+type FlowMessageHeaderType string
+```
+
+<a name="FlowMessageHeaderTypeText"></a>
+
+```go
+const (
+    FlowMessageHeaderTypeText FlowMessageHeaderType = "text"
+)
+```
+
+<a name="FlowMessageMode"></a>
+## type [FlowMessageMode](<https://github.com/gTahidi/wabo/blob/master/pkg/components/flow_message.go#L11>)
+
+FlowMessageMode represents the mode for sending a flow
+
+```go
+type FlowMessageMode string
+```
+
+<a name="FlowMessageModeDraft"></a>
+
+```go
+const (
+    // FlowMessageModeDraft sends the current draft version of the flow
+    FlowMessageModeDraft FlowMessageMode = "draft"
+    // FlowMessageModePublished sends the last published version of the flow
+    FlowMessageModePublished FlowMessageMode = "published"
+)
+```
+
+<a name="FlowMessageParams"></a>
+## type [FlowMessageParams](<https://github.com/gTahidi/wabo/blob/master/pkg/components/flow_message.go#L102-L113>)
+
+FlowMessageParams contains parameters for creating a new flow message
+
+```go
+type FlowMessageParams struct {
+    // BodyText is the message body text (required)
+    BodyText string `validate:"required"`
+    // FlowID is the unique ID of the flow (either FlowID or FlowName required)
+    FlowID string
+    // FlowName is the name of the flow (either FlowID or FlowName required)
+    FlowName string
+    // FlowCTA is the call to action button text (required)
+    FlowCTA string `validate:"required"`
+    // FlowMessageVersion is the version of flow message protocol, default is "3"
+    FlowMessageVersion string
+}
+```
+
 <a name="ImageMessage"></a>
-## type ImageMessage
+## type [ImageMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/image_message.go#L11-L15>)
 
 ImageMessage represents a message with an image.
 
@@ -600,7 +1053,7 @@ type ImageMessage struct {
 ```
 
 <a name="NewImageMessage"></a>
-### func NewImageMessage
+### func [NewImageMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/image_message.go#L32>)
 
 ```go
 func NewImageMessage(params ImageMessageConfigs) (*ImageMessage, error)
@@ -609,7 +1062,7 @@ func NewImageMessage(params ImageMessageConfigs) (*ImageMessage, error)
 NewImageMessage creates a new ImageMessage instance.
 
 <a name="ImageMessage.SetCaption"></a>
-### func \(\*ImageMessage\) SetCaption
+### func \(\*ImageMessage\) [SetCaption](<https://github.com/gTahidi/wabo/blob/master/pkg/components/image_message.go#L27>)
 
 ```go
 func (image *ImageMessage) SetCaption(params string)
@@ -618,7 +1071,7 @@ func (image *ImageMessage) SetCaption(params string)
 SetCaption sets the caption for the image message.
 
 <a name="ImageMessage.ToJson"></a>
-### func \(\*ImageMessage\) ToJson
+### func \(\*ImageMessage\) [ToJson](<https://github.com/gTahidi/wabo/blob/master/pkg/components/image_message.go#L55>)
 
 ```go
 func (image *ImageMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]byte, error)
@@ -627,7 +1080,7 @@ func (image *ImageMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]
 ToJson converts the ImageMessage to JSON.
 
 <a name="ImageMessageApiPayload"></a>
-## type ImageMessageApiPayload
+## type [ImageMessageApiPayload](<https://github.com/gTahidi/wabo/blob/master/pkg/components/image_message.go#L18-L21>)
 
 ImageMessageApiPayload represents the API payload for an image message.
 
@@ -639,7 +1092,7 @@ type ImageMessageApiPayload struct {
 ```
 
 <a name="ImageMessageConfigs"></a>
-## type ImageMessageConfigs
+## type [ImageMessageConfigs](<https://github.com/gTahidi/wabo/blob/master/pkg/components/image_message.go#L24>)
 
 ImageMessageConfigs is an alias for ImageMessage.
 
@@ -648,7 +1101,7 @@ type ImageMessageConfigs = ImageMessage
 ```
 
 <a name="InteractiveMessageType"></a>
-## type InteractiveMessageType
+## type [InteractiveMessageType](<https://github.com/gTahidi/wabo/blob/master/pkg/components/interactive_message.go#L3>)
 
 
 
@@ -663,14 +1116,16 @@ const (
     InteractiveMessageTypeButton          InteractiveMessageType = "button"
     InteractiveMessageTypeProduct         InteractiveMessageType = "product"
     InteractiveMessageTypeProductList     InteractiveMessageType = "product_list"
+    InteractiveMessageTypeCta             InteractiveMessageType = "cta_url"
     InteractiveMessageTypeList            InteractiveMessageType = "list"
     InteractiveMessageTypeCatalog         InteractiveMessageType = "catalog_message"
     InteractiveMessageTypeLocationRequest InteractiveMessageType = "location_request_message"
+    InteractiveMessageTypeFlow            InteractiveMessageType = "flow"
 )
 ```
 
 <a name="ListMessageApiPayload"></a>
-## type ListMessageApiPayload
+## type [ListMessageApiPayload](<https://github.com/gTahidi/wabo/blob/master/pkg/components/list_message.go#L118-L121>)
 
 ListMessageApiPayload represents the API payload for the list message.
 
@@ -682,7 +1137,7 @@ type ListMessageApiPayload struct {
 ```
 
 <a name="ListMessageBody"></a>
-## type ListMessageBody
+## type [ListMessageBody](<https://github.com/gTahidi/wabo/blob/master/pkg/components/list_message.go#L71-L73>)
 
 ListMessageBody represents the body of the list message.
 
@@ -693,7 +1148,7 @@ type ListMessageBody struct {
 ```
 
 <a name="ListMessageFooter"></a>
-## type ListMessageFooter
+## type [ListMessageFooter](<https://github.com/gTahidi/wabo/blob/master/pkg/components/list_message.go#L76-L78>)
 
 ListMessageFooter represents the footer of the list message.
 
@@ -704,7 +1159,7 @@ type ListMessageFooter struct {
 ```
 
 <a name="ListMessageHeader"></a>
-## type ListMessageHeader
+## type [ListMessageHeader](<https://github.com/gTahidi/wabo/blob/master/pkg/components/list_message.go#L80-L83>)
 
 
 
@@ -716,7 +1171,7 @@ type ListMessageHeader struct {
 ```
 
 <a name="ListMessageParams"></a>
-## type ListMessageParams
+## type [ListMessageParams](<https://github.com/gTahidi/wabo/blob/master/pkg/components/list_message.go#L95-L98>)
 
 ListMessageParams represents the parameters for creating a list message.
 
@@ -728,7 +1183,7 @@ type ListMessageParams struct {
 ```
 
 <a name="ListSection"></a>
-## type ListSection
+## type [ListSection](<https://github.com/gTahidi/wabo/blob/master/pkg/components/list_message.go#L11-L14>)
 
 ListSection represents a section in the list message.
 
@@ -740,7 +1195,7 @@ type ListSection struct {
 ```
 
 <a name="NewListSection"></a>
-### func NewListSection
+### func [NewListSection](<https://github.com/gTahidi/wabo/blob/master/pkg/components/list_message.go#L17>)
 
 ```go
 func NewListSection(title string) (*ListSection, error)
@@ -749,7 +1204,7 @@ func NewListSection(title string) (*ListSection, error)
 NewListSection creates a new list section with the given title.
 
 <a name="ListSection.AddRow"></a>
-### func \(\*ListSection\) AddRow
+### func \(\*ListSection\) [AddRow](<https://github.com/gTahidi/wabo/blob/master/pkg/components/list_message.go#L24>)
 
 ```go
 func (section *ListSection) AddRow(row *listSectionRow)
@@ -758,7 +1213,7 @@ func (section *ListSection) AddRow(row *listSectionRow)
 AddRow adds a new row to the list section.
 
 <a name="ListSection.SetTitle"></a>
-### func \(\*ListSection\) SetTitle
+### func \(\*ListSection\) [SetTitle](<https://github.com/gTahidi/wabo/blob/master/pkg/components/list_message.go#L29>)
 
 ```go
 func (section *ListSection) SetTitle(title string)
@@ -767,7 +1222,7 @@ func (section *ListSection) SetTitle(title string)
 SetTitle sets the title of the list section.
 
 <a name="LocationMessage"></a>
-## type LocationMessage
+## type [LocationMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/location_message.go#L11-L16>)
 
 LocationMessage represents a location message with latitude, longitude, address, and name.
 
@@ -781,7 +1236,7 @@ type LocationMessage struct {
 ```
 
 <a name="NewLocationMessage"></a>
-### func NewLocationMessage
+### func [NewLocationMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/location_message.go#L25>)
 
 ```go
 func NewLocationMessage(latitude float64, longitude float64) (*LocationMessage, error)
@@ -790,7 +1245,7 @@ func NewLocationMessage(latitude float64, longitude float64) (*LocationMessage, 
 NewLocationMessage creates a new LocationMessage with the given latitude and longitude.
 
 <a name="LocationMessage.SetAddress"></a>
-### func \(\*LocationMessage\) SetAddress
+### func \(\*LocationMessage\) [SetAddress](<https://github.com/gTahidi/wabo/blob/master/pkg/components/location_message.go#L33>)
 
 ```go
 func (location *LocationMessage) SetAddress(params string)
@@ -799,7 +1254,7 @@ func (location *LocationMessage) SetAddress(params string)
 SetAddress sets the address of the location.
 
 <a name="LocationMessage.SetName"></a>
-### func \(\*LocationMessage\) SetName
+### func \(\*LocationMessage\) [SetName](<https://github.com/gTahidi/wabo/blob/master/pkg/components/location_message.go#L38>)
 
 ```go
 func (location *LocationMessage) SetName(params string)
@@ -808,7 +1263,7 @@ func (location *LocationMessage) SetName(params string)
 SetName sets the name of the location.
 
 <a name="LocationMessage.ToJson"></a>
-### func \(\*LocationMessage\) ToJson
+### func \(\*LocationMessage\) [ToJson](<https://github.com/gTahidi/wabo/blob/master/pkg/components/location_message.go#L43>)
 
 ```go
 func (location *LocationMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]byte, error)
@@ -817,7 +1272,7 @@ func (location *LocationMessage) ToJson(configs ApiCompatibleJsonConverterConfig
 ToJson converts the LocationMessage to JSON with the given configurations.
 
 <a name="LocationMessageApiPayload"></a>
-## type LocationMessageApiPayload
+## type [LocationMessageApiPayload](<https://github.com/gTahidi/wabo/blob/master/pkg/components/location_message.go#L19-L22>)
 
 LocationMessageApiPayload represents the API payload for a location message.
 
@@ -829,7 +1284,7 @@ type LocationMessageApiPayload struct {
 ```
 
 <a name="LocationRequestMessage"></a>
-## type LocationRequestMessage
+## type [LocationRequestMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/location_request_message.go#L17-L21>)
 
 
 
@@ -842,7 +1297,7 @@ type LocationRequestMessage struct {
 ```
 
 <a name="NewLocationRequestMessage"></a>
-### func NewLocationRequestMessage
+### func [NewLocationRequestMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/location_request_message.go#L27>)
 
 ```go
 func NewLocationRequestMessage(params LocationRequestMessageParams) (*LocationRequestMessage, error)
@@ -851,7 +1306,7 @@ func NewLocationRequestMessage(params LocationRequestMessageParams) (*LocationRe
 
 
 <a name="LocationRequestMessage.SetBodyText"></a>
-### func \(\*LocationRequestMessage\) SetBodyText
+### func \(\*LocationRequestMessage\) [SetBodyText](<https://github.com/gTahidi/wabo/blob/master/pkg/components/location_request_message.go#L49>)
 
 ```go
 func (m *LocationRequestMessage) SetBodyText(bodyText string)
@@ -860,7 +1315,7 @@ func (m *LocationRequestMessage) SetBodyText(bodyText string)
 SetBodyText sets the body text of the list message.
 
 <a name="LocationRequestMessage.ToJson"></a>
-### func \(\*LocationRequestMessage\) ToJson
+### func \(\*LocationRequestMessage\) [ToJson](<https://github.com/gTahidi/wabo/blob/master/pkg/components/location_request_message.go#L55>)
 
 ```go
 func (m *LocationRequestMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]byte, error)
@@ -869,7 +1324,7 @@ func (m *LocationRequestMessage) ToJson(configs ApiCompatibleJsonConverterConfig
 ToJson converts the list message to JSON.
 
 <a name="LocationRequestMessageApiPayload"></a>
-## type LocationRequestMessageApiPayload
+## type [LocationRequestMessageApiPayload](<https://github.com/gTahidi/wabo/blob/master/pkg/components/location_request_message.go#L43-L46>)
 
 
 
@@ -881,7 +1336,7 @@ type LocationRequestMessageApiPayload struct {
 ```
 
 <a name="LocationRequestMessageBody"></a>
-## type LocationRequestMessageBody
+## type [LocationRequestMessageBody](<https://github.com/gTahidi/wabo/blob/master/pkg/components/location_request_message.go#L14-L16>)
 
 
 
@@ -892,7 +1347,7 @@ type LocationRequestMessageBody struct {
 ```
 
 <a name="LocationRequestMessageParams"></a>
-## type LocationRequestMessageParams
+## type [LocationRequestMessageParams](<https://github.com/gTahidi/wabo/blob/master/pkg/components/location_request_message.go#L23-L25>)
 
 
 
@@ -903,7 +1358,7 @@ type LocationRequestMessageParams struct {
 ```
 
 <a name="MessageType"></a>
-## type MessageType
+## type [MessageType](<https://github.com/gTahidi/wabo/blob/master/pkg/components/base_message.go#L4>)
 
 MessageType represents the type of message.
 
@@ -930,7 +1385,7 @@ const (
 ```
 
 <a name="Order"></a>
-## type Order
+## type [Order](<https://github.com/gTahidi/wabo/blob/master/pkg/components/order.go#L4-L8>)
 
 Order represents an order in the system.
 
@@ -943,7 +1398,7 @@ type Order struct {
 ```
 
 <a name="PhoneType"></a>
-## type PhoneType
+## type [PhoneType](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L31>)
 
 
 
@@ -964,7 +1419,7 @@ const (
 ```
 
 <a name="Product"></a>
-## type Product
+## type [Product](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_list_message.go#L10-L12>)
 
 
 
@@ -975,7 +1430,7 @@ type Product struct {
 ```
 
 <a name="Product.SetRetailerId"></a>
-### func \(\*Product\) SetRetailerId
+### func \(\*Product\) [SetRetailerId](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_list_message.go#L14>)
 
 ```go
 func (p *Product) SetRetailerId(id string)
@@ -984,7 +1439,7 @@ func (p *Product) SetRetailerId(id string)
 
 
 <a name="ProductItem"></a>
-## type ProductItem
+## type [ProductItem](<https://github.com/gTahidi/wabo/blob/master/pkg/components/order.go#L11-L16>)
 
 ProductItem represents a product item in an order.
 
@@ -998,7 +1453,7 @@ type ProductItem struct {
 ```
 
 <a name="ProductListMessage"></a>
-## type ProductListMessage
+## type [ProductListMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_list_message.go#L61-L67>)
 
 ProductListMessage represents a product list message.
 
@@ -1007,13 +1462,13 @@ type ProductListMessage struct {
     Action ProductListMessageAction  `json:"action" validate:"required"`
     Body   ProductListMessageBody    `json:"body" validate:"required"`
     Footer *ProductListMessageFooter `json:"footer,omitempty"`
-    Header ProductListMessageHeader  `json:"header,omitempty"`
+    Header *ProductListMessageHeader `json:"header,omitempty"`
     Type   InteractiveMessageType    `json:"type" validate:"required"`
 }
 ```
 
 <a name="NewProductListMessage"></a>
-### func NewProductListMessage
+### func [NewProductListMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_list_message.go#L118>)
 
 ```go
 func NewProductListMessage(params ProductListMessageParams) (*ProductListMessage, error)
@@ -1022,7 +1477,7 @@ func NewProductListMessage(params ProductListMessageParams) (*ProductListMessage
 NewProductListMessage creates a new product list message.
 
 <a name="ProductListMessage.AddSection"></a>
-### func \(\*ProductListMessage\) AddSection
+### func \(\*ProductListMessage\) [AddSection](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_list_message.go#L69>)
 
 ```go
 func (message *ProductListMessage) AddSection(section ProductSection)
@@ -1031,7 +1486,7 @@ func (message *ProductListMessage) AddSection(section ProductSection)
 
 
 <a name="ProductListMessage.SetBody"></a>
-### func \(\*ProductListMessage\) SetBody
+### func \(\*ProductListMessage\) [SetBody](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_list_message.go#L73>)
 
 ```go
 func (message *ProductListMessage) SetBody(text string)
@@ -1040,7 +1495,7 @@ func (message *ProductListMessage) SetBody(text string)
 
 
 <a name="ProductListMessage.SetCatalogId"></a>
-### func \(\*ProductListMessage\) SetCatalogId
+### func \(\*ProductListMessage\) [SetCatalogId](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_list_message.go#L79>)
 
 ```go
 func (message *ProductListMessage) SetCatalogId(catalogId string)
@@ -1049,7 +1504,7 @@ func (message *ProductListMessage) SetCatalogId(catalogId string)
 
 
 <a name="ProductListMessage.SetFooter"></a>
-### func \(\*ProductListMessage\) SetFooter
+### func \(\*ProductListMessage\) [SetFooter](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_list_message.go#L89>)
 
 ```go
 func (message *ProductListMessage) SetFooter(text string)
@@ -1058,7 +1513,7 @@ func (message *ProductListMessage) SetFooter(text string)
 
 
 <a name="ProductListMessage.SetHeader"></a>
-### func \(\*ProductListMessage\) SetHeader
+### func \(\*ProductListMessage\) [SetHeader](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_list_message.go#L95>)
 
 ```go
 func (message *ProductListMessage) SetHeader(text string)
@@ -1067,16 +1522,16 @@ func (message *ProductListMessage) SetHeader(text string)
 
 
 <a name="ProductListMessage.SetProductRetailerId"></a>
-### func \(\*ProductListMessage\) SetProductRetailerId
+### func \(\*ProductListMessage\) [SetProductRetailerId](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_list_message.go#L85>)
 
 ```go
 func (message *ProductListMessage) SetProductRetailerId(productRetailerId string)
 ```
 
-
+SetProductRetailerId is deprecated. Product retailer IDs belong to each item. This method is kept for backward compatibility and is now a no\-op.
 
 <a name="ProductListMessage.ToJson"></a>
-### func \(\*ProductListMessage\) ToJson
+### func \(\*ProductListMessage\) [ToJson](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_list_message.go#L136>)
 
 ```go
 func (m *ProductListMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]byte, error)
@@ -1085,20 +1540,19 @@ func (m *ProductListMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) (
 ToJson converts the product list message to JSON.
 
 <a name="ProductListMessageAction"></a>
-## type ProductListMessageAction
+## type [ProductListMessageAction](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_list_message.go#L31-L34>)
 
 
 
 ```go
 type ProductListMessageAction struct {
-    Sections          []ProductSection `json:"sections" validate:"required"` // minimum 1 and maximum 10
-    CatalogId         string           `json:"catalog_id" validate:"required"`
-    ProductRetailerId string           `json:"product_retailer_id" validate:"required"`
+    Sections  []ProductSection `json:"sections" validate:"required"` // minimum 1 and maximum 10
+    CatalogId string           `json:"catalog_id" validate:"required"`
 }
 ```
 
 <a name="ProductListMessageAction.AddSection"></a>
-### func \(\*ProductListMessageAction\) AddSection
+### func \(\*ProductListMessageAction\) [AddSection](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_list_message.go#L36>)
 
 ```go
 func (a *ProductListMessageAction) AddSection(section ProductSection)
@@ -1107,7 +1561,7 @@ func (a *ProductListMessageAction) AddSection(section ProductSection)
 
 
 <a name="ProductListMessageApiPayload"></a>
-## type ProductListMessageApiPayload
+## type [ProductListMessageApiPayload](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_list_message.go#L112-L115>)
 
 ProductListMessageApiPayload represents the API payload for a product list message.
 
@@ -1119,7 +1573,7 @@ type ProductListMessageApiPayload struct {
 ```
 
 <a name="ProductListMessageBody"></a>
-## type ProductListMessageBody
+## type [ProductListMessageBody](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_list_message.go#L40-L42>)
 
 
 
@@ -1130,7 +1584,7 @@ type ProductListMessageBody struct {
 ```
 
 <a name="ProductListMessageFooter"></a>
-## type ProductListMessageFooter
+## type [ProductListMessageFooter](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_list_message.go#L44-L46>)
 
 
 
@@ -1141,7 +1595,7 @@ type ProductListMessageFooter struct {
 ```
 
 <a name="ProductListMessageHeader"></a>
-## type ProductListMessageHeader
+## type [ProductListMessageHeader](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_list_message.go#L55-L58>)
 
 \! TODO: support more header types
 
@@ -1153,7 +1607,7 @@ type ProductListMessageHeader struct {
 ```
 
 <a name="ProductListMessageHeaderType"></a>
-## type ProductListMessageHeaderType
+## type [ProductListMessageHeaderType](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_list_message.go#L48>)
 
 
 
@@ -1170,21 +1624,22 @@ const (
 ```
 
 <a name="ProductListMessageParams"></a>
-## type ProductListMessageParams
+## type [ProductListMessageParams](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_list_message.go#L103-L109>)
 
 ProductListMessageParams represents the parameters for creating a product list message.
 
 ```go
 type ProductListMessageParams struct {
-    CatalogId         string `validate:"required"`
-    ProductRetailerId string `validate:"required"`
+    CatalogId string `validate:"required"`
+    // Deprecated: action-level product_retailer_id. Use item-level IDs in sections.
+    ProductRetailerId string
     BodyText          string `validate:"required"`
     Sections          []ProductSection
 }
 ```
 
 <a name="ProductMessage"></a>
-## type ProductMessage
+## type [ProductMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_message.go#L28-L34>)
 
 ProductMessage represents a product message.
 
@@ -1199,7 +1654,7 @@ type ProductMessage struct {
 ```
 
 <a name="NewProductMessage"></a>
-### func NewProductMessage
+### func [NewProductMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_message.go#L76>)
 
 ```go
 func NewProductMessage(params ProductMessageParams) (*ProductMessage, error)
@@ -1208,7 +1663,7 @@ func NewProductMessage(params ProductMessageParams) (*ProductMessage, error)
 NewProductMessage creates a new product message with the given parameters.
 
 <a name="ProductMessage.SetBody"></a>
-### func \(\*ProductMessage\) SetBody
+### func \(\*ProductMessage\) [SetBody](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_message.go#L55>)
 
 ```go
 func (m *ProductMessage) SetBody(text string)
@@ -1217,7 +1672,7 @@ func (m *ProductMessage) SetBody(text string)
 
 
 <a name="ProductMessage.SetCatalogId"></a>
-### func \(\*ProductMessage\) SetCatalogId
+### func \(\*ProductMessage\) [SetCatalogId](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_message.go#L67>)
 
 ```go
 func (m *ProductMessage) SetCatalogId(id string)
@@ -1226,7 +1681,7 @@ func (m *ProductMessage) SetCatalogId(id string)
 
 
 <a name="ProductMessage.SetFooter"></a>
-### func \(\*ProductMessage\) SetFooter
+### func \(\*ProductMessage\) [SetFooter](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_message.go#L61>)
 
 ```go
 func (m *ProductMessage) SetFooter(text string)
@@ -1235,7 +1690,7 @@ func (m *ProductMessage) SetFooter(text string)
 
 
 <a name="ProductMessage.SetHeader"></a>
-### func \(\*ProductMessage\) SetHeader
+### func \(\*ProductMessage\) [SetHeader](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_message.go#L49>)
 
 ```go
 func (m *ProductMessage) SetHeader(text string)
@@ -1244,7 +1699,7 @@ func (m *ProductMessage) SetHeader(text string)
 
 
 <a name="ProductMessage.SetProductRetailerId"></a>
-### func \(\*ProductMessage\) SetProductRetailerId
+### func \(\*ProductMessage\) [SetProductRetailerId](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_message.go#L71>)
 
 ```go
 func (m *ProductMessage) SetProductRetailerId(id string)
@@ -1253,7 +1708,7 @@ func (m *ProductMessage) SetProductRetailerId(id string)
 
 
 <a name="ProductMessage.ToJson"></a>
-### func \(\*ProductMessage\) ToJson
+### func \(\*ProductMessage\) [ToJson](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_message.go#L93>)
 
 ```go
 func (m *ProductMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]byte, error)
@@ -1262,7 +1717,7 @@ func (m *ProductMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]by
 ToJson converts the product message to JSON with the given configurations.
 
 <a name="ProductMessageApiPayload"></a>
-## type ProductMessageApiPayload
+## type [ProductMessageApiPayload](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_message.go#L44-L47>)
 
 ProductMessageApiPayload represents the API payload for a product message.
 
@@ -1274,7 +1729,7 @@ type ProductMessageApiPayload struct {
 ```
 
 <a name="ProductMessageBody"></a>
-## type ProductMessageBody
+## type [ProductMessageBody](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_message.go#L10-L12>)
 
 
 
@@ -1285,7 +1740,7 @@ type ProductMessageBody struct {
 ```
 
 <a name="ProductMessageFooter"></a>
-## type ProductMessageFooter
+## type [ProductMessageFooter](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_message.go#L14-L16>)
 
 
 
@@ -1296,7 +1751,7 @@ type ProductMessageFooter struct {
 ```
 
 <a name="ProductMessageHeader"></a>
-## type ProductMessageHeader
+## type [ProductMessageHeader](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_message.go#L18-L20>)
 
 
 
@@ -1307,7 +1762,7 @@ type ProductMessageHeader struct {
 ```
 
 <a name="ProductMessageParams"></a>
-## type ProductMessageParams
+## type [ProductMessageParams](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_message.go#L37-L41>)
 
 ProductMessageParams represents the parameters for creating a product message.
 
@@ -1320,7 +1775,7 @@ type ProductMessageParams struct {
 ```
 
 <a name="ProductSection"></a>
-## type ProductSection
+## type [ProductSection](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_list_message.go#L18-L21>)
 
 
 
@@ -1332,7 +1787,7 @@ type ProductSection struct {
 ```
 
 <a name="ProductSection.AddProduct"></a>
-### func \(\*ProductSection\) AddProduct
+### func \(\*ProductSection\) [AddProduct](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_list_message.go#L27>)
 
 ```go
 func (ps *ProductSection) AddProduct(product Product)
@@ -1341,7 +1796,7 @@ func (ps *ProductSection) AddProduct(product Product)
 
 
 <a name="ProductSection.SetTitle"></a>
-### func \(\*ProductSection\) SetTitle
+### func \(\*ProductSection\) [SetTitle](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_list_message.go#L23>)
 
 ```go
 func (ps *ProductSection) SetTitle(title string)
@@ -1350,7 +1805,7 @@ func (ps *ProductSection) SetTitle(title string)
 
 
 <a name="QuickReplyButtonMessage"></a>
-## type QuickReplyButtonMessage
+## type [QuickReplyButtonMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/quick_reply_button_message.go#L54-L60>)
 
 QuickReplyButtonMessage represents a quick reply button message.
 
@@ -1365,7 +1820,7 @@ type QuickReplyButtonMessage struct {
 ```
 
 <a name="NewQuickReplyButtonMessage"></a>
-### func NewQuickReplyButtonMessage
+### func [NewQuickReplyButtonMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/quick_reply_button_message.go#L69>)
 
 ```go
 func NewQuickReplyButtonMessage(bodyText string) (*QuickReplyButtonMessage, error)
@@ -1374,7 +1829,7 @@ func NewQuickReplyButtonMessage(bodyText string) (*QuickReplyButtonMessage, erro
 NewQuickReplyButtonMessage creates a new quick reply button message with the given body text.
 
 <a name="QuickReplyButtonMessage.AddButton"></a>
-### func \(\*QuickReplyButtonMessage\) AddButton
+### func \(\*QuickReplyButtonMessage\) [AddButton](<https://github.com/gTahidi/wabo/blob/master/pkg/components/quick_reply_button_message.go#L81>)
 
 ```go
 func (m *QuickReplyButtonMessage) AddButton(id, title string) error
@@ -1383,7 +1838,7 @@ func (m *QuickReplyButtonMessage) AddButton(id, title string) error
 
 
 <a name="QuickReplyButtonMessage.SetFooter"></a>
-### func \(\*QuickReplyButtonMessage\) SetFooter
+### func \(\*QuickReplyButtonMessage\) [SetFooter](<https://github.com/gTahidi/wabo/blob/master/pkg/components/quick_reply_button_message.go#L90>)
 
 ```go
 func (m *QuickReplyButtonMessage) SetFooter(text string)
@@ -1392,7 +1847,7 @@ func (m *QuickReplyButtonMessage) SetFooter(text string)
 
 
 <a name="QuickReplyButtonMessage.SetHeader"></a>
-### func \(\*QuickReplyButtonMessage\) SetHeader
+### func \(\*QuickReplyButtonMessage\) [SetHeader](<https://github.com/gTahidi/wabo/blob/master/pkg/components/quick_reply_button_message.go#L96>)
 
 ```go
 func (m *QuickReplyButtonMessage) SetHeader(text string)
@@ -1401,7 +1856,7 @@ func (m *QuickReplyButtonMessage) SetHeader(text string)
 
 
 <a name="QuickReplyButtonMessage.ToJson"></a>
-### func \(\*QuickReplyButtonMessage\) ToJson
+### func \(\*QuickReplyButtonMessage\) [ToJson](<https://github.com/gTahidi/wabo/blob/master/pkg/components/quick_reply_button_message.go#L104>)
 
 ```go
 func (m *QuickReplyButtonMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]byte, error)
@@ -1410,7 +1865,7 @@ func (m *QuickReplyButtonMessage) ToJson(configs ApiCompatibleJsonConverterConfi
 ToJson converts the quick reply button message to JSON.
 
 <a name="QuickReplyButtonMessageAction"></a>
-## type QuickReplyButtonMessageAction
+## type [QuickReplyButtonMessageAction](<https://github.com/gTahidi/wabo/blob/master/pkg/components/quick_reply_button_message.go#L34-L36>)
 
 QuickReplyButtonMessageAction represents the action of a quick reply button message.
 
@@ -1421,7 +1876,7 @@ type QuickReplyButtonMessageAction struct {
 ```
 
 <a name="QuickReplyButtonMessageApiPayload"></a>
-## type QuickReplyButtonMessageApiPayload
+## type [QuickReplyButtonMessageApiPayload](<https://github.com/gTahidi/wabo/blob/master/pkg/components/quick_reply_button_message.go#L63-L66>)
 
 QuickReplyButtonMessageApiPayload represents the API payload for a quick reply button message.
 
@@ -1433,7 +1888,7 @@ type QuickReplyButtonMessageApiPayload struct {
 ```
 
 <a name="QuickReplyButtonMessageBody"></a>
-## type QuickReplyButtonMessageBody
+## type [QuickReplyButtonMessageBody](<https://github.com/gTahidi/wabo/blob/master/pkg/components/quick_reply_button_message.go#L39-L41>)
 
 QuickReplyButtonMessageBody represents the body of a quick reply button message.
 
@@ -1444,7 +1899,7 @@ type QuickReplyButtonMessageBody struct {
 ```
 
 <a name="QuickReplyButtonMessageFooter"></a>
-## type QuickReplyButtonMessageFooter
+## type [QuickReplyButtonMessageFooter](<https://github.com/gTahidi/wabo/blob/master/pkg/components/quick_reply_button_message.go#L44-L46>)
 
 QuickReplyButtonMessageFooter represents the footer of a quick reply button message.
 
@@ -1455,7 +1910,7 @@ type QuickReplyButtonMessageFooter struct {
 ```
 
 <a name="QuickReplyButtonMessageHeader"></a>
-## type QuickReplyButtonMessageHeader
+## type [QuickReplyButtonMessageHeader](<https://github.com/gTahidi/wabo/blob/master/pkg/components/quick_reply_button_message.go#L48-L51>)
 
 
 
@@ -1467,7 +1922,7 @@ type QuickReplyButtonMessageHeader struct {
 ```
 
 <a name="ReactionMessage"></a>
-## type ReactionMessage
+## type [ReactionMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/reaction_message.go#L11-L14>)
 
 ReactionMessage represents a reaction to a message.
 
@@ -1479,7 +1934,7 @@ type ReactionMessage struct {
 ```
 
 <a name="NewReactionMessage"></a>
-### func NewReactionMessage
+### func [NewReactionMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/reaction_message.go#L26>)
 
 ```go
 func NewReactionMessage(params ReactionMessageParams) (*ReactionMessage, error)
@@ -1488,7 +1943,7 @@ func NewReactionMessage(params ReactionMessageParams) (*ReactionMessage, error)
 NewReactionMessage creates a new ReactionMessage instance.
 
 <a name="ReactionMessage.ToJson"></a>
-### func \(\*ReactionMessage\) ToJson
+### func \(\*ReactionMessage\) [ToJson](<https://github.com/gTahidi/wabo/blob/master/pkg/components/reaction_message.go#L38>)
 
 ```go
 func (reaction *ReactionMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]byte, error)
@@ -1497,7 +1952,7 @@ func (reaction *ReactionMessage) ToJson(configs ApiCompatibleJsonConverterConfig
 ToJson converts the ReactionMessage to JSON.
 
 <a name="ReactionMessageApiPayload"></a>
-## type ReactionMessageApiPayload
+## type [ReactionMessageApiPayload](<https://github.com/gTahidi/wabo/blob/master/pkg/components/reaction_message.go#L20-L23>)
 
 ReactionMessageApiPayload represents the API payload for a reaction message.
 
@@ -1509,7 +1964,7 @@ type ReactionMessageApiPayload struct {
 ```
 
 <a name="ReactionMessageParams"></a>
-## type ReactionMessageParams
+## type [ReactionMessageParams](<https://github.com/gTahidi/wabo/blob/master/pkg/components/reaction_message.go#L17>)
 
 ReactionMessageParams is an alias for ReactionMessage.
 
@@ -1518,7 +1973,7 @@ type ReactionMessageParams = ReactionMessage
 ```
 
 <a name="StickerMessage"></a>
-## type StickerMessage
+## type [StickerMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/sticker_message.go#L11-L14>)
 
 StickerMessage represents a sticker message.
 
@@ -1530,7 +1985,7 @@ type StickerMessage struct {
 ```
 
 <a name="NewStickerMessage"></a>
-### func NewStickerMessage
+### func [NewStickerMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/sticker_message.go#L29>)
 
 ```go
 func NewStickerMessage(params *StickerMessageConfigs) (*StickerMessage, error)
@@ -1539,7 +1994,7 @@ func NewStickerMessage(params *StickerMessageConfigs) (*StickerMessage, error)
 NewStickerMessage creates a new sticker message based on the provided configurations.
 
 <a name="StickerMessage.ToJson"></a>
-### func \(\*StickerMessage\) ToJson
+### func \(\*StickerMessage\) [ToJson](<https://github.com/gTahidi/wabo/blob/master/pkg/components/sticker_message.go#L50>)
 
 ```go
 func (sticker *StickerMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]byte, error)
@@ -1548,7 +2003,7 @@ func (sticker *StickerMessage) ToJson(configs ApiCompatibleJsonConverterConfigs)
 ToJson converts the sticker message to JSON based on the provided configurations.
 
 <a name="StickerMessageApiPayload"></a>
-## type StickerMessageApiPayload
+## type [StickerMessageApiPayload](<https://github.com/gTahidi/wabo/blob/master/pkg/components/sticker_message.go#L17-L20>)
 
 StickerMessageApiPayload represents the API payload for a sticker message.
 
@@ -1560,7 +2015,7 @@ type StickerMessageApiPayload struct {
 ```
 
 <a name="StickerMessageConfigs"></a>
-## type StickerMessageConfigs
+## type [StickerMessageConfigs](<https://github.com/gTahidi/wabo/blob/master/pkg/components/sticker_message.go#L23-L26>)
 
 StickerMessageConfigs represents the configurations for a sticker message.
 
@@ -1572,7 +2027,7 @@ type StickerMessageConfigs struct {
 ```
 
 <a name="TemplateMessage"></a>
-## type TemplateMessage
+## type [TemplateMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L215-L219>)
 
 TemplateMessage represents a template message.
 
@@ -1584,8 +2039,17 @@ type TemplateMessage struct {
 }
 ```
 
+<a name="NewAuthenticationTemplateMessage"></a>
+### func [NewAuthenticationTemplateMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L358>)
+
+```go
+func NewAuthenticationTemplateMessage(name, language, code string) (*TemplateMessage, error)
+```
+
+NewAuthenticationTemplateMessage builds a message for an approved authentication template with a copy\-code or one\-tap button. Meta requires the one\-time password twice: as the body parameter and as the parameter of the button, which is sent with sub\_type "url" at index 0. See https://developers.facebook.com/docs/whatsapp/business-management-api/authentication-templates/copy-code-button-authentication-templates
+
 <a name="NewTemplateMessage"></a>
-### func NewTemplateMessage
+### func [NewTemplateMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L234>)
 
 ```go
 func NewTemplateMessage(params *TemplateMessageConfigs) (*TemplateMessage, error)
@@ -1594,7 +2058,7 @@ func NewTemplateMessage(params *TemplateMessageConfigs) (*TemplateMessage, error
 NewTemplateMessage creates a new TemplateMessage instance.
 
 <a name="TemplateMessage.AddBody"></a>
-### func \(\*TemplateMessage\) AddBody
+### func \(\*TemplateMessage\) [AddBody](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L269>)
 
 ```go
 func (tm *TemplateMessage) AddBody(params TemplateMessageComponentBodyType)
@@ -1602,8 +2066,17 @@ func (tm *TemplateMessage) AddBody(params TemplateMessageComponentBodyType)
 
 AddBody adds \(or overrides\) a body component in the template message. Only one body component is allowed.
 
+<a name="TemplateMessage.AddBodyText"></a>
+### func \(\*TemplateMessage\) [AddBodyText](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L338>)
+
+```go
+func (tm *TemplateMessage) AddBodyText(params ...string)
+```
+
+AddBodyText sets \(or overrides\) the body component to positional text parameters, filling \{\{1\}\}, \{\{2\}\}, ... in order.
+
 <a name="TemplateMessage.AddButton"></a>
-### func \(\*TemplateMessage\) AddButton
+### func \(\*TemplateMessage\) [AddButton](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L292>)
 
 ```go
 func (tm *TemplateMessage) AddButton(params TemplateMessageComponentButtonType) error
@@ -1612,7 +2085,7 @@ func (tm *TemplateMessage) AddButton(params TemplateMessageComponentButtonType) 
 AddButton adds a button component to the template message. A maximum of 10 buttons is allowed.
 
 <a name="TemplateMessage.AddHeader"></a>
-### func \(\*TemplateMessage\) AddHeader
+### func \(\*TemplateMessage\) [AddHeader](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L246>)
 
 ```go
 func (tm *TemplateMessage) AddHeader(params TemplateMessageComponentHeaderType)
@@ -1621,7 +2094,7 @@ func (tm *TemplateMessage) AddHeader(params TemplateMessageComponentHeaderType)
 AddHeader adds \(or overrides\) a header component in the template message. Only one header is allowed.
 
 <a name="TemplateMessage.ToJson"></a>
-### func \(\*TemplateMessage\) ToJson
+### func \(\*TemplateMessage\) [ToJson](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L312>)
 
 ```go
 func (m *TemplateMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]byte, error)
@@ -1630,7 +2103,7 @@ func (m *TemplateMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]b
 ToJson converts the template message into a JSON payload compatible with the API.
 
 <a name="TemplateMessageApiPayload"></a>
-## type TemplateMessageApiPayload
+## type [TemplateMessageApiPayload](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L222-L225>)
 
 TemplateMessageApiPayload represents the API payload for sending a template message.
 
@@ -1642,7 +2115,7 @@ type TemplateMessageApiPayload struct {
 ```
 
 <a name="TemplateMessageBodyAndHeaderParameter"></a>
-## type TemplateMessageBodyAndHeaderParameter
+## type [TemplateMessageBodyAndHeaderParameter](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L148-L159>)
 
 TemplateMessageBodyAndHeaderParameter represents parameters for body and header components.
 
@@ -1662,7 +2135,7 @@ type TemplateMessageBodyAndHeaderParameter struct {
 ```
 
 <a name="TemplateMessageBodyAndHeaderParameter.GetParameterType"></a>
-### func \(TemplateMessageBodyAndHeaderParameter\) GetParameterType
+### func \(TemplateMessageBodyAndHeaderParameter\) [GetParameterType](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L162>)
 
 ```go
 func (t TemplateMessageBodyAndHeaderParameter) GetParameterType() string
@@ -1671,7 +2144,7 @@ func (t TemplateMessageBodyAndHeaderParameter) GetParameterType() string
 GetParameterType returns the parameter type as a string.
 
 <a name="TemplateMessageButtonComponentType"></a>
-## type TemplateMessageButtonComponentType
+## type [TemplateMessageButtonComponentType](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L22>)
 
 TemplateMessageButtonComponentType represents the subtype of a button component.
 
@@ -1692,7 +2165,7 @@ const (
 ```
 
 <a name="TemplateMessageButtonParameter"></a>
-## type TemplateMessageButtonParameter
+## type [TemplateMessageButtonParameter](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L195-L201>)
 
 TemplateMessageButtonParameter represents a parameter for a button component.
 
@@ -1707,7 +2180,7 @@ type TemplateMessageButtonParameter struct {
 ```
 
 <a name="TemplateMessageButtonParameter.GetParameterType"></a>
-### func \(TemplateMessageButtonParameter\) GetParameterType
+### func \(TemplateMessageButtonParameter\) [GetParameterType](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L204>)
 
 ```go
 func (t TemplateMessageButtonParameter) GetParameterType() string
@@ -1716,19 +2189,19 @@ func (t TemplateMessageButtonParameter) GetParameterType() string
 GetParameterType returns the button parameter type as a string.
 
 <a name="TemplateMessageButtonParameterAction"></a>
-## type TemplateMessageButtonParameterAction
+## type [TemplateMessageButtonParameterAction](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L189-L192>)
 
-
+TemplateMessageButtonParameterAction represents the action parameters for catalog buttons. Per WhatsApp API docs, thumbnail\_product\_retailer\_id is optional \- if omitted, WhatsApp automatically uses the first product in the catalog as the thumbnail.
 
 ```go
 type TemplateMessageButtonParameterAction struct {
-    ThumbnailProductRetailerId string                                                     `json:"thumbnail_product_retailer_id" validate:"required"`
+    ThumbnailProductRetailerId string                                                     `json:"thumbnail_product_retailer_id,omitempty"`
     Sections                   *[]TemplateMessageMultiProductButtonActionParameterSection `json:"sections,omitempty"` // Required for MPM buttons. UPTO 10 sections in a buttons parameter
 }
 ```
 
 <a name="TemplateMessageButtonParameterType"></a>
-## type TemplateMessageButtonParameterType
+## type [TemplateMessageButtonParameterType](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L167>)
 
 TemplateMessageButtonParameterType represents the type for button parameters.
 
@@ -1748,7 +2221,7 @@ const (
 ```
 
 <a name="TemplateMessageCaraouselCard"></a>
-## type TemplateMessageCaraouselCard
+## type [TemplateMessageCaraouselCard](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L87-L90>)
 
 
 
@@ -1760,7 +2233,7 @@ type TemplateMessageCaraouselCard struct {
 ```
 
 <a name="TemplateMessageComponent"></a>
-## type TemplateMessageComponent
+## type [TemplateMessageComponent](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L33-L35>)
 
 TemplateMessageComponent is an interface for all template message components.
 
@@ -1771,7 +2244,7 @@ type TemplateMessageComponent interface {
 ```
 
 <a name="TemplateMessageComponentBodyType"></a>
-## type TemplateMessageComponentBodyType
+## type [TemplateMessageComponentBodyType](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L77-L80>)
 
 TemplateMessageComponentBodyType represents a body component.
 
@@ -1783,7 +2256,7 @@ type TemplateMessageComponentBodyType struct {
 ```
 
 <a name="TemplateMessageComponentBodyType.GetComponentType"></a>
-### func \(TemplateMessageComponentBodyType\) GetComponentType
+### func \(TemplateMessageComponentBodyType\) [GetComponentType](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L83>)
 
 ```go
 func (t TemplateMessageComponentBodyType) GetComponentType() string
@@ -1792,7 +2265,7 @@ func (t TemplateMessageComponentBodyType) GetComponentType() string
 GetComponentType returns the component type.
 
 <a name="TemplateMessageComponentButtonType"></a>
-## type TemplateMessageComponentButtonType
+## type [TemplateMessageComponentButtonType](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L38-L43>)
 
 TemplateMessageComponentButtonType represents a button component.
 
@@ -1800,13 +2273,13 @@ TemplateMessageComponentButtonType represents a button component.
 type TemplateMessageComponentButtonType struct {
     Type       TemplateMessageComponentType       `json:"type" validate:"required"`                 // e.g., "button"
     SubType    TemplateMessageButtonComponentType `json:"sub_type" validate:"required"`             // e.g., "quick_reply", "url", etc.
-    Index      int                                `json:"index" validate:"required"`                // Position index of the button (0 to 9)
+    Index      int                                `json:"index" validate:"gte=0,lte=9"`             // Position index of the button (0 to 9)
     Parameters *[]TemplateMessageParameter        `json:"parameters,omitempty" validate:"required"` // Parameters for the button component.
 }
 ```
 
 <a name="TemplateMessageComponentButtonType.GetComponentType"></a>
-### func \(TemplateMessageComponentButtonType\) GetComponentType
+### func \(TemplateMessageComponentButtonType\) [GetComponentType](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L45>)
 
 ```go
 func (t TemplateMessageComponentButtonType) GetComponentType() string
@@ -1815,7 +2288,7 @@ func (t TemplateMessageComponentButtonType) GetComponentType() string
 
 
 <a name="TemplateMessageComponentCarouselType"></a>
-## type TemplateMessageComponentCarouselType
+## type [TemplateMessageComponentCarouselType](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L92-L95>)
 
 
 
@@ -1827,7 +2300,7 @@ type TemplateMessageComponentCarouselType struct {
 ```
 
 <a name="TemplateMessageComponentHeaderType"></a>
-## type TemplateMessageComponentHeaderType
+## type [TemplateMessageComponentHeaderType](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L50-L53>)
 
 TemplateMessageComponentHeaderType represents a header component.
 
@@ -1839,7 +2312,7 @@ type TemplateMessageComponentHeaderType struct {
 ```
 
 <a name="TemplateMessageComponentHeaderType.GetComponentType"></a>
-### func \(TemplateMessageComponentHeaderType\) GetComponentType
+### func \(TemplateMessageComponentHeaderType\) [GetComponentType](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L56>)
 
 ```go
 func (t TemplateMessageComponentHeaderType) GetComponentType() string
@@ -1848,7 +2321,7 @@ func (t TemplateMessageComponentHeaderType) GetComponentType() string
 GetComponentType returns the component type.
 
 <a name="TemplateMessageComponentLimitedTimeOfferType"></a>
-## type TemplateMessageComponentLimitedTimeOfferType
+## type [TemplateMessageComponentLimitedTimeOfferType](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L67-L70>)
 
 
 
@@ -1860,7 +2333,7 @@ type TemplateMessageComponentLimitedTimeOfferType struct {
 ```
 
 <a name="TemplateMessageComponentLimitedTimeOfferType.GetComponentType"></a>
-### func \(TemplateMessageComponentLimitedTimeOfferType\) GetComponentType
+### func \(TemplateMessageComponentLimitedTimeOfferType\) [GetComponentType](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L72>)
 
 ```go
 func (t TemplateMessageComponentLimitedTimeOfferType) GetComponentType() string
@@ -1869,7 +2342,7 @@ func (t TemplateMessageComponentLimitedTimeOfferType) GetComponentType() string
 
 
 <a name="TemplateMessageComponentType"></a>
-## type TemplateMessageComponentType
+## type [TemplateMessageComponentType](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L11>)
 
 TemplateMessageComponentType represents the type of a template message component.
 
@@ -1890,7 +2363,7 @@ const (
 ```
 
 <a name="TemplateMessageConfigs"></a>
-## type TemplateMessageConfigs
+## type [TemplateMessageConfigs](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L228-L231>)
 
 TemplateMessageConfigs represents basic configurations for a template message.
 
@@ -1902,7 +2375,7 @@ type TemplateMessageConfigs struct {
 ```
 
 <a name="TemplateMessageLanguage"></a>
-## type TemplateMessageLanguage
+## type [TemplateMessageLanguage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L209-L212>)
 
 TemplateMessageLanguage represents the language configuration.
 
@@ -1914,7 +2387,7 @@ type TemplateMessageLanguage struct {
 ```
 
 <a name="TemplateMessageLimitedTimeOfferParameter"></a>
-## type TemplateMessageLimitedTimeOfferParameter
+## type [TemplateMessageLimitedTimeOfferParameter](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L60-L65>)
 
 
 
@@ -1928,7 +2401,7 @@ type TemplateMessageLimitedTimeOfferParameter struct {
 ```
 
 <a name="TemplateMessageMultiProductButtonActionParameterProductItem"></a>
-## type TemplateMessageMultiProductButtonActionParameterProductItem
+## type [TemplateMessageMultiProductButtonActionParameterProductItem](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L176-L178>)
 
 
 
@@ -1939,7 +2412,7 @@ type TemplateMessageMultiProductButtonActionParameterProductItem struct {
 ```
 
 <a name="TemplateMessageMultiProductButtonActionParameterSection"></a>
-## type TemplateMessageMultiProductButtonActionParameterSection
+## type [TemplateMessageMultiProductButtonActionParameterSection](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L180-L184>)
 
 
 
@@ -1952,7 +2425,7 @@ type TemplateMessageMultiProductButtonActionParameterSection struct {
 ```
 
 <a name="TemplateMessageParameter"></a>
-## type TemplateMessageParameter
+## type [TemplateMessageParameter](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L143-L145>)
 
 TemplateMessageParameter is an interface for all parameter types.
 
@@ -1963,7 +2436,7 @@ type TemplateMessageParameter interface {
 ```
 
 <a name="TemplateMessageParameterCurrency"></a>
-## type TemplateMessageParameterCurrency
+## type [TemplateMessageParameterCurrency](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L113-L117>)
 
 TemplateMessageParameterCurrency represents a currency parameter.
 
@@ -1976,7 +2449,7 @@ type TemplateMessageParameterCurrency struct {
 ```
 
 <a name="TemplateMessageParameterDateTime"></a>
-## type TemplateMessageParameterDateTime
+## type [TemplateMessageParameterDateTime](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L125-L127>)
 
 TemplateMessageParameterDateTime represents a date\-time parameter.
 
@@ -1987,7 +2460,7 @@ type TemplateMessageParameterDateTime struct {
 ```
 
 <a name="TemplateMessageParameterLocation"></a>
-## type TemplateMessageParameterLocation
+## type [TemplateMessageParameterLocation](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L135-L140>)
 
 TemplateMessageParameterLocation represents a location parameter.
 
@@ -2001,7 +2474,7 @@ type TemplateMessageParameterLocation struct {
 ```
 
 <a name="TemplateMessageParameterMedia"></a>
-## type TemplateMessageParameterMedia
+## type [TemplateMessageParameterMedia](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L130-L132>)
 
 TemplateMessageParameterMedia represents a media parameter \(for document, image, video\).
 
@@ -2012,7 +2485,7 @@ type TemplateMessageParameterMedia struct {
 ```
 
 <a name="TemplateMessageParameterProduct"></a>
-## type TemplateMessageParameterProduct
+## type [TemplateMessageParameterProduct](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L119-L122>)
 
 
 
@@ -2024,7 +2497,7 @@ type TemplateMessageParameterProduct struct {
 ```
 
 <a name="TemplateMessageParameterType"></a>
-## type TemplateMessageParameterType
+## type [TemplateMessageParameterType](<https://github.com/gTahidi/wabo/blob/master/pkg/components/template_message.go#L98>)
 
 TemplateMessageParameterType represents the type of a parameter.
 
@@ -2049,7 +2522,7 @@ const (
 ```
 
 <a name="TextMessageApiPayload"></a>
-## type TextMessageApiPayload
+## type [TextMessageApiPayload](<https://github.com/gTahidi/wabo/blob/master/pkg/components/text_message.go#L34-L37>)
 
 TextMessageApiPayload represents the payload for the WhatsApp API.
 
@@ -2061,7 +2534,7 @@ type TextMessageApiPayload struct {
 ```
 
 <a name="TextMessageApiPayloadText"></a>
-## type TextMessageApiPayloadText
+## type [TextMessageApiPayloadText](<https://github.com/gTahidi/wabo/blob/master/pkg/components/text_message.go#L23-L26>)
 
 TextMessageApiPayloadText represents the text payload for the WhatsApp API.
 
@@ -2073,7 +2546,7 @@ type TextMessageApiPayloadText struct {
 ```
 
 <a name="TextMessageConfigs"></a>
-## type TextMessageConfigs
+## type [TextMessageConfigs](<https://github.com/gTahidi/wabo/blob/master/pkg/components/text_message.go#L17-L20>)
 
 TextMessageConfigs represents the configuration options for a text message.
 
@@ -2085,7 +2558,7 @@ type TextMessageConfigs struct {
 ```
 
 <a name="UrlType"></a>
-## type UrlType
+## type [UrlType](<https://github.com/gTahidi/wabo/blob/master/pkg/components/contact_message.go#L17>)
 
 
 
@@ -2094,7 +2567,7 @@ type UrlType string
 ```
 
 <a name="VideoMessage"></a>
-## type VideoMessage
+## type [VideoMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/video_message.go#L11-L15>)
 
 VideoMessage represents a video message.
 
@@ -2107,7 +2580,7 @@ type VideoMessage struct {
 ```
 
 <a name="NewVideoMessage"></a>
-### func NewVideoMessage
+### func [NewVideoMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/video_message.go#L27>)
 
 ```go
 func NewVideoMessage(params VideoMessageConfigs) (*VideoMessage, error)
@@ -2116,7 +2589,7 @@ func NewVideoMessage(params VideoMessageConfigs) (*VideoMessage, error)
 NewVideoMessage creates a new VideoMessage instance.
 
 <a name="VideoMessage.SetCaption"></a>
-### func \(\*VideoMessage\) SetCaption
+### func \(\*VideoMessage\) [SetCaption](<https://github.com/gTahidi/wabo/blob/master/pkg/components/video_message.go#L49>)
 
 ```go
 func (video *VideoMessage) SetCaption(params string)
@@ -2125,7 +2598,7 @@ func (video *VideoMessage) SetCaption(params string)
 SetCaption sets the caption for the video message.
 
 <a name="VideoMessage.ToJson"></a>
-### func \(\*VideoMessage\) ToJson
+### func \(\*VideoMessage\) [ToJson](<https://github.com/gTahidi/wabo/blob/master/pkg/components/video_message.go#L54>)
 
 ```go
 func (video *VideoMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]byte, error)
@@ -2134,7 +2607,7 @@ func (video *VideoMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]
 ToJson converts the video message to JSON.
 
 <a name="VideoMessageApiPayload"></a>
-## type VideoMessageApiPayload
+## type [VideoMessageApiPayload](<https://github.com/gTahidi/wabo/blob/master/pkg/components/video_message.go#L18-L21>)
 
 VideoMessageApiPayload represents the API payload for a video message.
 
@@ -2146,7 +2619,7 @@ type VideoMessageApiPayload struct {
 ```
 
 <a name="VideoMessageConfigs"></a>
-## type VideoMessageConfigs
+## type [VideoMessageConfigs](<https://github.com/gTahidi/wabo/blob/master/pkg/components/video_message.go#L24>)
 
 VideoMessageConfigs is an alias for VideoMessage.
 
@@ -2155,7 +2628,7 @@ type VideoMessageConfigs = VideoMessage
 ```
 
 <a name="listMessage"></a>
-## type listMessage
+## type [listMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/list_message.go#L86-L92>)
 
 listMessage represents an interactive list message.
 
@@ -2170,7 +2643,7 @@ type listMessage struct {
 ```
 
 <a name="NewListMessage"></a>
-### func NewListMessage
+### func [NewListMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/list_message.go#L101>)
 
 ```go
 func NewListMessage(params ListMessageParams) (*listMessage, error)
@@ -2179,7 +2652,7 @@ func NewListMessage(params ListMessageParams) (*listMessage, error)
 NewListMessage creates a new list message with the given parameters.
 
 <a name="listMessage.AddSection"></a>
-### func \(\*listMessage\) AddSection
+### func \(\*listMessage\) [AddSection](<https://github.com/gTahidi/wabo/blob/master/pkg/components/list_message.go#L124>)
 
 ```go
 func (m *listMessage) AddSection(section *ListSection)
@@ -2188,7 +2661,7 @@ func (m *listMessage) AddSection(section *ListSection)
 AddSection adds a new section to the list message.
 
 <a name="listMessage.SetBodyText"></a>
-### func \(\*listMessage\) SetBodyText
+### func \(\*listMessage\) [SetBodyText](<https://github.com/gTahidi/wabo/blob/master/pkg/components/list_message.go#L129>)
 
 ```go
 func (m *listMessage) SetBodyText(section *ListSection)
@@ -2197,7 +2670,7 @@ func (m *listMessage) SetBodyText(section *ListSection)
 SetBodyText sets the body text of the list message.
 
 <a name="listMessage.SetFooterText"></a>
-### func \(\*listMessage\) SetFooterText
+### func \(\*listMessage\) [SetFooterText](<https://github.com/gTahidi/wabo/blob/master/pkg/components/list_message.go#L133>)
 
 ```go
 func (m *listMessage) SetFooterText(footerText string)
@@ -2206,7 +2679,7 @@ func (m *listMessage) SetFooterText(footerText string)
 
 
 <a name="listMessage.SetHeaderText"></a>
-### func \(\*listMessage\) SetHeaderText
+### func \(\*listMessage\) [SetHeaderText](<https://github.com/gTahidi/wabo/blob/master/pkg/components/list_message.go#L139>)
 
 ```go
 func (m *listMessage) SetHeaderText(headerText string)
@@ -2215,7 +2688,7 @@ func (m *listMessage) SetHeaderText(headerText string)
 
 
 <a name="listMessage.ToJson"></a>
-### func \(\*listMessage\) ToJson
+### func \(\*listMessage\) [ToJson](<https://github.com/gTahidi/wabo/blob/master/pkg/components/list_message.go#L147>)
 
 ```go
 func (m *listMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]byte, error)
@@ -2224,7 +2697,7 @@ func (m *listMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]byte,
 ToJson converts the list message to JSON.
 
 <a name="listMessageAction"></a>
-## type listMessageAction
+## type [listMessageAction](<https://github.com/gTahidi/wabo/blob/master/pkg/components/list_message.go#L65-L68>)
 
 listMessageAction represents the action of the list message.
 
@@ -2236,7 +2709,7 @@ type listMessageAction struct {
 ```
 
 <a name="listSectionRow"></a>
-## type listSectionRow
+## type [listSectionRow](<https://github.com/gTahidi/wabo/blob/master/pkg/components/list_message.go#L34-L38>)
 
 listSectionRow represents a row in the list section.
 
@@ -2249,7 +2722,7 @@ type listSectionRow struct {
 ```
 
 <a name="NewListSectionRow"></a>
-### func NewListSectionRow
+### func [NewListSectionRow](<https://github.com/gTahidi/wabo/blob/master/pkg/components/list_message.go#L41>)
 
 ```go
 func NewListSectionRow(id, title, description string) (*listSectionRow, error)
@@ -2258,7 +2731,7 @@ func NewListSectionRow(id, title, description string) (*listSectionRow, error)
 NewListSectionRow creates a new list section row with the given ID, title, and description.
 
 <a name="listSectionRow.SetDescription"></a>
-### func \(\*listSectionRow\) SetDescription
+### func \(\*listSectionRow\) [SetDescription](<https://github.com/gTahidi/wabo/blob/master/pkg/components/list_message.go#L55>)
 
 ```go
 func (row *listSectionRow) SetDescription(description string)
@@ -2267,7 +2740,7 @@ func (row *listSectionRow) SetDescription(description string)
 SetDescription sets the description of the list section row.
 
 <a name="listSectionRow.SetId"></a>
-### func \(\*listSectionRow\) SetId
+### func \(\*listSectionRow\) [SetId](<https://github.com/gTahidi/wabo/blob/master/pkg/components/list_message.go#L60>)
 
 ```go
 func (row *listSectionRow) SetId(id string)
@@ -2276,7 +2749,7 @@ func (row *listSectionRow) SetId(id string)
 SetId sets the ID of the list section row.
 
 <a name="listSectionRow.SetTitle"></a>
-### func \(\*listSectionRow\) SetTitle
+### func \(\*listSectionRow\) [SetTitle](<https://github.com/gTahidi/wabo/blob/master/pkg/components/list_message.go#L50>)
 
 ```go
 func (row *listSectionRow) SetTitle(title string)
@@ -2285,7 +2758,7 @@ func (row *listSectionRow) SetTitle(title string)
 SetTitle sets the title of the list section row.
 
 <a name="locationMessageAction"></a>
-## type locationMessageAction
+## type [locationMessageAction](<https://github.com/gTahidi/wabo/blob/master/pkg/components/location_request_message.go#L10-L12>)
 
 
 
@@ -2296,7 +2769,7 @@ type locationMessageAction struct {
 ```
 
 <a name="productMessageAction"></a>
-## type productMessageAction
+## type [productMessageAction](<https://github.com/gTahidi/wabo/blob/master/pkg/components/product_message.go#L22-L25>)
 
 
 
@@ -2308,7 +2781,7 @@ type productMessageAction struct {
 ```
 
 <a name="quickReplyButtonMessageButton"></a>
-## type quickReplyButtonMessageButton
+## type [quickReplyButtonMessageButton](<https://github.com/gTahidi/wabo/blob/master/pkg/components/quick_reply_button_message.go#L17-L20>)
 
 quickReplyButtonMessageButton represents a quick reply button.
 
@@ -2320,7 +2793,7 @@ type quickReplyButtonMessageButton struct {
 ```
 
 <a name="NewQuickReplyButton"></a>
-### func NewQuickReplyButton
+### func [NewQuickReplyButton](<https://github.com/gTahidi/wabo/blob/master/pkg/components/quick_reply_button_message.go#L23>)
 
 ```go
 func NewQuickReplyButton(id, title string) (*quickReplyButtonMessageButton, error)
@@ -2329,7 +2802,7 @@ func NewQuickReplyButton(id, title string) (*quickReplyButtonMessageButton, erro
 NewQuickReplyButton creates a new quick reply button with the given ID and title.
 
 <a name="quickReplyButtonMessageButtonReply"></a>
-## type quickReplyButtonMessageButtonReply
+## type [quickReplyButtonMessageButtonReply](<https://github.com/gTahidi/wabo/blob/master/pkg/components/quick_reply_button_message.go#L11-L14>)
 
 quickReplyButtonMessageButtonReply represents the reply structure of a quick reply button.
 
@@ -2341,7 +2814,7 @@ type quickReplyButtonMessageButtonReply struct {
 ```
 
 <a name="textMessage"></a>
-## type textMessage
+## type [textMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/text_message.go#L11-L14>)
 
 textMessage represents a text message.
 
@@ -2353,7 +2826,7 @@ type textMessage struct {
 ```
 
 <a name="NewTextMessage"></a>
-### func NewTextMessage
+### func [NewTextMessage](<https://github.com/gTahidi/wabo/blob/master/pkg/components/text_message.go#L40>)
 
 ```go
 func NewTextMessage(configs TextMessageConfigs) (*textMessage, error)
@@ -2362,7 +2835,7 @@ func NewTextMessage(configs TextMessageConfigs) (*textMessage, error)
 NewTextMessage creates a new text message with the given configurations.
 
 <a name="textMessage.SetText"></a>
-### func \(\*textMessage\) SetText
+### func \(\*textMessage\) [SetText](<https://github.com/gTahidi/wabo/blob/master/pkg/components/text_message.go#L29>)
 
 ```go
 func (m *textMessage) SetText(text string)
@@ -2371,7 +2844,7 @@ func (m *textMessage) SetText(text string)
 SetText sets the text content of the message.
 
 <a name="textMessage.ToJson"></a>
-### func \(\*textMessage\) ToJson
+### func \(\*textMessage\) [ToJson](<https://github.com/gTahidi/wabo/blob/master/pkg/components/text_message.go#L52>)
 
 ```go
 func (m *textMessage) ToJson(configs ApiCompatibleJsonConverterConfigs) ([]byte, error)

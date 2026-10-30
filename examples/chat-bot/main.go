@@ -5,10 +5,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gTahidi/wapi.go/pkg/business"
-	wapi "github.com/gTahidi/wapi.go/pkg/client"
-	wapiComponents "github.com/gTahidi/wapi.go/pkg/components"
-	"github.com/gTahidi/wapi.go/pkg/events"
+	"github.com/gTahidi/wabo"
+	"github.com/gTahidi/wabo/pkg/business"
+	waboComponents "github.com/gTahidi/wabo/pkg/components"
+	"github.com/gTahidi/wabo/pkg/events"
 )
 
 func main() {
@@ -16,7 +16,7 @@ func main() {
 	businessAccountId := ""
 	phoneNumber := ""
 
-	client := wapi.New(&wapi.ClientConfig{
+	client := wabo.New(&wabo.ClientConfig{
 		ApiAccessToken:    "",
 		BusinessAccountId: businessAccountId,
 		WebhookPath:       "/webhook",
@@ -49,7 +49,7 @@ func main() {
 
 	// response, err := client.Business.Template.Fetch(phoneNumber)
 
-	textMessage, err := wapiComponents.NewTextMessage(wapiComponents.TextMessageConfigs{
+	textMessage, err := waboComponents.NewTextMessage(waboComponents.TextMessageConfigs{
 		Text: "Hello, how can I help you?",
 	})
 
@@ -58,7 +58,7 @@ func main() {
 		return
 	}
 
-	audioMessage, err := wapiComponents.NewAudioMessage(wapiComponents.AudioMessageConfigs{
+	audioMessage, err := waboComponents.NewAudioMessage(waboComponents.AudioMessageConfigs{
 		Link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
 	})
 
@@ -67,7 +67,7 @@ func main() {
 		return
 	}
 
-	videoMessage, err := wapiComponents.NewVideoMessage(wapiComponents.VideoMessageConfigs{
+	videoMessage, err := waboComponents.NewVideoMessage(waboComponents.VideoMessageConfigs{
 		Link: "https://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
 	})
 
@@ -76,7 +76,7 @@ func main() {
 		return
 	}
 
-	imageMessage, err := wapiComponents.NewImageMessage(wapiComponents.ImageMessageConfigs{
+	imageMessage, err := waboComponents.NewImageMessage(waboComponents.ImageMessageConfigs{
 		Link: "https://www.w3schools.com/w3css/img_lights.jpg",
 	})
 
@@ -85,8 +85,8 @@ func main() {
 		return
 	}
 
-	contactMessage, err := wapiComponents.NewContactMessage([]wapiComponents.Contact{
-		*wapiComponents.NewContact(wapiComponents.ContactName{
+	contactMessage, err := waboComponents.NewContactMessage([]waboComponents.Contact{
+		*waboComponents.NewContact(waboComponents.ContactName{
 			FormattedName: "Sarthak Jain",
 			FirstName:     "Sarthak",
 		})})
@@ -96,14 +96,14 @@ func main() {
 		return
 	}
 
-	locationMessage, err := wapiComponents.NewLocationMessage(28.7041, 77.1025)
+	locationMessage, err := waboComponents.NewLocationMessage(28.7041, 77.1025)
 
 	if err != nil {
 		fmt.Println("error creating location message", err)
 		return
 	}
 
-	listMessage, err := wapiComponents.NewListMessage(wapiComponents.ListMessageParams{
+	listMessage, err := waboComponents.NewListMessage(waboComponents.ListMessageParams{
 		ButtonText: "Button 1",
 		BodyText:   "Body 1",
 	})
@@ -113,14 +113,14 @@ func main() {
 		return
 	}
 
-	listSectionRow, err := wapiComponents.NewListSectionRow("1", "Title 1", "Description 1")
+	listSectionRow, err := waboComponents.NewListSectionRow("1", "Title 1", "Description 1")
 
 	if err != nil {
 		fmt.Println("error creating list section row", err)
 		return
 	}
 
-	listSection, err := wapiComponents.NewListSection("Section1")
+	listSection, err := waboComponents.NewListSection("Section1")
 
 	if err != nil {
 		fmt.Println("error creating list section row", err)
@@ -129,7 +129,7 @@ func main() {
 
 	listSection.AddRow(listSectionRow)
 	listMessage.AddSection(listSection)
-	jsonData, err := listMessage.ToJson(wapiComponents.ApiCompatibleJsonConverterConfigs{SendToPhoneNumber: "919643500545"})
+	jsonData, err := listMessage.ToJson(waboComponents.ApiCompatibleJsonConverterConfigs{SendToPhoneNumber: "919643500545"})
 
 	if err != nil {
 		fmt.Println("error converting message to json", err)
@@ -137,7 +137,7 @@ func main() {
 	}
 
 	fmt.Println(string(jsonData))
-	buttonMessage, err := wapiComponents.NewQuickReplyButtonMessage("Body 1")
+	buttonMessage, err := waboComponents.NewQuickReplyButtonMessage("Body 1")
 
 	if err != nil {
 		fmt.Println("error creating button message", err)
@@ -177,7 +177,7 @@ func main() {
 			textMessageEvent.Reply(buttonMessage)
 		case "qr":
 			{
-				response, err := client.Business.PhoneNumber.GenerateQrCode(phoneNumber, "This is Wapi.go this side.")
+				response, err := client.Business.PhoneNumber.GenerateQrCode(phoneNumber, "This is Wabo this side.")
 
 				if err != nil {
 					fmt.Println("error generating qr code", err)
@@ -186,7 +186,7 @@ func main() {
 
 				fmt.Println("qr code response", response.QrImageUrl)
 
-				qrCodeMessage, err := wapiComponents.NewImageMessage(wapiComponents.ImageMessageConfigs{
+				qrCodeMessage, err := waboComponents.NewImageMessage(waboComponents.ImageMessageConfigs{
 					Link: response.QrImageUrl,
 					// Caption: "Scan the QR code to start a conversation.",
 				})

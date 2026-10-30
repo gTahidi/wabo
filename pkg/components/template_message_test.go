@@ -40,3 +40,17 @@ func TestAddBodyTextOverridesBody(t *testing.T) {
 		t.Fatalf("unexpected payload %s", b)
 	}
 }
+
+func TestTemplateButtonIndexRange(t *testing.T) {
+	for _, index := range []int{-1, 0, 9, 10} {
+		tm, err := NewTemplateMessage(&TemplateMessageConfigs{Name: "test", Language: "en"})
+		if err != nil {
+			t.Fatal(err)
+		}
+		code := "123"
+		err = tm.AddButton(TemplateMessageComponentButtonType{Type: TemplateMessageComponentTypeButton, SubType: TemplateMessageButtonComponentTypeUrl, Index: index, Parameters: &[]TemplateMessageParameter{TemplateMessageButtonParameter{Type: TemplateMessageButtonParameterTypeText, Text: &code}}})
+		if wantValid := index >= 0 && index <= 9; (err == nil) != wantValid {
+			t.Fatalf("index %d error %v", index, err)
+		}
+	}
+}

@@ -1,11 +1,11 @@
 ```go
-import "github.com/gTahidi/wapi.go/pkg/client"
+import "github.com/gTahidi/wabo/pkg/client"
 ```
 
 
 
 <a name="Client"></a>
-## type Client
+## type [Client](<https://github.com/gTahidi/wabo/blob/master/pkg/client/client.go#L35-L44>)
 
 
 
@@ -23,7 +23,7 @@ type Client struct {
 ```
 
 <a name="New"></a>
-### func New
+### func [New](<https://github.com/gTahidi/wabo/blob/master/pkg/client/client.go#L46>)
 
 ```go
 func New(config *ClientConfig) *Client
@@ -31,8 +31,26 @@ func New(config *ClientConfig) *Client
 
 
 
+<a name="Client.GetFlowManager"></a>
+### func \(\*Client\) [GetFlowManager](<https://github.com/gTahidi/wabo/blob/master/pkg/client/client.go#L112>)
+
+```go
+func (client *Client) GetFlowManager() *manager.FlowManager
+```
+
+GetFlowManager returns a FlowManager for WhatsApp Flows management operations. This includes creating, listing, updating, publishing, and deprecating flows.
+
+<a name="Client.GetMediaManager"></a>
+### func \(\*Client\) [GetMediaManager](<https://github.com/gTahidi/wabo/blob/master/pkg/client/client.go#L106>)
+
+```go
+func (client *Client) GetMediaManager() *manager.MediaManager
+```
+
+GetMediaManager returns a MediaManager for uploading media \(e.g., for template headers\). This is useful when you need to upload media without a specific phone number context.
+
 <a name="Client.GetWebhookGetRequestHandler"></a>
-### func \(\*Client\) GetWebhookGetRequestHandler
+### func \(\*Client\) [GetWebhookGetRequestHandler](<https://github.com/gTahidi/wabo/blob/master/pkg/client/client.go#L82>)
 
 ```go
 func (client *Client) GetWebhookGetRequestHandler() func(c echo.Context) error
@@ -41,7 +59,7 @@ func (client *Client) GetWebhookGetRequestHandler() func(c echo.Context) error
 GetWebhookGetRequestHandler returns the handler function for handling GET requests to the webhook.
 
 <a name="Client.GetWebhookPostRequestHandler"></a>
-### func \(\*Client\) GetWebhookPostRequestHandler
+### func \(\*Client\) [GetWebhookPostRequestHandler](<https://github.com/gTahidi/wabo/blob/master/pkg/client/client.go#L87>)
 
 ```go
 func (client *Client) GetWebhookPostRequestHandler() func(c echo.Context) error
@@ -50,7 +68,7 @@ func (client *Client) GetWebhookPostRequestHandler() func(c echo.Context) error
 GetWebhookPostRequestHandler returns the handler function for handling POST requests to the webhook.
 
 <a name="Client.Initiate"></a>
-### func \(\*Client\) Initiate
+### func \(\*Client\) [Initiate](<https://github.com/gTahidi/wabo/blob/master/pkg/client/client.go#L99>)
 
 ```go
 func (client *Client) Initiate() bool
@@ -59,7 +77,7 @@ func (client *Client) Initiate() bool
 InitiateClient initializes the client and starts listening to events from the webhook. It returns true if the client was successfully initiated.
 
 <a name="Client.NewMessagingClient"></a>
-### func \(\*Client\) NewMessagingClient
+### func \(\*Client\) [NewMessagingClient](<https://github.com/gTahidi/wabo/blob/master/pkg/client/client.go#L64>)
 
 ```go
 func (client *Client) NewMessagingClient(phoneNumberId string) *messaging.MessagingClient
@@ -68,7 +86,7 @@ func (client *Client) NewMessagingClient(phoneNumberId string) *messaging.Messag
 
 
 <a name="Client.On"></a>
-### func \(\*Client\) On
+### func \(\*Client\) [On](<https://github.com/gTahidi/wabo/blob/master/pkg/client/client.go#L92>)
 
 ```go
 func (client *Client) On(eventType events.EventType, handler func(events.BaseEvent))
@@ -77,7 +95,7 @@ func (client *Client) On(eventType events.EventType, handler func(events.BaseEve
 OnMessage registers a handler for a specific event type.
 
 <a name="ClientConfig"></a>
-## type ClientConfig
+## type [ClientConfig](<https://github.com/gTahidi/wabo/blob/master/pkg/client/client.go#L14-L33>)
 
 
 
@@ -90,6 +108,17 @@ type ClientConfig struct {
     // these two are not required, because may be user want to use their own server
     WebhookPath       string
     WebhookServerPort int
+
+    // AppSecret, when set, makes the webhook POST handler reject payloads
+    // whose X-Hub-Signature-256 does not match (HMAC-SHA256 of the raw body).
+    AppSecret string
+
+    // HTTPClient is used for Graph API calls; nil uses a shared client with
+    // a 30 second timeout. Per-call deadlines come from the *Context methods.
+    HTTPClient *http.Client
+
+    // APIVersion selects the Graph API version, e.g. "v26.0". Empty retains v24.0.
+    APIVersion string
 }
 ```
 

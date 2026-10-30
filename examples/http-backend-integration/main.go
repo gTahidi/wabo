@@ -3,15 +3,15 @@ package main
 import (
 	"fmt"
 
-	wapi "github.com/gTahidi/wapi.go/pkg/client"
-	"github.com/gTahidi/wapi.go/pkg/components"
-	"github.com/gTahidi/wapi.go/pkg/events"
+	"github.com/gTahidi/wabo"
+	"github.com/gTahidi/wabo/pkg/components"
+	"github.com/gTahidi/wabo/pkg/events"
 	"github.com/labstack/echo/v4"
 )
 
 func main() {
 
-	client := wapi.New(&wapi.ClientConfig{
+	client := wabo.New(&wabo.ClientConfig{
 		ApiAccessToken:    "",
 		BusinessAccountId: "",
 		WebhookPath:       "/webhook",
@@ -22,7 +22,7 @@ func main() {
 	client.On(events.TextMessageEventType, func(event events.BaseEvent) {
 		textMessageEvent := event.(*events.TextMessageEvent)
 		reply, err := components.NewTextMessage(components.TextMessageConfigs{
-			Text: "Hello, from wapi.go",
+			Text: "Hello, from wabo",
 		})
 		if err != nil {
 			fmt.Println("error creating text message", err)

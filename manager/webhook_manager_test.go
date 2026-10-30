@@ -10,8 +10,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gTahidi/wapi.go/internal/request_client"
-	"github.com/gTahidi/wapi.go/pkg/events"
+	"github.com/gTahidi/wabo/internal/request_client"
+	"github.com/gTahidi/wabo/pkg/events"
 	"github.com/labstack/echo/v4"
 )
 

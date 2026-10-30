@@ -1,13 +1,13 @@
-package wapi
+package wabo
 
 import (
 	"net/http"
 
-	"github.com/gTahidi/wapi.go/internal/request_client"
-	"github.com/gTahidi/wapi.go/manager"
-	"github.com/gTahidi/wapi.go/pkg/business"
-	"github.com/gTahidi/wapi.go/pkg/events"
-	"github.com/gTahidi/wapi.go/pkg/messaging"
+	"github.com/gTahidi/wabo/internal/request_client"
+	"github.com/gTahidi/wabo/manager"
+	"github.com/gTahidi/wabo/pkg/business"
+	"github.com/gTahidi/wabo/pkg/events"
+	"github.com/gTahidi/wabo/pkg/messaging"
 	"github.com/labstack/echo/v4"
 )
 
@@ -27,6 +27,9 @@ type ClientConfig struct {
 	// HTTPClient is used for Graph API calls; nil uses a shared client with
 	// a 30 second timeout. Per-call deadlines come from the *Context methods.
 	HTTPClient *http.Client
+
+	// APIVersion selects the Graph API version, e.g. "v26.0". Empty retains v24.0.
+	APIVersion string
 }
 
 type Client struct {
@@ -42,7 +45,7 @@ type Client struct {
 
 func New(config *ClientConfig) *Client {
 	eventManager := manager.NewEventManager()
-	requester := *request_client.NewRequestClientWithHTTPClient(config.ApiAccessToken, config.HTTPClient)
+	requester := *request_client.NewRequestClientWithVersion(config.ApiAccessToken, config.HTTPClient, config.APIVersion)
 	return &Client{
 		businessAccountId: config.BusinessAccountId,
 		apiAccessToken:    config.ApiAccessToken,

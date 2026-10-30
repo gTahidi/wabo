@@ -8,8 +8,8 @@ import (
 
 	"time"
 
-	"github.com/gTahidi/wapi.go/internal/request_client"
-	"github.com/gTahidi/wapi.go/manager"
+	"github.com/gTahidi/wabo/internal/request_client"
+	"github.com/gTahidi/wabo/manager"
 )
 
 // BusinessClient is responsible for managing business account related operations.
@@ -95,7 +95,9 @@ func (client *BusinessClient) Fetch() (*FetchBusinessAccountResponse, error) {
 		return nil, err
 	}
 	var responseToReturn FetchBusinessAccountResponse
-	json.Unmarshal([]byte(response), &responseToReturn)
+	if err := json.Unmarshal([]byte(response), &responseToReturn); err != nil {
+		return nil, fmt.Errorf("decode business account: %w", err)
+	}
 	return &responseToReturn, nil
 }
 
@@ -175,7 +177,7 @@ func (client *BusinessClient) FetchAnalytics(options AccountAnalyticsOptions) (W
 	}
 	response, err := apiRequest.Execute()
 	if err != nil {
-		// return wapi.go custom error here
+		// return wabo custom error here
 		return WhatsappBusinessAccountAnalyticsResponse{}, err
 	}
 	var responseWrapper struct {
@@ -366,7 +368,7 @@ func (client *BusinessClient) ConversationAnalytics(options ConversationAnalytic
 
 	response, err := apiRequest.Execute()
 	if err != nil {
-		// return wapi.go custom error here
+		// return wabo custom error here
 		return nil, err
 	}
 

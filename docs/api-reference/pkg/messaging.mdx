@@ -1,11 +1,11 @@
 ```go
-import "github.com/gTahidi/wapi.go/pkg/messaging"
+import "github.com/gTahidi/wabo/pkg/messaging"
 ```
 
 
 
 <a name="MessagingClient"></a>
-## type MessagingClient
+## type [MessagingClient](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L13-L20>)
 
 MessagingClient represents a WhatsApp client.
 
@@ -21,7 +21,7 @@ type MessagingClient struct {
 ```
 
 <a name="MessagingClient.Deregister"></a>
-### func \(\*MessagingClient\) Deregister
+### func \(\*MessagingClient\) [Deregister](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L62>)
 
 ```go
 func (client *MessagingClient) Deregister() (RegisterResponse, error)
@@ -30,7 +30,7 @@ func (client *MessagingClient) Deregister() (RegisterResponse, error)
 
 
 <a name="MessagingClient.GetApiAccessToken"></a>
-### func \(\*MessagingClient\) GetApiAccessToken
+### func \(\*MessagingClient\) [GetApiAccessToken](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L32>)
 
 ```go
 func (client *MessagingClient) GetApiAccessToken() string
@@ -39,7 +39,7 @@ func (client *MessagingClient) GetApiAccessToken() string
 
 
 <a name="MessagingClient.GetBusinessAccountId"></a>
-### func \(\*MessagingClient\) GetBusinessAccountId
+### func \(\*MessagingClient\) [GetBusinessAccountId](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L40>)
 
 ```go
 func (client *MessagingClient) GetBusinessAccountId() string
@@ -48,7 +48,7 @@ func (client *MessagingClient) GetBusinessAccountId() string
 
 
 <a name="MessagingClient.GetPhoneNumberId"></a>
-### func \(\*MessagingClient\) GetPhoneNumberId
+### func \(\*MessagingClient\) [GetPhoneNumberId](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L23>)
 
 ```go
 func (client *MessagingClient) GetPhoneNumberId() string
@@ -57,7 +57,7 @@ func (client *MessagingClient) GetPhoneNumberId() string
 GetPhoneNumberId returns the phone number ID associated with the client.
 
 <a name="MessagingClient.Register"></a>
-### func \(\*MessagingClient\) Register
+### func \(\*MessagingClient\) [Register](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L49>)
 
 ```go
 func (client *MessagingClient) Register(pin string) (RegisterResponse, error)
@@ -66,7 +66,7 @@ func (client *MessagingClient) Register(pin string) (RegisterResponse, error)
 this register function is for one time registration of the phone number to enable the usage with WhatsApp Cloud API
 
 <a name="MessagingClient.SetApiAccessToken"></a>
-### func \(\*MessagingClient\) SetApiAccessToken
+### func \(\*MessagingClient\) [SetApiAccessToken](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L36>)
 
 ```go
 func (client *MessagingClient) SetApiAccessToken(apiAccessToken string)
@@ -75,7 +75,7 @@ func (client *MessagingClient) SetApiAccessToken(apiAccessToken string)
 
 
 <a name="MessagingClient.SetPhoneNumberId"></a>
-### func \(\*MessagingClient\) SetPhoneNumberId
+### func \(\*MessagingClient\) [SetPhoneNumberId](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L28>)
 
 ```go
 func (client *MessagingClient) SetPhoneNumberId(phoneNumberId string)
@@ -84,7 +84,7 @@ func (client *MessagingClient) SetPhoneNumberId(phoneNumberId string)
 SetPhoneNumberId sets the phone number ID for the client.
 
 <a name="RegisterResponse"></a>
-## type RegisterResponse
+## type [RegisterResponse](<https://github.com/gTahidi/wabo/blob/master/pkg/messaging/client.go#L44-L46>)
 
 
 

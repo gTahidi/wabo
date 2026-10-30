@@ -7,10 +7,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gTahidi/wapi.go/internal/request_client"
-	"github.com/gTahidi/wapi.go/internal/testutil"
-	"github.com/gTahidi/wapi.go/pkg/components"
-	"github.com/gTahidi/wapi.go/pkg/graph"
+	"github.com/gTahidi/wabo/internal/request_client"
+	"github.com/gTahidi/wabo/internal/testutil"
+	"github.com/gTahidi/wabo/pkg/components"
+	"github.com/gTahidi/wabo/pkg/graph"
 )
 
 func TestSendContextAuthenticationTemplate(t *testing.T) {

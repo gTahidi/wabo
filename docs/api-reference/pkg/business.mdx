@@ -1,11 +1,11 @@
 ```go
-import "github.com/gTahidi/wapi.go/pkg/business"
+import "github.com/gTahidi/wabo/pkg/business"
 ```
 
 
 
 <a name="AccountAnalyticsOptions"></a>
-## type AccountAnalyticsOptions
+## type [AccountAnalyticsOptions](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L119-L128>)
 
 
 
@@ -23,7 +23,7 @@ type AccountAnalyticsOptions struct {
 ```
 
 <a name="AnalyticsDataPoint"></a>
-## type AnalyticsDataPoint
+## type [AnalyticsDataPoint](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L130-L135>)
 
 
 
@@ -37,7 +37,7 @@ type AnalyticsDataPoint struct {
 ```
 
 <a name="AnalyticsRequestGranularityType"></a>
-## type AnalyticsRequestGranularityType
+## type [AnalyticsRequestGranularityType](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L104>)
 
 
 
@@ -56,7 +56,7 @@ const (
 ```
 
 <a name="BusinessClient"></a>
-## type BusinessClient
+## type [BusinessClient](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L16-L23>)
 
 BusinessClient is responsible for managing business account related operations.
 
@@ -72,7 +72,7 @@ type BusinessClient struct {
 ```
 
 <a name="NewBusinessClient"></a>
-### func NewBusinessClient
+### func [NewBusinessClient](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L33>)
 
 ```go
 func NewBusinessClient(config *BusinessClientConfig) *BusinessClient
@@ -81,7 +81,7 @@ func NewBusinessClient(config *BusinessClientConfig) *BusinessClient
 NewBusinessClient creates a new instance of BusinessClient.
 
 <a name="BusinessClient.ConversationAnalytics"></a>
-### func \(\*BusinessClient\) ConversationAnalytics
+### func \(\*BusinessClient\) [ConversationAnalytics](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L287>)
 
 ```go
 func (client *BusinessClient) ConversationAnalytics(options ConversationAnalyticsOptions) (*WhatsAppConversationAnalyticsResponse, error)
@@ -90,7 +90,7 @@ func (client *BusinessClient) ConversationAnalytics(options ConversationAnalytic
 ConversationAnalytics fetches the conversation analytics for the business account.
 
 <a name="BusinessClient.Fetch"></a>
-### func \(\*BusinessClient\) Fetch
+### func \(\*BusinessClient\) [Fetch](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L91>)
 
 ```go
 func (client *BusinessClient) Fetch() (*FetchBusinessAccountResponse, error)
@@ -99,7 +99,7 @@ func (client *BusinessClient) Fetch() (*FetchBusinessAccountResponse, error)
 This method fetches the business account details.
 
 <a name="BusinessClient.FetchAnalytics"></a>
-### func \(\*BusinessClient\) FetchAnalytics
+### func \(\*BusinessClient\) [FetchAnalytics](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L145>)
 
 ```go
 func (client *BusinessClient) FetchAnalytics(options AccountAnalyticsOptions) (WhatsappBusinessAccountAnalyticsResponse, error)
@@ -108,7 +108,7 @@ func (client *BusinessClient) FetchAnalytics(options AccountAnalyticsOptions) (W
 FetchAnalytics fetches the analytics for the business account.
 
 <a name="BusinessClient.GetBusinessId"></a>
-### func \(\*BusinessClient\) GetBusinessId
+### func \(\*BusinessClient\) [GetBusinessId](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L56>)
 
 ```go
 func (bc *BusinessClient) GetBusinessId() string
@@ -117,7 +117,7 @@ func (bc *BusinessClient) GetBusinessId() string
 GetBusinessId returns the business account ID.
 
 <a name="BusinessClient.SetBusinessId"></a>
-### func \(\*BusinessClient\) SetBusinessId
+### func \(\*BusinessClient\) [SetBusinessId](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L61>)
 
 ```go
 func (bc *BusinessClient) SetBusinessId(id string)
@@ -125,8 +125,17 @@ func (bc *BusinessClient) SetBusinessId(id string)
 
 SetBusinessId sets the business account ID.
 
+<a name="BusinessClient.TemplateAnalytics"></a>
+### func \(\*BusinessClient\) [TemplateAnalytics](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L463>)
+
+```go
+func (client *BusinessClient) TemplateAnalytics(options TemplateAnalyticsOptions) (*TemplateAnalyticsResponse, error)
+```
+
+TemplateAnalytics fetches the template analytics for the business account.
+
 <a name="BusinessClientConfig"></a>
-## type BusinessClientConfig
+## type [BusinessClientConfig](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L26-L30>)
 
 BusinessClientConfig holds the configuration for BusinessClient.
 
@@ -139,7 +148,7 @@ type BusinessClientConfig struct {
 ```
 
 <a name="BusinessRole"></a>
-## type BusinessRole
+## type [BusinessRole](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L383>)
 
 
 
@@ -166,7 +175,7 @@ const (
 ```
 
 <a name="ConversationAnalyticsGranularityType"></a>
-## type ConversationAnalyticsGranularityType
+## type [ConversationAnalyticsGranularityType](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L226>)
 
 
 
@@ -185,7 +194,7 @@ const (
 ```
 
 <a name="ConversationAnalyticsOptions"></a>
-## type ConversationAnalyticsOptions
+## type [ConversationAnalyticsOptions](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L234-L246>)
 
 
 
@@ -196,15 +205,17 @@ type ConversationAnalyticsOptions struct {
     Granularity  ConversationAnalyticsGranularityType `json:"granularity" validate:"required"`
     PhoneNumbers []string                             `json:"phone_numbers,omitempty"`
 
-    ConversationCategory  []ConversationCategoryType  `json:"conversation_category,omitempty"`
-    ConversationTypes     []ConversationCategoryType  `json:"conversation_types,omitempty"`
-    ConversationDirection []ConversationDirection     `json:"conversation_direction,omitempty"`
+    // Use plural filter names to align with Graph API
+    ConversationCategory  []ConversationCategoryType  `json:"conversation_categories,omitempty"`
+    ConversationTypes     []ConversationType          `json:"conversation_types,omitempty"`
+    ConversationDirection []ConversationDirection     `json:"conversation_directions,omitempty"`
     Dimensions            []ConversationDimensionType `json:"dimensions,omitempty"`
+    After                 string                      `json:"after,omitempty"`
 }
 ```
 
 <a name="ConversationCategoryType"></a>
-## type ConversationCategoryType
+## type [ConversationCategoryType](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L192>)
 
 
 
@@ -224,7 +235,7 @@ const (
 ```
 
 <a name="ConversationDimensionType"></a>
-## type ConversationDimensionType
+## type [ConversationDimensionType](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L216>)
 
 
 
@@ -245,7 +256,7 @@ const (
 ```
 
 <a name="ConversationDirection"></a>
-## type ConversationDirection
+## type [ConversationDirection](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L209>)
 
 
 
@@ -263,7 +274,7 @@ const (
 ```
 
 <a name="ConversationType"></a>
-## type ConversationType
+## type [ConversationType](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L201>)
 
 
 
@@ -282,7 +293,7 @@ const (
 ```
 
 <a name="FetchBusinessAccountResponse"></a>
-## type FetchBusinessAccountResponse
+## type [FetchBusinessAccountResponse](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L79-L88>)
 
 
 
@@ -299,8 +310,149 @@ type FetchBusinessAccountResponse struct {
 }
 ```
 
+<a name="Paging"></a>
+## type [Paging](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L270-L275>)
+
+
+
+```go
+type Paging struct {
+    Cursors struct {
+        Before string `json:"before,omitempty"`
+        After  string `json:"after,omitempty"`
+    } `json:"cursors,omitempty"`
+}
+```
+
+<a name="TemplateAnalyticsClick"></a>
+## type [TemplateAnalyticsClick](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L429-L433>)
+
+
+
+```go
+type TemplateAnalyticsClick struct {
+    Type          string `json:"type"`
+    ButtonContent string `json:"button_content"`
+    Count         int    `json:"count"`
+}
+```
+
+<a name="TemplateAnalyticsCost"></a>
+## type [TemplateAnalyticsCost](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L424-L427>)
+
+
+
+```go
+type TemplateAnalyticsCost struct {
+    Type  string  `json:"type"`
+    Value float64 `json:"value"`
+}
+```
+
+<a name="TemplateAnalyticsData"></a>
+## type [TemplateAnalyticsData](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L446-L450>)
+
+
+
+```go
+type TemplateAnalyticsData struct {
+    Granularity string                       `json:"granularity"`
+    ProductType string                       `json:"product_type"`
+    DataPoints  []TemplateAnalyticsDataPoint `json:"data_points"`
+}
+```
+
+<a name="TemplateAnalyticsDataPoint"></a>
+## type [TemplateAnalyticsDataPoint](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L435-L444>)
+
+
+
+```go
+type TemplateAnalyticsDataPoint struct {
+    TemplateId string                   `json:"template_id"`
+    Start      int                      `json:"start"`
+    End        int                      `json:"end"`
+    Sent       int                      `json:"sent"`
+    Delivered  int                      `json:"delivered"`
+    Read       int                      `json:"read"`
+    Clicked    []TemplateAnalyticsClick `json:"clicked,omitempty"`
+    Cost       []TemplateAnalyticsCost  `json:"cost,omitempty"`
+}
+```
+
+<a name="TemplateAnalyticsGranularityType"></a>
+## type [TemplateAnalyticsGranularityType](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L399>)
+
+
+
+```go
+type TemplateAnalyticsGranularityType string
+```
+
+<a name="TemplateAnalyticsGranularityTypeDaily"></a>
+
+```go
+const (
+    TemplateAnalyticsGranularityTypeDaily TemplateAnalyticsGranularityType = "DAILY"
+)
+```
+
+<a name="TemplateAnalyticsMetricType"></a>
+## type [TemplateAnalyticsMetricType](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L405>)
+
+
+
+```go
+type TemplateAnalyticsMetricType string
+```
+
+<a name="TemplateAnalyticsMetricTypeCost"></a>
+
+```go
+const (
+    TemplateAnalyticsMetricTypeCost      TemplateAnalyticsMetricType = "COST"
+    TemplateAnalyticsMetricTypeClicked   TemplateAnalyticsMetricType = "CLICKED"
+    TemplateAnalyticsMetricTypeDelivered TemplateAnalyticsMetricType = "DELIVERED"
+    TemplateAnalyticsMetricTypeRead      TemplateAnalyticsMetricType = "READ"
+    TemplateAnalyticsMetricTypeSent      TemplateAnalyticsMetricType = "SENT"
+)
+```
+
+<a name="TemplateAnalyticsOptions"></a>
+## type [TemplateAnalyticsOptions](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L415-L422>)
+
+
+
+```go
+type TemplateAnalyticsOptions struct {
+    Start       time.Time                        `json:"start" validate:"required"`
+    End         time.Time                        `json:"end" validate:"required"`
+    Granularity TemplateAnalyticsGranularityType `json:"granularity" validate:"required"`
+    TemplateIds []string                         `json:"template_ids" validate:"required"`
+    MetricTypes []TemplateAnalyticsMetricType    `json:"metric_types,omitempty"`
+    After       string                           `json:"after,omitempty"`
+}
+```
+
+<a name="TemplateAnalyticsResponse"></a>
+## type [TemplateAnalyticsResponse](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L452-L460>)
+
+
+
+```go
+type TemplateAnalyticsResponse struct {
+    Data   []TemplateAnalyticsData `json:"data"`
+    Paging struct {
+        Cursors struct {
+            Before string `json:"before"`
+            After  string `json:"after"`
+        } `json:"cursors"`
+    }   `json:"paging"`
+}
+```
+
 <a name="WhatsAppBusinessAccountAnalyticsProductType"></a>
-## type WhatsAppBusinessAccountAnalyticsProductType
+## type [WhatsAppBusinessAccountAnalyticsProductType](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L112>)
 
 
 
@@ -317,52 +469,74 @@ const (
 )
 ```
 
+<a name="WhatsAppConversationAnalyticsDimension"></a>
+## type [WhatsAppConversationAnalyticsDimension](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L260-L263>)
+
+
+
+```go
+type WhatsAppConversationAnalyticsDimension struct {
+    Name   string   `json:"name,omitempty"`
+    Values []string `json:"values,omitempty"`
+}
+```
+
 <a name="WhatsAppConversationAnalyticsEdge"></a>
-## type WhatsAppConversationAnalyticsEdge
+## type [WhatsAppConversationAnalyticsEdge](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L265-L268>)
 
 
 
 ```go
 type WhatsAppConversationAnalyticsEdge struct {
-    Data []struct {
-        DataPoints []WhatsAppConversationAnalyticsNode `json:"data_points,omitempty"`
-    }   `json:"data,omitempty"`
-    Paging internal.WhatsAppBusinessApiPaginationMeta `json:"paging,omitempty"`
+    DataPoints []WhatsAppConversationAnalyticsNode      `json:"data_points,omitempty"`
+    Dimensions []WhatsAppConversationAnalyticsDimension `json:"dimensions,omitempty"`
 }
 ```
 
 <a name="WhatsAppConversationAnalyticsNode"></a>
-## type WhatsAppConversationAnalyticsNode
+## type [WhatsAppConversationAnalyticsNode](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L248-L258>)
 
 
 
 ```go
 type WhatsAppConversationAnalyticsNode struct {
-    Start                 int    `json:"start" validate:"required"`
-    End                   int    `json:"end,omitempty" validate:"required"`
-    Conversation          int    `json:"conversation,omitempty"`
-    PhoneNumber           string `json:"phone_number,omitempty"`
-    Country               string `json:"country,omitempty"`
-    ConversationType      string `json:"conversation_type,omitempty"`
-    ConversationDirection string `json:"conversation_direction,omitempty"`
-    ConversationCategory  string `json:"conversation_category,omitempty"`
-    Cost                  int    `json:"cost,omitempty"`
+    Start                 int     `json:"start" validate:"required"`
+    End                   int     `json:"end,omitempty" validate:"required"`
+    Conversation          int     `json:"conversation,omitempty"`
+    PhoneNumber           string  `json:"phone_number,omitempty"`
+    Country               string  `json:"country,omitempty"`
+    ConversationType      string  `json:"conversation_type,omitempty"`
+    ConversationDirection string  `json:"conversation_direction,omitempty"`
+    ConversationCategory  string  `json:"conversation_category,omitempty"`
+    Cost                  float64 `json:"cost,omitempty"`
+}
+```
+
+<a name="WhatsAppConversationAnalyticsPayload"></a>
+## type [WhatsAppConversationAnalyticsPayload](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L277-L280>)
+
+
+
+```go
+type WhatsAppConversationAnalyticsPayload struct {
+    Data   []WhatsAppConversationAnalyticsEdge `json:"data,omitempty"`
+    Paging Paging                              `json:"paging,omitempty"`
 }
 ```
 
 <a name="WhatsAppConversationAnalyticsResponse"></a>
-## type WhatsAppConversationAnalyticsResponse
+## type [WhatsAppConversationAnalyticsResponse](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L282-L284>)
 
 
 
 ```go
 type WhatsAppConversationAnalyticsResponse struct {
-    ConversationAnalytics []WhatsAppConversationAnalyticsEdge `json:"conversation_analytics" validate:"required"`
+    ConversationAnalytics WhatsAppConversationAnalyticsPayload `json:"conversation_analytics" validate:"required"`
 }
 ```
 
 <a name="WhatsappBusinessAccount"></a>
-## type WhatsappBusinessAccount
+## type [WhatsappBusinessAccount](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L66-L77>)
 
 WhatsappBusinessAccount represents a WhatsApp Business Account.
 
@@ -382,7 +556,7 @@ type WhatsappBusinessAccount struct {
 ```
 
 <a name="WhatsappBusinessAccountAnalyticsResponse"></a>
-## type WhatsappBusinessAccountAnalyticsResponse
+## type [WhatsappBusinessAccountAnalyticsResponse](<https://github.com/gTahidi/wabo/blob/master/pkg/business/client.go#L137-L142>)
 
 
 
@@ -394,3 +568,4 @@ type WhatsappBusinessAccountAnalyticsResponse struct {
     DataPoints   []AnalyticsDataPoint `json:"data_points,omitempty"`
 }
 ```
+

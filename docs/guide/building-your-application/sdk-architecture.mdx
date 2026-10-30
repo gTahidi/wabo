@@ -1,9 +1,9 @@
 ---
-title: Wapi.go SDK Architecture
+title: Wabo SDK Architecture
 ---
 
 
-Wapi.go has a distributed architecture that is designed to incorporate both the Business Management API as wel as the Cloud API porvided by the WhatsApp Business Platform. The architecture is designed to be modular and extensible, allowing developers to easily add new features and functionalities to the SDK. The architecture is divided into the following components:
+Wabo has a distributed architecture that is designed to incorporate both the Business Management API as wel as the Cloud API porvided by the WhatsApp Business Platform. The architecture is designed to be modular and extensible, allowing developers to easily add new features and functionalities to the SDK. The architecture is divided into the following components:
 
 
 - Main Top level client with webhook server
@@ -17,7 +17,7 @@ Wapi.go has a distributed architecture that is designed to incorporate both the 
 The main top level client is the entry point for the SDK. It is responsible for handling incoming messages from the WhatsApp Business Platform and any other event notification to which you have made your application at the developer platform to subscribed to. In order, to start using the SDK you must have to create a instance of this client with the following code:
 
 ```go
-client := wapi.New(&wapi.ClientConfig{
+client := wabo.New(&wabo.ClientConfig{
 		ApiAccessToken:    "",
 		BusinessAccountId: "",
 		WebhookPath:       "/webhook",

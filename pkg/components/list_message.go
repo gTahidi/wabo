@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/gTahidi/wapi.go/internal"
+	"github.com/gTahidi/wabo/internal"
 )
 
 // ListSection represents a section in the list message.

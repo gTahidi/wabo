@@ -2,16 +2,16 @@
 title: Managing Business Account
 ---
 
-Wapi.go SDK allows you to manage your business account with ease. You can manage your business account by using the methods and sub-business client available in the SDK. Here are some of the features that you can do with the SDK:
+Wabo SDK allows you to manage your business account with ease. You can manage your business account by using the methods and sub-business client available in the SDK. Here are some of the features that you can do with the SDK:
 
 ### Fetch Business Account
 
 <Note>Check the api reference docs [here](/api-reference/pkg/business) to know about all available methods</Note>
 
-To fetch business account, you need to cal the `Fetch` method available on the `Business` client attached to the main wapi.go client. The method will return the business account details.
+To fetch business account, you need to cal the `Fetch` method available on the `Business` client attached to the main wabo client. The method will return the business account details.
 
 ```go
-business, err := wapi.Business.Fetch()
+business, err := client.Business.Fetch()
 ```
 
 ### Fetch Business Account Statistics

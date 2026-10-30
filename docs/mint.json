@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Wapi.go",
+  "name": "Wabo",
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
@@ -11,8 +11,8 @@
     }
   },
   "metadata": {
-    "title": "Wapi.go",
-    "description": "Wapi.go is a Golang SDK, developed to build whatsapp business apps with ease and faster.",
+    "title": "Wabo",
+    "description": "Wabo is a Golang SDK, developed to build whatsapp business apps with ease and faster.",
     "author": "Sarthak Jain <sarthak@softlancer.co>"
   },
   "search": {
@@ -34,12 +34,12 @@
   "topbarLinks": [
     {
       "name": "Report Bugs",
-      "url": "https://github.com/gTahidi/wapi.go/issues/new"
+      "url": "https://github.com/gTahidi/wabo/issues/new"
     }
   ],
   "topbarCtaButton": {
     "name": "Github",
-    "url": "https://github.com/gTahidi/wapi.go"
+    "url": "https://github.com/gTahidi/wabo"
   },
   "tabs": [
     {
@@ -51,7 +51,7 @@
     {
       "name": "Star us on GitHub",
       "icon": "github",
-      "url": "https://github.com/gTahidi/wapi.go"
+      "url": "https://github.com/gTahidi/wabo"
     },
     {
       "name": "Sign up for WapiKit",
@@ -66,9 +66,19 @@
   ],
   "navigation": [
     {
+      "group": "Migration",
+      "pages": [
+        "guide/migrating-to-wabo",
+        "api-reference/wabo"
+      ]
+    },
+    {
       "group": "Guide",
       "iconType": "regular",
-      "pages": ["guide/introduction", "guide/quickstart"]
+      "pages": [
+        "guide/introduction",
+        "guide/quickstart"
+      ]
     },
     {
       "group": "Installation and Preparations",
@@ -122,7 +132,7 @@
   ],
   "footerSocials": {
     "x": "https://x.com/wapikit",
-    "github": "https://github.com/gTahidi/wapi.go",
+    "github": "https://github.com/gTahidi/wabo",
     "linkedin": "https://www.linkedin.com/company/wapikit"
   }
 }

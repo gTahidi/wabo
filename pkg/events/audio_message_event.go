@@ -1,7 +1,7 @@
 package events
 
 import (
-	"github.com/gTahidi/wapi.go/pkg/components"
+	"github.com/gTahidi/wabo/pkg/components"
 )
 
 // AudioMessageEvent represents an event for an audio message.

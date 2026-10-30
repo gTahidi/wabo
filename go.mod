@@ -1,4 +1,4 @@
-module github.com/gTahidi/wapi.go
+module github.com/gTahidi/wabo
 
 go 1.23.0
 

@@ -1,11 +1,11 @@
 ```go
-import "github.com/gTahidi/wapi.go/pkg/events"
+import "github.com/gTahidi/wabo/pkg/events"
 ```
 
 
 
 <a name="AccountAlertEvent"></a>
-## type AccountAlertEvent
+## type [AccountAlertEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/account_alerts_event.go#L17-L25>)
 
 
 
@@ -22,7 +22,7 @@ type AccountAlertEvent struct {
 ```
 
 <a name="NewAccountAlertEvent"></a>
-### func NewAccountAlertEvent
+### func [NewAccountAlertEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/account_alerts_event.go#L27>)
 
 ```go
 func NewAccountAlertEvent(baseEvent *BaseBusinessAccountEvent, entityType string, entityId string, alertSeverity AccountAlertSeverityEnum, alertStatus AccountAlertStatusEnum, alertType string, alertDescription string) *AccountAlertEvent
@@ -31,7 +31,7 @@ func NewAccountAlertEvent(baseEvent *BaseBusinessAccountEvent, entityType string
 
 
 <a name="AccountAlertSeverityEnum"></a>
-## type AccountAlertSeverityEnum
+## type [AccountAlertSeverityEnum](<https://github.com/gTahidi/wabo/blob/master/pkg/events/account_alerts_event.go#L3>)
 
 
 
@@ -49,7 +49,7 @@ const (
 ```
 
 <a name="AccountAlertStatusEnum"></a>
-## type AccountAlertStatusEnum
+## type [AccountAlertStatusEnum](<https://github.com/gTahidi/wabo/blob/master/pkg/events/account_alerts_event.go#L10>)
 
 
 
@@ -67,7 +67,7 @@ const (
 ```
 
 <a name="AccountReviewUpdateEvent"></a>
-## type AccountReviewUpdateEvent
+## type [AccountReviewUpdateEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/account_review_update_event.go#L10-L13>)
 
 
 
@@ -79,7 +79,7 @@ type AccountReviewUpdateEvent struct {
 ```
 
 <a name="NewAccountReviewUpdateEvent"></a>
-### func NewAccountReviewUpdateEvent
+### func [NewAccountReviewUpdateEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/account_review_update_event.go#L15>)
 
 ```go
 func NewAccountReviewUpdateEvent(baseEvent *BaseBusinessAccountEvent, decision AccountReviewUpdateEventEnum) *AccountReviewUpdateEvent
@@ -88,7 +88,7 @@ func NewAccountReviewUpdateEvent(baseEvent *BaseBusinessAccountEvent, decision A
 
 
 <a name="AccountReviewUpdateEventEnum"></a>
-## type AccountReviewUpdateEventEnum
+## type [AccountReviewUpdateEventEnum](<https://github.com/gTahidi/wabo/blob/master/pkg/events/account_review_update_event.go#L3>)
 
 
 
@@ -106,7 +106,7 @@ const (
 ```
 
 <a name="AccountUpdateEvent"></a>
-## type AccountUpdateEvent
+## type [AccountUpdateEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/account_update_event.go#L14-L21>)
 
 
 
@@ -122,7 +122,7 @@ type AccountUpdateEvent struct {
 ```
 
 <a name="NewAccountUpdateEvent"></a>
-### func NewAccountUpdateEvent
+### func [NewAccountUpdateEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/account_update_event.go#L37>)
 
 ```go
 func NewAccountUpdateEvent(baseEvent *BaseBusinessAccountEvent, statusUpdate AccountUpdateEventEnum, phoneNumber string) *AccountUpdateEvent
@@ -131,7 +131,7 @@ func NewAccountUpdateEvent(baseEvent *BaseBusinessAccountEvent, statusUpdate Acc
 
 
 <a name="AccountUpdateEventEnum"></a>
-## type AccountUpdateEventEnum
+## type [AccountUpdateEventEnum](<https://github.com/gTahidi/wabo/blob/master/pkg/events/account_update_event.go#L3>)
 
 
 
@@ -153,7 +153,7 @@ const (
 ```
 
 <a name="AdInteractionEvent"></a>
-## type AdInteractionEvent
+## type [AdInteractionEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/ad_interaction_event.go#L37-L41>)
 
 AdInteractionEvent represents an ad interaction event.
 
@@ -166,7 +166,7 @@ type AdInteractionEvent struct {
 ```
 
 <a name="NewAdInteractionEvent"></a>
-### func NewAdInteractionEvent
+### func [NewAdInteractionEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/ad_interaction_event.go#L44>)
 
 ```go
 func NewAdInteractionEvent(baseMessageEvent BaseMessageEvent, adSource AdSource, text string) *AdInteractionEvent
@@ -175,7 +175,7 @@ func NewAdInteractionEvent(baseMessageEvent BaseMessageEvent, adSource AdSource,
 NewAdInteractionEvent creates a new instance of AdInteractionEvent.
 
 <a name="AdInteractionSourceMediaType"></a>
-## type AdInteractionSourceMediaType
+## type [AdInteractionSourceMediaType](<https://github.com/gTahidi/wabo/blob/master/pkg/events/ad_interaction_event.go#L14>)
 
 AdInteractionSourceMediaType represents the media type of an ad interaction source.
 
@@ -195,7 +195,7 @@ const (
 ```
 
 <a name="AdInteractionSourceType"></a>
-## type AdInteractionSourceType
+## type [AdInteractionSourceType](<https://github.com/gTahidi/wabo/blob/master/pkg/events/ad_interaction_event.go#L4>)
 
 AdInteractionSourceType represents the source type of an ad interaction.
 
@@ -215,7 +215,7 @@ const (
 ```
 
 <a name="AdSource"></a>
-## type AdSource
+## type [AdSource](<https://github.com/gTahidi/wabo/blob/master/pkg/events/ad_interaction_event.go#L24-L34>)
 
 AdSource represents the source of an ad.
 
@@ -234,7 +234,7 @@ type AdSource struct {
 ```
 
 <a name="AudioMessageEvent"></a>
-## type AudioMessageEvent
+## type [AudioMessageEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/audio_message_event.go#L8-L11>)
 
 AudioMessageEvent represents an event for an audio message.
 
@@ -246,7 +246,7 @@ type AudioMessageEvent struct {
 ```
 
 <a name="NewAudioMessageEvent"></a>
-### func NewAudioMessageEvent
+### func [NewAudioMessageEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/audio_message_event.go#L14>)
 
 ```go
 func NewAudioMessageEvent(baseMessageEvent BaseMessageEvent, audio components.AudioMessage, mimeType, sha256, mediaId string) *AudioMessageEvent
@@ -255,7 +255,7 @@ func NewAudioMessageEvent(baseMessageEvent BaseMessageEvent, audio components.Au
 NewAudioMessageEvent creates a new AudioMessageEvent instance.
 
 <a name="BanInfo"></a>
-## type BanInfo
+## type [BanInfo](<https://github.com/gTahidi/wabo/blob/master/pkg/events/account_update_event.go#L23-L26>)
 
 
 
@@ -267,7 +267,7 @@ type BanInfo struct {
 ```
 
 <a name="BaseBusinessAccountEvent"></a>
-## type BaseBusinessAccountEvent
+## type [BaseBusinessAccountEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/base_event.go#L133-L136>)
 
 
 
@@ -279,7 +279,7 @@ type BaseBusinessAccountEvent struct {
 ```
 
 <a name="BaseBusinessAccountEvent.GetEventType"></a>
-### func \(BaseBusinessAccountEvent\) GetEventType
+### func \(BaseBusinessAccountEvent\) [GetEventType](<https://github.com/gTahidi/wabo/blob/master/pkg/events/base_event.go#L138>)
 
 ```go
 func (bme BaseBusinessAccountEvent) GetEventType() string
@@ -288,7 +288,7 @@ func (bme BaseBusinessAccountEvent) GetEventType() string
 
 
 <a name="BaseBusinessAccountEventInterface"></a>
-## type BaseBusinessAccountEventInterface
+## type [BaseBusinessAccountEventInterface](<https://github.com/gTahidi/wabo/blob/master/pkg/events/base_event.go#L30-L32>)
 
 
 
@@ -299,7 +299,7 @@ type BaseBusinessAccountEventInterface interface {
 ```
 
 <a name="BaseEvent"></a>
-## type BaseEvent
+## type [BaseEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/base_event.go#L16-L18>)
 
 
 
@@ -310,7 +310,7 @@ type BaseEvent interface {
 ```
 
 <a name="BaseMediaMessageEvent"></a>
-## type BaseMediaMessageEvent
+## type [BaseMediaMessageEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/base_event.go#L118-L123>)
 
 BaseMediaMessageEvent represents a base media message event which contains media information.
 
@@ -324,13 +324,17 @@ type BaseMediaMessageEvent struct {
 ```
 
 <a name="BaseMessageEvent"></a>
-## type BaseMessageEvent
+## type [BaseMessageEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/base_event.go#L39-L53>)
 
 
 
 ```go
 type BaseMessageEvent struct {
-    BusinessAccountId string `json:"business_account_id"`
+    // RawMessage retains the complete inbound message, including unknown fields.
+    RawMessage json.RawMessage `json:"raw_message,omitempty"`
+    // Referral retains click-to-WhatsApp attribution when present.
+    Referral          json.RawMessage `json:"referral,omitempty"`
+    BusinessAccountId string          `json:"business_account_id"`
     requester         request_client.RequestClient
     MessageId         string              `json:"message_id"`
     From              string              `json:"from"`
@@ -343,7 +347,7 @@ type BaseMessageEvent struct {
 ```
 
 <a name="NewBaseMessageEvent"></a>
-### func NewBaseMessageEvent
+### func [NewBaseMessageEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/base_event.go#L67>)
 
 ```go
 func NewBaseMessageEvent(params BaseMessageEventParams) BaseMessageEvent
@@ -352,7 +356,7 @@ func NewBaseMessageEvent(params BaseMessageEventParams) BaseMessageEvent
 
 
 <a name="BaseMessageEvent.GetEventType"></a>
-### func \(BaseMessageEvent\) GetEventType
+### func \(BaseMessageEvent\) [GetEventType](<https://github.com/gTahidi/wabo/blob/master/pkg/events/base_event.go#L81>)
 
 ```go
 func (bme BaseMessageEvent) GetEventType() string
@@ -361,7 +365,7 @@ func (bme BaseMessageEvent) GetEventType() string
 
 
 <a name="BaseMessageEvent.React"></a>
-### func \(\*BaseMessageEvent\) React
+### func \(\*BaseMessageEvent\) [React](<https://github.com/gTahidi/wabo/blob/master/pkg/events/base_event.go#L105>)
 
 ```go
 func (baseMessageEvent *BaseMessageEvent) React(emoji string) (string, error)
@@ -370,7 +374,7 @@ func (baseMessageEvent *BaseMessageEvent) React(emoji string) (string, error)
 React to the message
 
 <a name="BaseMessageEvent.Reply"></a>
-### func \(\*BaseMessageEvent\) Reply
+### func \(\*BaseMessageEvent\) [Reply](<https://github.com/gTahidi/wabo/blob/master/pkg/events/base_event.go#L86>)
 
 ```go
 func (baseMessageEvent *BaseMessageEvent) Reply(Message components.BaseMessage) (string, error)
@@ -379,7 +383,7 @@ func (baseMessageEvent *BaseMessageEvent) Reply(Message components.BaseMessage) 
 Reply to the message
 
 <a name="BaseMessageEventInterface"></a>
-## type BaseMessageEventInterface
+## type [BaseMessageEventInterface](<https://github.com/gTahidi/wabo/blob/master/pkg/events/base_event.go#L20-L24>)
 
 
 
@@ -392,7 +396,7 @@ type BaseMessageEventInterface interface {
 ```
 
 <a name="BaseMessageEventParams"></a>
-## type BaseMessageEventParams
+## type [BaseMessageEventParams](<https://github.com/gTahidi/wabo/blob/master/pkg/events/base_event.go#L55-L65>)
 
 
 
@@ -411,7 +415,7 @@ type BaseMessageEventParams struct {
 ```
 
 <a name="BaseSystemEvent"></a>
-## type BaseSystemEvent
+## type [BaseSystemEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/base_event.go#L125-L127>)
 
 
 
@@ -422,7 +426,7 @@ type BaseSystemEvent struct {
 ```
 
 <a name="BaseSystemEvent.GetEventType"></a>
-### func \(BaseSystemEvent\) GetEventType
+### func \(BaseSystemEvent\) [GetEventType](<https://github.com/gTahidi/wabo/blob/master/pkg/events/base_event.go#L129>)
 
 ```go
 func (bme BaseSystemEvent) GetEventType() string
@@ -431,7 +435,7 @@ func (bme BaseSystemEvent) GetEventType() string
 
 
 <a name="BaseSystemEventInterface"></a>
-## type BaseSystemEventInterface
+## type [BaseSystemEventInterface](<https://github.com/gTahidi/wabo/blob/master/pkg/events/base_event.go#L26-L28>)
 
 
 
@@ -442,7 +446,7 @@ type BaseSystemEventInterface interface {
 ```
 
 <a name="BusinessCapabilityUpdateEvent"></a>
-## type BusinessCapabilityUpdateEvent
+## type [BusinessCapabilityUpdateEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/business_capability_update_event.go#L3-L7>)
 
 
 
@@ -455,7 +459,7 @@ type BusinessCapabilityUpdateEvent struct {
 ```
 
 <a name="NewBusinessCapabilityUpdateEvent"></a>
-### func NewBusinessCapabilityUpdateEvent
+### func [NewBusinessCapabilityUpdateEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/business_capability_update_event.go#L9>)
 
 ```go
 func NewBusinessCapabilityUpdateEvent(baseEvent *BaseBusinessAccountEvent, maxDailyConversationPerPhone int64, maxPhoneNumbersPerBusiness int64) *BusinessCapabilityUpdateEvent
@@ -464,7 +468,7 @@ func NewBusinessCapabilityUpdateEvent(baseEvent *BaseBusinessAccountEvent, maxDa
 
 
 <a name="BusinessPhoneNumber"></a>
-## type BusinessPhoneNumber
+## type [BusinessPhoneNumber](<https://github.com/gTahidi/wabo/blob/master/pkg/events/base_event.go#L34-L37>)
 
 
 
@@ -476,7 +480,7 @@ type BusinessPhoneNumber struct {
 ```
 
 <a name="ContactsMessageEvent"></a>
-## type ContactsMessageEvent
+## type [ContactsMessageEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/contacts_message_event.go#L6-L9>)
 
 ContactsMessageEvent represents an event that occurs when a message with contacts is received.
 
@@ -488,7 +492,7 @@ type ContactsMessageEvent struct {
 ```
 
 <a name="NewContactsMessageEvent"></a>
-### func NewContactsMessageEvent
+### func [NewContactsMessageEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/contacts_message_event.go#L12>)
 
 ```go
 func NewContactsMessageEvent(baseMessageEvent BaseMessageEvent, contacts components.ContactMessage) *ContactsMessageEvent
@@ -497,7 +501,7 @@ func NewContactsMessageEvent(baseMessageEvent BaseMessageEvent, contacts compone
 NewContactsMessageEvent creates a new ContactsMessageEvent instance.
 
 <a name="CustomerIdentityChangedEvent"></a>
-## type CustomerIdentityChangedEvent
+## type [CustomerIdentityChangedEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/customer_identity_changed_event.go#L3-L8>)
 
 
 
@@ -511,7 +515,7 @@ type CustomerIdentityChangedEvent struct {
 ```
 
 <a name="CustomerNumberChangedEvent"></a>
-## type CustomerNumberChangedEvent
+## type [CustomerNumberChangedEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/customer_number_change_event.go#L3-L8>)
 
 
 
@@ -525,7 +529,7 @@ type CustomerNumberChangedEvent struct {
 ```
 
 <a name="DocumentMessageEvent"></a>
-## type DocumentMessageEvent
+## type [DocumentMessageEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/document_message_event.go#L6-L9>)
 
 DocumentMessageEvent represents an event that occurs when a document message is received.
 
@@ -537,7 +541,7 @@ type DocumentMessageEvent struct {
 ```
 
 <a name="NewDocumentMessageEvent"></a>
-### func NewDocumentMessageEvent
+### func [NewDocumentMessageEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/document_message_event.go#L12>)
 
 ```go
 func NewDocumentMessageEvent(baseMessageEvent BaseMessageEvent, document components.DocumentMessage, mediaId, sha256, mimeType string) *DocumentMessageEvent
@@ -546,7 +550,7 @@ func NewDocumentMessageEvent(baseMessageEvent BaseMessageEvent, document compone
 NewDocumentMessageEvent creates a new DocumentMessageEvent instance.
 
 <a name="EventType"></a>
-## type EventType
+## type [EventType](<https://github.com/gTahidi/wabo/blob/master/pkg/events/types.go#L3>)
 
 
 
@@ -594,11 +598,13 @@ const (
     AccountReviewUpdateEventType          EventType = "account_review_update"
     AccountAlertsEventType                EventType = "account_alerts"
     BusinessCapabilityUpdateEventType     EventType = "business_capability_update"
+    MarketingMessagesLinkClickEventType   EventType = "marketing_messages_link_click"
+    TemplateCategoryUpdateEventType       EventType = "template_category_update"
 )
 ```
 
 <a name="ImageMessageEvent"></a>
-## type ImageMessageEvent
+## type [ImageMessageEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/image_message_event.go#L6-L9>)
 
 ImageMessageEvent represents an event for an image message.
 
@@ -610,7 +616,7 @@ type ImageMessageEvent struct {
 ```
 
 <a name="NewImageMessageEvent"></a>
-### func NewImageMessageEvent
+### func [NewImageMessageEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/image_message_event.go#L12>)
 
 ```go
 func NewImageMessageEvent(baseMessageEvent BaseMessageEvent, image components.ImageMessage, mimeType, sha256, mediaId string) *ImageMessageEvent
@@ -619,7 +625,7 @@ func NewImageMessageEvent(baseMessageEvent BaseMessageEvent, image components.Im
 NewImageMessageEvent creates a new ImageMessageEvent instance.
 
 <a name="ListInteractionEvent"></a>
-## type ListInteractionEvent
+## type [ListInteractionEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/list_interaction_event.go#L4-L9>)
 
 ListInteractionEvent represents an interaction event related to a list.
 
@@ -633,7 +639,7 @@ type ListInteractionEvent struct {
 ```
 
 <a name="NewListInteractionEvent"></a>
-### func NewListInteractionEvent
+### func [NewListInteractionEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/list_interaction_event.go#L12>)
 
 ```go
 func NewListInteractionEvent(baseMessageEvent BaseMessageEvent, title, listId, description string) *ListInteractionEvent
@@ -642,7 +648,7 @@ func NewListInteractionEvent(baseMessageEvent BaseMessageEvent, title, listId, d
 NewListInteractionEvent creates a new ListInteractionEvent instance.
 
 <a name="LocationMessageEvent"></a>
-## type LocationMessageEvent
+## type [LocationMessageEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/location_message_event.go#L6-L9>)
 
 LocationMessageEvent represents an event that contains a location message.
 
@@ -654,7 +660,7 @@ type LocationMessageEvent struct {
 ```
 
 <a name="NewLocationMessageEvent"></a>
-### func NewLocationMessageEvent
+### func [NewLocationMessageEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/location_message_event.go#L12>)
 
 ```go
 func NewLocationMessageEvent(baseMessageEvent BaseMessageEvent, location components.LocationMessage) *LocationMessageEvent
@@ -662,8 +668,64 @@ func NewLocationMessageEvent(baseMessageEvent BaseMessageEvent, location compone
 
 NewLocationMessageEvent creates a new LocationMessageEvent instance.
 
+<a name="MarketingLinkClickComponent"></a>
+## type [MarketingLinkClickComponent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/marketing_link_click_event.go#L4>)
+
+MarketingLinkClickComponent represents the part of the message clicked
+
+```go
+type MarketingLinkClickComponent string
+```
+
+<a name="MarketingLinkClickComponentCTA"></a>
+
+```go
+const (
+    // MarketingLinkClickComponentCTA indicates a CTA button was clicked
+    MarketingLinkClickComponentCTA MarketingLinkClickComponent = "cta"
+    // MarketingLinkClickComponentBody indicates a link in the body was clicked
+    MarketingLinkClickComponentBody MarketingLinkClickComponent = "body"
+)
+```
+
+<a name="MarketingMessagesLinkClickData"></a>
+## type [MarketingMessagesLinkClickData](<https://github.com/gTahidi/wabo/blob/master/pkg/events/marketing_link_click_event.go#L14-L19>)
+
+MarketingMessagesLinkClickData contains the click tracking details
+
+```go
+type MarketingMessagesLinkClickData struct {
+    ClickComponent MarketingLinkClickComponent `json:"click_component"`
+    ProductId      string                      `json:"product_id,omitempty"`
+    ClickId        string                      `json:"click_id,omitempty"`
+    TrackingToken  string                      `json:"tracking_token,omitempty"`
+}
+```
+
+<a name="MarketingMessagesLinkClickEvent"></a>
+## type [MarketingMessagesLinkClickEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/marketing_link_click_event.go#L24-L28>)
+
+MarketingMessagesLinkClickEvent represents a marketing message link click event. This event is triggered when a user clicks on a CTA button or body link in a marketing message sent via WhatsApp.
+
+```go
+type MarketingMessagesLinkClickEvent struct {
+    BaseBusinessAccountEvent `json:",inline"`
+    PhoneNumber              BusinessPhoneNumber            `json:"phone_number"`
+    ClickData                MarketingMessagesLinkClickData `json:"click_data"`
+}
+```
+
+<a name="NewMarketingMessagesLinkClickEvent"></a>
+### func [NewMarketingMessagesLinkClickEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/marketing_link_click_event.go#L31-L35>)
+
+```go
+func NewMarketingMessagesLinkClickEvent(baseEvent BaseBusinessAccountEvent, phoneNumber BusinessPhoneNumber, clickData MarketingMessagesLinkClickData) *MarketingMessagesLinkClickEvent
+```
+
+NewMarketingMessagesLinkClickEvent creates a new instance of MarketingMessagesLinkClickEvent.
+
 <a name="MessageContext"></a>
-## type MessageContext
+## type [MessageContext](<https://github.com/gTahidi/wabo/blob/master/pkg/events/base_event.go#L12-L14>)
 
 
 
@@ -674,7 +736,7 @@ type MessageContext struct {
 ```
 
 <a name="MessageDeliveredEvent"></a>
-## type MessageDeliveredEvent
+## type [MessageDeliveredEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/message_delivered_event.go#L4-L8>)
 
 MessageDeliveredEvent represents an event related to an undelivered message.
 
@@ -687,7 +749,7 @@ type MessageDeliveredEvent struct {
 ```
 
 <a name="NewMessageDeliveredEvent"></a>
-### func NewMessageDeliveredEvent
+### func [NewMessageDeliveredEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/message_delivered_event.go#L11>)
 
 ```go
 func NewMessageDeliveredEvent(baseSystemEvent BaseSystemEvent, messageId, sendTo string) *MessageDeliveredEvent
@@ -696,7 +758,7 @@ func NewMessageDeliveredEvent(baseSystemEvent BaseSystemEvent, messageId, sendTo
 MessageDeliveredEvent creates a new instance of MessageUndeliveredEvent.
 
 <a name="MessageFailedEvent"></a>
-## type MessageFailedEvent
+## type [MessageFailedEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/message_failed_event.go#L3-L10>)
 
 
 
@@ -706,20 +768,22 @@ type MessageFailedEvent struct {
     MessageId       string `json:"messageId"`
     SentTo          string `json:"sentTo"`
     FailReason      string `json:"failReason"`
+    ErrorCode       int    `json:"errorCode"`
+    ErrorMessage    string `json:"errorMessage"`
 }
 ```
 
 <a name="NewMessageFailedEvent"></a>
-### func NewMessageFailedEvent
+### func [NewMessageFailedEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/message_failed_event.go#L12>)
 
 ```go
-func NewMessageFailedEvent(baseSystemEvent BaseSystemEvent, messageId, sendTo, failReason string) *MessageFailedEvent
+func NewMessageFailedEvent(baseSystemEvent BaseSystemEvent, messageId, sendTo, failReason string, errCode int, errorMessage string) *MessageFailedEvent
 ```
 
 
 
 <a name="MessageReadEvent"></a>
-## type MessageReadEvent
+## type [MessageReadEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/message_read_event.go#L4-L8>)
 
 MessageReadEvent represents an event indicating that a message has been read.
 
@@ -732,7 +796,7 @@ type MessageReadEvent struct {
 ```
 
 <a name="NewMessageReadEvent"></a>
-### func NewMessageReadEvent
+### func [NewMessageReadEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/message_read_event.go#L11>)
 
 ```go
 func NewMessageReadEvent(baseSystemEvent BaseSystemEvent, messageId, sendTo string) *MessageReadEvent
@@ -741,7 +805,7 @@ func NewMessageReadEvent(baseSystemEvent BaseSystemEvent, messageId, sendTo stri
 NewMessageReadEvent creates a new instance of MessageReadEvent.
 
 <a name="MessageSentEvent"></a>
-## type MessageSentEvent
+## type [MessageSentEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/message_sent_event.go#L4-L8>)
 
 MessageSentEvent represents an event indicating that a message has been sent.
 
@@ -754,7 +818,7 @@ type MessageSentEvent struct {
 ```
 
 <a name="NewMessageSentEvent"></a>
-### func NewMessageSentEvent
+### func [NewMessageSentEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/message_sent_event.go#L11>)
 
 ```go
 func NewMessageSentEvent(baseSystemEvent BaseSystemEvent, messageId, sendTo string) *MessageSentEvent
@@ -763,7 +827,7 @@ func NewMessageSentEvent(baseSystemEvent BaseSystemEvent, messageId, sendTo stri
 NewMessageSentEvent creates a new instance of MessageSentEvent.
 
 <a name="MessageTemplateCategoryEnum"></a>
-## type MessageTemplateCategoryEnum
+## type [MessageTemplateCategoryEnum](<https://github.com/gTahidi/wabo/blob/master/pkg/events/template_category_update_event.go#L3>)
 
 
 
@@ -784,7 +848,7 @@ const (
 ```
 
 <a name="MessageTemplateQualityUpdateEvent"></a>
-## type MessageTemplateQualityUpdateEvent
+## type [MessageTemplateQualityUpdateEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/message_template_quality_update_event.go#L12-L19>)
 
 
 
@@ -800,7 +864,7 @@ type MessageTemplateQualityUpdateEvent struct {
 ```
 
 <a name="NewMessageTemplateQualityUpdateEvent"></a>
-### func NewMessageTemplateQualityUpdateEvent
+### func [NewMessageTemplateQualityUpdateEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/message_template_quality_update_event.go#L21>)
 
 ```go
 func NewMessageTemplateQualityUpdateEvent(baseEvent *BaseBusinessAccountEvent, previousQualityScore MessageTemplateQualityUpdateQualityScoreEnum, newQualityScore MessageTemplateQualityUpdateQualityScoreEnum, messageTemplateId int64, messageTemplateName string, messageTemplateLanguage string) *MessageTemplateQualityUpdateEvent
@@ -809,7 +873,7 @@ func NewMessageTemplateQualityUpdateEvent(baseEvent *BaseBusinessAccountEvent, p
 
 
 <a name="MessageTemplateQualityUpdateQualityScoreEnum"></a>
-## type MessageTemplateQualityUpdateQualityScoreEnum
+## type [MessageTemplateQualityUpdateQualityScoreEnum](<https://github.com/gTahidi/wabo/blob/master/pkg/events/message_template_quality_update_event.go#L3>)
 
 
 
@@ -829,7 +893,7 @@ const (
 ```
 
 <a name="MessageTemplateStatusUpdateEvent"></a>
-## type MessageTemplateStatusUpdateEvent
+## type [MessageTemplateStatusUpdateEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/message_template_status_update.go#L25-L32>)
 
 
 
@@ -845,7 +909,7 @@ type MessageTemplateStatusUpdateEvent struct {
 ```
 
 <a name="NewMessageTemplateStatusUpdateEvent"></a>
-### func NewMessageTemplateStatusUpdateEvent
+### func [NewMessageTemplateStatusUpdateEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/message_template_status_update.go#L34>)
 
 ```go
 func NewMessageTemplateStatusUpdateEvent(baseEvent *BaseBusinessAccountEvent, event MessageTemplateStatusUpdateEventEnum, messageTemplateId int64, messageTemplateName string, messageTemplateLanguage string, reason MessageTemplateStatusUpdateReason) *MessageTemplateStatusUpdateEvent
@@ -854,7 +918,7 @@ func NewMessageTemplateStatusUpdateEvent(baseEvent *BaseBusinessAccountEvent, ev
 
 
 <a name="MessageTemplateStatusUpdateEventEnum"></a>
-## type MessageTemplateStatusUpdateEventEnum
+## type [MessageTemplateStatusUpdateEventEnum](<https://github.com/gTahidi/wabo/blob/master/pkg/events/message_template_status_update.go#L3>)
 
 
 
@@ -877,7 +941,7 @@ const (
 ```
 
 <a name="MessageTemplateStatusUpdateReason"></a>
-## type MessageTemplateStatusUpdateReason
+## type [MessageTemplateStatusUpdateReason](<https://github.com/gTahidi/wabo/blob/master/pkg/events/message_template_status_update.go#L15>)
 
 
 
@@ -898,7 +962,7 @@ const (
 ```
 
 <a name="MessageUndeliveredEvent"></a>
-## type MessageUndeliveredEvent
+## type [MessageUndeliveredEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/message_undelivered_event.go#L4-L11>)
 
 MessageUndeliveredEvent represents an event related to an undelivered message.
 
@@ -907,20 +971,23 @@ type MessageUndeliveredEvent struct {
     BaseSystemEvent `json:",inline"`
     MessageId       string `json:"messageId"`
     SentTo          string `json:"sentTo"`
+    Reason          string `json:"reason"`
+    ErrorCode       int    `json:"errorCode"`
+    ErrorMessage    string `json:"errorMessage"`
 }
 ```
 
 <a name="NewMessageUndeliveredEvent"></a>
-### func NewMessageUndeliveredEvent
+### func [NewMessageUndeliveredEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/message_undelivered_event.go#L14>)
 
 ```go
-func NewMessageUndeliveredEvent(baseSystemEvent BaseSystemEvent, messageId, sendTo string) *MessageUndeliveredEvent
+func NewMessageUndeliveredEvent(baseSystemEvent BaseSystemEvent, messageId, sendTo, reason string, errorCode int, errorMessage string) *MessageUndeliveredEvent
 ```
 
 NewMessageUndeliveredEvent creates a new instance of MessageUndeliveredEvent.
 
 <a name="OrderEvent"></a>
-## type OrderEvent
+## type [OrderEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/order_event.go#L6-L9>)
 
 OrderEvent represents an event related to an order.
 
@@ -932,7 +999,7 @@ type OrderEvent struct {
 ```
 
 <a name="NewOrderEvent"></a>
-### func NewOrderEvent
+### func [NewOrderEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/order_event.go#L12>)
 
 ```go
 func NewOrderEvent(baseMessageEvent BaseMessageEvent, order components.Order) *OrderEvent
@@ -941,7 +1008,7 @@ func NewOrderEvent(baseMessageEvent BaseMessageEvent, order components.Order) *O
 NewOrderEvent creates a new OrderEvent instance.
 
 <a name="PhoneNumberNameUpdateEvent"></a>
-## type PhoneNumberNameUpdateEvent
+## type [PhoneNumberNameUpdateEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/phone_number_name_update_event.go#L3-L9>)
 
 
 
@@ -956,7 +1023,7 @@ type PhoneNumberNameUpdateEvent struct {
 ```
 
 <a name="NewPhoneNumberNameUpdateEvent"></a>
-### func NewPhoneNumberNameUpdateEvent
+### func [NewPhoneNumberNameUpdateEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/phone_number_name_update_event.go#L11>)
 
 ```go
 func NewPhoneNumberNameUpdateEvent(baseEvent *BaseBusinessAccountEvent, phoneNumber string, name string, decision string, reason *string) *PhoneNumberNameUpdateEvent
@@ -965,7 +1032,7 @@ func NewPhoneNumberNameUpdateEvent(baseEvent *BaseBusinessAccountEvent, phoneNum
 
 
 <a name="PhoneNumberQualityUpdateCurrentLimitEnum"></a>
-## type PhoneNumberQualityUpdateCurrentLimitEnum
+## type [PhoneNumberQualityUpdateCurrentLimitEnum](<https://github.com/gTahidi/wabo/blob/master/pkg/events/phone_number_quality_update_event.go#L13>)
 
 
 
@@ -987,7 +1054,7 @@ const (
 ```
 
 <a name="PhoneNumberQualityUpdateEvent"></a>
-## type PhoneNumberQualityUpdateEvent
+## type [PhoneNumberQualityUpdateEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/phone_number_quality_update_event.go#L24-L29>)
 
 
 
@@ -1001,7 +1068,7 @@ type PhoneNumberQualityUpdateEvent struct {
 ```
 
 <a name="NewPhoneNumberQualityUpdateEvent"></a>
-### func NewPhoneNumberQualityUpdateEvent
+### func [NewPhoneNumberQualityUpdateEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/phone_number_quality_update_event.go#L31>)
 
 ```go
 func NewPhoneNumberQualityUpdateEvent(baseEvent *BaseBusinessAccountEvent, displayPhoneNumber string, event PhoneNumberUpdateEventEnum, currentLimit PhoneNumberQualityUpdateCurrentLimitEnum) *PhoneNumberQualityUpdateEvent
@@ -1010,7 +1077,7 @@ func NewPhoneNumberQualityUpdateEvent(baseEvent *BaseBusinessAccountEvent, displ
 
 
 <a name="PhoneNumberUpdateEventEnum"></a>
-## type PhoneNumberUpdateEventEnum
+## type [PhoneNumberUpdateEventEnum](<https://github.com/gTahidi/wabo/blob/master/pkg/events/phone_number_quality_update_event.go#L3>)
 
 
 
@@ -1031,7 +1098,7 @@ const (
 ```
 
 <a name="ProductInquiryEvent"></a>
-## type ProductInquiryEvent
+## type [ProductInquiryEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/product_enquiry_event.go#L4-L9>)
 
 ProductInquiryEvent represents an event related to a product inquiry.
 
@@ -1045,7 +1112,7 @@ type ProductInquiryEvent struct {
 ```
 
 <a name="NewProductInquiryEvent"></a>
-### func NewProductInquiryEvent
+### func [NewProductInquiryEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/product_enquiry_event.go#L12>)
 
 ```go
 func NewProductInquiryEvent(baseMessageEvent BaseMessageEvent, productId, catalogId, text string) *ProductInquiryEvent
@@ -1054,7 +1121,7 @@ func NewProductInquiryEvent(baseMessageEvent BaseMessageEvent, productId, catalo
 NewProductInquiryEvent creates a new instance of ProductInquiryEvent.
 
 <a name="QuickReplyButtonInteractionEvent"></a>
-## type QuickReplyButtonInteractionEvent
+## type [QuickReplyButtonInteractionEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/quick_reply_button_interaction_event.go#L4-L8>)
 
 QuickReplyButtonInteractionEvent represents an event triggered when a user interacts with a quick reply button.
 
@@ -1067,7 +1134,7 @@ type QuickReplyButtonInteractionEvent struct {
 ```
 
 <a name="NewQuickReplyButtonInteractionEvent"></a>
-### func NewQuickReplyButtonInteractionEvent
+### func [NewQuickReplyButtonInteractionEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/quick_reply_button_interaction_event.go#L11>)
 
 ```go
 func NewQuickReplyButtonInteractionEvent(baseMessageEvent BaseMessageEvent, buttonText, buttonPayload string) *QuickReplyButtonInteractionEvent
@@ -1076,7 +1143,7 @@ func NewQuickReplyButtonInteractionEvent(baseMessageEvent BaseMessageEvent, butt
 NewQuickReplyButtonInteractionEvent creates a new instance of QuickReplyButtonInteractionEvent.
 
 <a name="ReactionMessageEvent"></a>
-## type ReactionMessageEvent
+## type [ReactionMessageEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/reaction_event.go#L6-L9>)
 
 ReactionMessageEvent represents an event that occurs when a reaction is added to a message.
 
@@ -1088,7 +1155,7 @@ type ReactionMessageEvent struct {
 ```
 
 <a name="NewReactionMessageEvent"></a>
-### func NewReactionMessageEvent
+### func [NewReactionMessageEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/reaction_event.go#L12>)
 
 ```go
 func NewReactionMessageEvent(baseMessageEvent BaseMessageEvent, reaction components.ReactionMessage) *ReactionMessageEvent
@@ -1097,7 +1164,7 @@ func NewReactionMessageEvent(baseMessageEvent BaseMessageEvent, reaction compone
 NewReactionMessageEvent creates a new ReactionMessageEvent instance.
 
 <a name="ReadyEvent"></a>
-## type ReadyEvent
+## type [ReadyEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/ready_event.go#L4-L6>)
 
 ReadyEvent represents an event that is triggered when the system is ready.
 
@@ -1108,7 +1175,7 @@ type ReadyEvent struct {
 ```
 
 <a name="NewReadyEvent"></a>
-### func NewReadyEvent
+### func [NewReadyEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/ready_event.go#L9>)
 
 ```go
 func NewReadyEvent() *ReadyEvent
@@ -1117,7 +1184,7 @@ func NewReadyEvent() *ReadyEvent
 NewReadyEvent creates a new instance of ReadyEvent.
 
 <a name="ReplyButtonInteractionEvent"></a>
-## type ReplyButtonInteractionEvent
+## type [ReplyButtonInteractionEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/reply_button_interaction_event.go#L4-L8>)
 
 ReplyButtonInteractionEvent represents an interaction event triggered by a reply button.
 
@@ -1130,7 +1197,7 @@ type ReplyButtonInteractionEvent struct {
 ```
 
 <a name="NewReplyButtonInteractionEvent"></a>
-### func NewReplyButtonInteractionEvent
+### func [NewReplyButtonInteractionEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/reply_button_interaction_event.go#L11>)
 
 ```go
 func NewReplyButtonInteractionEvent(baseMessageEvent BaseMessageEvent, title, buttonId string) *ReplyButtonInteractionEvent
@@ -1139,7 +1206,7 @@ func NewReplyButtonInteractionEvent(baseMessageEvent BaseMessageEvent, title, bu
 NewReplyButtonInteractionEvent creates a new instance of ReplyButtonInteractionEvent.
 
 <a name="RestrictionInfo"></a>
-## type RestrictionInfo
+## type [RestrictionInfo](<https://github.com/gTahidi/wabo/blob/master/pkg/events/account_update_event.go#L32-L35>)
 
 
 
@@ -1151,7 +1218,7 @@ type RestrictionInfo struct {
 ```
 
 <a name="SecurityEvent"></a>
-## type SecurityEvent
+## type [SecurityEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/security_event.go#L3-L5>)
 
 
 
@@ -1162,7 +1229,7 @@ type SecurityEvent struct {
 ```
 
 <a name="NewSecurity"></a>
-### func NewSecurity
+### func [NewSecurity](<https://github.com/gTahidi/wabo/blob/master/pkg/events/security_event.go#L7>)
 
 ```go
 func NewSecurity() *SecurityEvent
@@ -1171,7 +1238,7 @@ func NewSecurity() *SecurityEvent
 
 
 <a name="StickerMessageEvent"></a>
-## type StickerMessageEvent
+## type [StickerMessageEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/sticker_message_event.go#L6-L9>)
 
 StickerMessageEvent represents an event for a sticker message.
 
@@ -1183,7 +1250,7 @@ type StickerMessageEvent struct {
 ```
 
 <a name="NewStickerMessageEvent"></a>
-### func NewStickerMessageEvent
+### func [NewStickerMessageEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/sticker_message_event.go#L12>)
 
 ```go
 func NewStickerMessageEvent(baseMessageEvent BaseMessageEvent, sticker components.StickerMessage, mediaId, sha256, mimeType string) *StickerMessageEvent
@@ -1192,7 +1259,7 @@ func NewStickerMessageEvent(baseMessageEvent BaseMessageEvent, sticker component
 NewStickerMessageEvent creates a new StickerMessageEvent instance.
 
 <a name="TemplateCategoryUpdateEvent"></a>
-## type TemplateCategoryUpdateEvent
+## type [TemplateCategoryUpdateEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/template_category_update_event.go#L13-L20>)
 
 
 
@@ -1208,7 +1275,7 @@ type TemplateCategoryUpdateEvent struct {
 ```
 
 <a name="NewMessageTemplateCategoryUpdateEvent"></a>
-### func NewMessageTemplateCategoryUpdateEvent
+### func [NewMessageTemplateCategoryUpdateEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/template_category_update_event.go#L22>)
 
 ```go
 func NewMessageTemplateCategoryUpdateEvent(baseEvent *BaseBusinessAccountEvent, messageTemplateId int64, messageTemplateName string, messageTemplateLanguage string, previousCategory MessageTemplateCategoryEnum, newCategory MessageTemplateCategoryEnum) *TemplateCategoryUpdateEvent
@@ -1217,7 +1284,7 @@ func NewMessageTemplateCategoryUpdateEvent(baseEvent *BaseBusinessAccountEvent, 
 
 
 <a name="TextMessageEvent"></a>
-## type TextMessageEvent
+## type [TextMessageEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/text_message_event.go#L4-L7>)
 
 TextMessageEvent represents an event for a text message.
 
@@ -1229,7 +1296,7 @@ type TextMessageEvent struct {
 ```
 
 <a name="NewTextMessageEvent"></a>
-### func NewTextMessageEvent
+### func [NewTextMessageEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/text_message_event.go#L10>)
 
 ```go
 func NewTextMessageEvent(baseMessageEvent BaseMessageEvent, text string) *TextMessageEvent
@@ -1237,8 +1304,30 @@ func NewTextMessageEvent(baseMessageEvent BaseMessageEvent, text string) *TextMe
 
 NewTextMessageEvent creates a new TextMessageEvent instance.
 
+<a name="UnknownWebhookEvent"></a>
+## type [UnknownWebhookEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/unknown_webhook_event.go#L7-L11>)
+
+UnknownWebhookEvent preserves unrecognized webhook changes, message types, and system notifications for application\-defined handling.
+
+```go
+type UnknownWebhookEvent struct {
+    BaseMessageEvent
+    Field string          `json:"field"`
+    Raw   json.RawMessage `json:"raw"`
+}
+```
+
+<a name="UnknownWebhookEvent.GetEventType"></a>
+### func \(\*UnknownWebhookEvent\) [GetEventType](<https://github.com/gTahidi/wabo/blob/master/pkg/events/unknown_webhook_event.go#L14>)
+
+```go
+func (*UnknownWebhookEvent) GetEventType() string
+```
+
+GetEventType identifies an unrecognized webhook event.
+
 <a name="VideoMessageEvent"></a>
-## type VideoMessageEvent
+## type [VideoMessageEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/video_message_event.go#L6-L9>)
 
 VideoMessageEvent represents a WhatsApp video message event.
 
@@ -1250,7 +1339,7 @@ type VideoMessageEvent struct {
 ```
 
 <a name="NewVideoMessageEvent"></a>
-### func NewVideoMessageEvent
+### func [NewVideoMessageEvent](<https://github.com/gTahidi/wabo/blob/master/pkg/events/video_message_event.go#L12>)
 
 ```go
 func NewVideoMessageEvent(baseMessageEvent BaseMessageEvent, video components.VideoMessage, mimeType, sha256, mediaId string) *VideoMessageEvent
@@ -1259,7 +1348,7 @@ func NewVideoMessageEvent(baseMessageEvent BaseMessageEvent, video components.Vi
 NewVideoMessageEvent creates a new VideoMessageEvent instance.
 
 <a name="ViolationInfo"></a>
-## type ViolationInfo
+## type [ViolationInfo](<https://github.com/gTahidi/wabo/blob/master/pkg/events/account_update_event.go#L28-L30>)
 
 
 
