@@ -4,7 +4,7 @@ Wabo is a Go SDK for the WhatsApp Business Platform: messaging, business
 management, templates, media, Flows and webhook events.
 
 This SDK is in beta and is not affiliated with Meta or WhatsApp.
-It requires Go 1.23 or newer; go.mod specifies the development toolchain.
+It requires Go 1.26 or newer; go.mod specifies the development toolchain.
 
 ## Installation
 

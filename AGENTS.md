@@ -1,7 +1,7 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-Wabo requires Go 1.23 or newer (see `go.mod` for the development toolchain). Core SDK packages live under `pkg/` (messaging, events, business), shared HTTP plumbing sits in `internal/`, and orchestration helpers live in `manager/`. Examples are in `examples/` for quick sandbox runs. Generated references belong in `docs/` with templates in `docs/templates`. Tests sit beside implementations as `*_test.go`.
+Wabo requires Go 1.26 or newer (see `go.mod` for the development toolchain). Core SDK packages live under `pkg/` (messaging, events, business), shared HTTP plumbing sits in `internal/`, and orchestration helpers live in `manager/`. Examples are in `examples/` for quick sandbox runs. Generated references belong in `docs/` with templates in `docs/templates`. Tests sit beside implementations as `*_test.go`.
 
 ## Build, Test, and Development Commands
 - `go build ./...`: compiles all packages to catch cross‑package breakage early.
